@@ -1,1 +1,69 @@
+// MY THEME COLORS
+$purple-dark: #180f3d;
+$blue-sky: #e7f3fa;
+$green-ligth: #13bd64;
+$yellow-dark: #FFB800;
+$orange-light: #FF6C40;
+$cyan-dark: #18C3E9;
+$blue-light: #f3f6fc; // use #e7f3fa ass light
+
+// MY VARIABLES
+$primary: $purple-dark;
+$secondary: $blue-sky;
+$success: $green-ligth;
+$warning: $yellow-dark;
+$danger: $orange-light;
+$info: $cyan-dark;
+$light: $blue-light;
+
+// NAVBAR 
+$navbar-brand-padding-y: 0;
+// $spacer-high-nav: 1.1rem;
+// $navbar-padding-y: $spacer-high-nav;
+
+// NAVBAR BREADCRUMB 
+//$breadcrumb-font-size:              1rem;
+$breadcrumb-padding-y: .5rem;
+$breadcrumb-padding-x: 1rem;
+$breadcrumb-item-padding-x: 1rem;
+$breadcrumb-margin-bottom: 0rem;
+// delete underline from link and add opacity on link hover
+.breadcrumb {
+    a {
+        text-decoration: none;
+    }
+    a:hover{
+        opacity: 0.6;
+    }
+}
+
+// NAVBAR TOGGLER
+$navbar-toggler-focus-width:        0.1rem;
+
+$navbar-toggler-padding-y:          .25rem ;
+$navbar-toggler-padding-x:          .75rem ;
+$navbar-toggler-font-size:          1.5rem;
+//$navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+$navbar-light-toggler-border-color: $primary;//rgba($black, .1) ;
+
+
+// BUTTON
+$btn-border-radius:         0px;
+//$btn-border-radius-sm:    $border-radius-sm;
+//$btn-border-radius-lg:    $border-radius-lg;
+$btn-padding-y:               0.5rem;
+$btn-padding-x:               1rem;
+$btn-font-weight:             bold;
+$btn-transition:    color .2s ease-in-out, background-color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
+
+
+// COLLAPSE
+$transition-collapse:         height 0.5s ease ;
+$transition-collapse-width:   width 0.5s ease ;
+
+
+
+
+
 /* You can add global styles to this file, and also import other style files */
+@import "node_modules/bootstrap/scss/bootstrap";
