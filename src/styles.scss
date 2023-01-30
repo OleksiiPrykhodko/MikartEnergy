@@ -16,12 +16,12 @@ $danger: $orange-light;
 $info: $cyan-dark;
 $light: $blue-light;
 
-// NAVBAR 
+// NAVBAR
 $navbar-brand-padding-y: 0;
 // $spacer-high-nav: 1.1rem;
 // $navbar-padding-y: $spacer-high-nav;
 
-// NAVBAR BREADCRUMB 
+// NAVBAR BREADCRUMB
 //$breadcrumb-font-size:              1rem;
 $breadcrumb-padding-y: .5rem;
 $breadcrumb-padding-x: 1rem;
@@ -56,13 +56,19 @@ $btn-padding-x:               1rem;
 $btn-font-weight:             bold;
 $btn-transition:    color .2s ease-in-out, background-color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
 
-
 // COLLAPSE
 $transition-collapse:         height 0.5s ease ;
 $transition-collapse-width:   width 0.5s ease ;
 
+// TEXT GRADIENT
+.text-gragient-danger{
+  color: $danger;
+  background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-// img
+// POSTER with activity type
 .poster{
     img{
         width: 100%;
@@ -71,7 +77,42 @@ $transition-collapse-width:   width 0.5s ease ;
     }
 }
 
+// IMG ZOOMING
+.zoomed-img{
+  overflow: hidden;
+  img{
+    opacity: 0.3;
+    -webkit-transform: scale(1);
+	  transform: scale(1);
+	  -webkit-transition: 1s ease-in-out;
+	  transition: 1s ease-in-out;
+    // blur
+    	-webkit-filter: blur(1px);
+	    filter: blur(1px);
+  }
+}
+.zoomed-img:hover{
+  img{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    // blur
+    -webkit-filter: blur(0);
+    filter: blur(0);
+  }
+}
+
+//GRADIENTS
+.background-gragient-info{
+  background: linear-gradient(45deg, $info 0%, rgba(13, 68, 208, 0.77) 40%, $primary 95%);
+}
+
+.background-gragient-danger{
+  background: linear-gradient(320deg, $danger 30%, $warning 90%);
+}
 
 
+
+
+// DO NOT DELETE
 /* You can add global styles to this file, and also import other style files */
 @import "node_modules/bootstrap/scss/bootstrap";
