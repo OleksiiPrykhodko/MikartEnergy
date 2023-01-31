@@ -60,6 +60,11 @@ $btn-transition:    color .2s ease-in-out, background-color .2s ease-in-out, bor
 $transition-collapse:         height 0.5s ease ;
 $transition-collapse-width:   width 0.5s ease ;
 
+// OPACITY
+.bg-opacity-95{
+  opacity: 0.90;
+}
+
 // TEXT GRADIENT
 .text-gragient-danger{
   color: $danger;
@@ -83,7 +88,6 @@ $transition-collapse-width:   width 0.5s ease ;
       width: 75%;
     }
 }
-
 
 // IMG ZOOMING
 .zoomed-img{
