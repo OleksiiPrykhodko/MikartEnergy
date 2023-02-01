@@ -107,14 +107,15 @@ $transition-collapse-width:   width 0.5s ease ;
     //-webkit-filter: blur(1px);
 	  //filter: blur(1px);
   }
-}
-.zoomed-img:hover{
-  img{
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-    // blur
-    //-webkit-filter: blur(0);
-    //filter: blur(0);
+
+  &:hover{
+    img{
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+      // blur
+      //-webkit-filter: blur(0);
+      //filter: blur(0);
+    }
   }
 }
 
