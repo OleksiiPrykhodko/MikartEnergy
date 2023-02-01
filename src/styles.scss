@@ -86,7 +86,8 @@ $transition-collapse-width:   width 0.5s ease ;
         height: 100%;
         object-fit: cover;
     }
-    .poster-text{
+
+    &-text{
       position: absolute;
       top: 35%;
       left: 15%;
