@@ -180,7 +180,16 @@ $transition-collapse-width:   width 0.5s ease ;
   }
 }
 
-//GRADIENTS
+// AVATAR
+.avatar{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+// GRADIENTS
 .background-gragient-info{
   background: linear-gradient(45deg, $info 0%, rgba(13, 68, 208, 0.77) 40%, $primary 95%);
 }
