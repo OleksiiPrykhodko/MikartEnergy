@@ -70,6 +70,59 @@ $transition-collapse-width:   width 0.5s ease ;
   height: 50vh;
 }
 
+// PADDING
+.p{
+  // 6 = 4.5 rem
+  &-6{
+    padding: 4.5rem !important;
+  }
+  &x-6{
+    padding-left: 4.5rem !important;
+    padding-right: 4.5rem !important;
+  }
+  &y-6{
+    padding-top: 4.5rem !important;
+    padding-bottom: 4.5rem !important;
+  }
+  &s-6{
+    padding-left: 4.5rem !important;
+  }
+  &e-6{
+    padding-right: 4.5rem !important;
+  }
+  &t-6{
+    padding-top: 4.5rem !important;
+  }
+  &b-6{
+    padding-bottom: 4.5rem !important;
+  }
+
+  // 7 = 6 rem
+  &-7{
+    padding: 6rem !important;
+  }
+  &x-7{
+    padding-left: 6rem !important;
+    padding-right: 6rem !important;
+  }
+  &y-7{
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+  }
+  &s-7{
+    padding-left: 6rem !important;
+  }
+  &e-7{
+    padding-right: 6rem !important;
+  }
+  &t-7{
+    padding-top: 6rem !important;
+  }
+  &b-7{
+    padding-bottom: 6rem !important;
+  }
+}
+
 // TEXT GRADIENT
 .text-gragient-danger{
   color: $danger;
