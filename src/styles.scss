@@ -176,6 +176,19 @@ a.text-gradient-danger{
   }
 }
 
+.arrow-right{
+  &::after{
+    content: '>>>';
+      margin-left: 0.1rem;
+      margin-right: 1.3rem;
+      transition: ease-in-out .5s;
+  }
+  &:hover::after{
+    margin-left: 1.3rem;
+    margin-right: 0.1rem;
+    transition: ease-in-out .5s;
+  }
+}
 
 // POSTER with activity type
 .poster{
