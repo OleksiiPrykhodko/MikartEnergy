@@ -6,8 +6,9 @@ $blue-sky: #e7f3fa;
 $green-ligth: #13bd64;
 $yellow-dark: #FFB800;
 $orange-light: #FF6C40;
-$cyan-dark: #18C3E9;
+$cyan-dark: #00a2c5; //#18C3E9;
 $blue-light: #f3f6fc; // use #e7f3fa ass light
+
 
 // MY VARIABLES
 $primary: $purple-dark;
@@ -18,10 +19,12 @@ $danger: $orange-light;
 $info: $cyan-dark;
 $light: $blue-light;
 
+
 // NAVBAR
 $navbar-brand-padding-y: 0;
 // $spacer-high-nav: 1.1rem;
 // $navbar-padding-y: $spacer-high-nav;
+
 
 // NAVBAR BREADCRUMB
 //$breadcrumb-font-size:              1rem;
@@ -39,9 +42,9 @@ $breadcrumb-margin-bottom: 0rem;
     }
 }
 
+
 // NAVBAR TOGGLER
 $navbar-toggler-focus-width:        0.1rem;
-
 $navbar-toggler-padding-y:          .25rem ;
 $navbar-toggler-padding-x:          .75rem ;
 $navbar-toggler-font-size:          1.5rem;
@@ -58,13 +61,16 @@ $btn-padding-x:               1rem;
 $btn-font-weight:             bold;
 $btn-transition:    color .2s ease-in-out, background-color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
 
+
 // COLLAPSE
 $transition-collapse:         height 0.5s ease ;
 $transition-collapse-width:   width 0.5s ease ;
 
+
 // LINK
-$link-decoration: none;
-$link-hover-color: transparentize($primary, .6);
+$link-color:        $primary;
+$link-decoration:   none;
+$link-hover-color:  transparentize($primary, .2);
 
 
 //----------------------------End of Redefining bootstrap variables--------------------//
@@ -74,10 +80,12 @@ $link-hover-color: transparentize($primary, .6);
   opacity: 0.90;
 }
 
+
 // HEiGHT
 .vh-50{
   height: 50vh;
 }
+
 
 // PADDING
 .p{
@@ -132,6 +140,7 @@ $link-hover-color: transparentize($primary, .6);
   }
 }
 
+
 // HEIGHT
 .v{
   &h-75{
@@ -139,13 +148,34 @@ $link-hover-color: transparentize($primary, .6);
   }
 }
 
-// TEXT GRADIENT
+
+// TEXT GRADIENTS
 .text-gragient-danger{
   color: $danger;
   background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.text-gragient-primary{
+  color: $danger;
+  background: linear-gradient(94.88deg, $primary 5.12%,  $danger 93.99%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+a.text-gragient-danger{
+  background: linear-gradient(94.88deg, $danger 5.12%, $primary 93.99%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  &:hover{
+    background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
 
 // POSTER with activity type
 .poster{
@@ -163,6 +193,7 @@ $link-hover-color: transparentize($primary, .6);
       width: 75%;
     }
 }
+
 
 // IMG ZOOMING
 .zoomed-img{
@@ -189,6 +220,7 @@ $link-hover-color: transparentize($primary, .6);
   }
 }
 
+
 // AVATAR
 .avatar{
   width: 120px;
@@ -197,6 +229,7 @@ $link-hover-color: transparentize($primary, .6);
   object-fit: cover;
   object-position: center;
 }
+
 
 // GRADIENTS
 .background-gragient-info{
