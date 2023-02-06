@@ -173,12 +173,12 @@ $link-hover-color:  transparentize($primary, .2);
 }
 
 a.text-gradient-danger{
-  background: linear-gradient(94.88deg, $danger 5.12%, $primary 93.99%);
+  background: linear-gradient( 94.88deg, $danger 5.12%, $warning 93.99%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
   &:hover{
-    background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
+    background: linear-gradient(94.88deg, $danger 5.12%, $primary 93.99%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
