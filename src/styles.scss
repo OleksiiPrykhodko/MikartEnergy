@@ -2,22 +2,23 @@
 
 // MY THEME COLORS
 $purple-dark: #180f3d;
-$blue-sky: #e7f3fa;
+$purple-lighter: #521182; // #e7f3fa
 $green-ligth: #13bd64;
 $yellow-dark: #FFB800;
 $orange-light: #FF6C40;
-$cyan-dark: #00a2c5; //#18C3E9;
-$blue-light: #f3f6fc; // use #e7f3fa ass light
+$cyan-dark: #00a2c5; // #18C3E9;
+$blue-sky: #e7f3fa; // #f3f6fc
+$light-cloud: #f3f6fc;
 
 
 // MY VARIABLES
 $primary: $purple-dark;
-$secondary: $blue-sky;
+$secondary: $purple-lighter;
 $success: $green-ligth;
 $warning: $yellow-dark;
 $danger: $orange-light;
 $info: $cyan-dark;
-$light: $blue-light;
+$light: $blue-sky;
 
 
 // NAVBAR
@@ -74,6 +75,13 @@ $link-hover-color:  transparentize($primary, .2);
 
 
 //----------------------------End of Redefining bootstrap variables--------------------//
+
+
+// MAIN BACKGROUND COLOR
+.bg-main-colore{
+  background-color: $light-cloud;
+}
+
 
 // OPACITY
 .bg-opacity-95{
