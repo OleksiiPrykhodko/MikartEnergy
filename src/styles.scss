@@ -172,6 +172,13 @@ $link-hover-color:  transparentize($primary, .2);
   -webkit-text-fill-color: transparent;
 }
 
+.text-gradient-secondary{
+  color: $danger;
+  background: linear-gradient(296.77deg, #DD4C52 11.36%, #921E8D 53.07%, $secondary 78.7%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 a.text-gradient-danger{
   background: linear-gradient( 94.88deg, $danger 5.12%, $warning 93.99%);
   -webkit-background-clip: text;
