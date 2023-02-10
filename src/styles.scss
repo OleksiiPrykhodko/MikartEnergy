@@ -77,6 +77,56 @@ $link-hover-color:  transparentize($primary, .2);
 //----------------------------End of Redefining bootstrap variables--------------------//
 
 
+// GRADIENTS
+.background-gragient-info{
+  background: linear-gradient(45deg, $info 0%, rgba(13, 68, 208, 0.77) 40%, $primary 95%);
+}
+
+.background-gragient-danger{
+  background: linear-gradient(320deg, $danger 30%, $warning 90%);
+}
+
+.background-gragient-secondary{
+  background: linear-gradient(296.77deg, #DD4C52 11.36%, #921E8D 53.07%, $secondary 78.7%);
+}
+
+
+// TEXT GRADIENTS
+.text-gradient-danger{
+  color: $danger;
+  background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-primary{
+  color: $danger;
+  background: linear-gradient(94.88deg, $primary 5.12%,  $danger 93.99%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-secondary{
+  color: $danger;
+  background: linear-gradient(296.77deg, #DD4C52 11.36%, #921E8D 53.07%, $secondary 78.7%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+a.text-gradient-danger{
+  background: linear-gradient( 94.88deg, $danger 5.12%, $warning 93.99%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  &:hover{
+    background: linear-gradient(94.88deg, $danger 5.12%, $primary 93.99%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+
+
 // MAIN BACKGROUND COLOR
 .bg-main-colore{
   background-color: $light-cloud;
@@ -157,39 +207,7 @@ $link-hover-color:  transparentize($primary, .2);
 }
 
 
-// TEXT GRADIENTS
-.text-gradient-danger{
-  color: $danger;
-  background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-primary{
-  color: $danger;
-  background: linear-gradient(94.88deg, $primary 5.12%,  $danger 93.99%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-secondary{
-  color: $danger;
-  background: linear-gradient(296.77deg, #DD4C52 11.36%, #921E8D 53.07%, $secondary 78.7%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-a.text-gradient-danger{
-  background: linear-gradient( 94.88deg, $danger 5.12%, $warning 93.99%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  &:hover{
-    background: linear-gradient(94.88deg, $danger 5.12%, $primary 93.99%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
+// AFTER TEXT ELEMENT
 
 .arrow-right{
   &::after{
@@ -258,15 +276,6 @@ a.text-gradient-danger{
   object-position: center;
 }
 
-
-// GRADIENTS
-.background-gragient-info{
-  background: linear-gradient(45deg, $info 0%, rgba(13, 68, 208, 0.77) 40%, $primary 95%);
-}
-
-.background-gragient-danger{
-  background: linear-gradient(320deg, $danger 30%, $warning 90%);
-}
 
 
 
