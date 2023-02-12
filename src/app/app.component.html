@@ -11,9 +11,10 @@
       <div class="d-none d-lg-block">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="">Mikart energy</a></li>
-          <li class="breadcrumb-item"><a href="#">Link</a></li>
-          <li class="breadcrumb-item"><a href="#">Link</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Disabled</li>
+          <li *ngFor="let item of CurrentRoute.slice(0, CurrentRoute.length-1); let i = index" [ngClass]="{'active': i === CurrentRoute.length - 1}" class="breadcrumb-item">
+            <a href="#">{{item}}</a>
+          </li>
+          <li *ngIf="CurrentRoute.length > 0" class="breadcrumb-item active">{{CurrentRoute[CurrentRoute.length - 1]}}</li>
         </ol>
       </div>
 
