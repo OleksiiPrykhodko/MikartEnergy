@@ -7,6 +7,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { DesignPageComponent } from './pages/design-page/design-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { DevelopmentPageComponent } from './pages/development-page/development-page.component';
+import { ContactsPageComponent } from './pages/contacts-page/contacts-page.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DevelopmentPageComponent } from './pages/development-page/development-p
     HomePageComponent,
     DesignPageComponent,
     AboutPageComponent,
-    DevelopmentPageComponent
+    DevelopmentPageComponent,
+    ContactsPageComponent
   ],
   imports: [
     BrowserModule,
