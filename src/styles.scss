@@ -101,15 +101,22 @@ $link-hover-color:  transparentize($primary, .2);
 }
 
 .text-gradient-primary{
-  color: $danger;
+  color: $primary;
   background: linear-gradient(94.88deg, $primary 5.12%,  $danger 93.99%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-secondary{
-  color: $danger;
+  color: $secondary;
   background: linear-gradient(296.77deg, #DD4C52 11.36%, #921E8D 53.07%, $secondary 78.7%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-info{
+  color: $info;
+  background: linear-gradient(296.77deg, $info 11.36%, rgba(13, 68, 208, 0.77) 20%, $primary 78.7%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
