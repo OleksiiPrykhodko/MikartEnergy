@@ -2,15 +2,15 @@
   <nav class="navbar fixed-top shadow-sm bg-white bg-opacity-95"
     style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
     aria-label="breadcrumb">
-    <div class="container d-flex text-uppercase fw-bolder">
+    <div class="container d-flex text-uppercase fw-bolder py-1">
 
       <a class="navbar-brand" href="">
-        <img src="assets/brand/LogoMikart.svg" alt="Mikart" width="60" height="60">
+        <img src="assets/brand/Mikart-Energy-Logo-Big.svg" alt="Mikart" width="189" height="50">
       </a>
       <div class="vr mx-3 d-none d-md-block"></div>
       <div class="d-none d-lg-block">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="">Mikart energy</a></li>
+          <li class="breadcrumb-item"><a href="">Home</a></li>
           <li *ngFor="let item of RouteNamePathPair.slice(0, RouteNamePathPair.length-1);" class="breadcrumb-item">
             <a href="{{item[1]}}">{{item[0]}}</a>
           </li>
