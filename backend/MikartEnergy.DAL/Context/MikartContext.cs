@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.DAL.Context
 {
-    internal class MikartContext : DbContext
+    public class MikartContext : DbContext
     {
         public DbSet<CallbackRequest> callbackRequests { get; private set; }
 
