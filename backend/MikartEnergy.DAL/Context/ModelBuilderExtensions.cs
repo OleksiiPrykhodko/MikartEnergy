@@ -13,7 +13,8 @@ namespace MikartEnergy.DAL.Context
         // Specific configurations for each entity.
         public static void Configure(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CallbackRequest>().Property(p => p.Id).HasDefaultValueSql("NEWID()");
+            // Use it for not in memory DB
+            // modelBuilder.Entity<CallbackRequest>().Property(p => p.Id).HasDefaultValueSql("NEWID()");
         }
 
         // DB seeding.
