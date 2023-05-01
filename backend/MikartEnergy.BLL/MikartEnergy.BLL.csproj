@@ -10,4 +10,9 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MikartEnergy.Common\MikartEnergy.Common.csproj" />
+    <ProjectReference Include="..\MikartEnergy.DAL\MikartEnergy.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
