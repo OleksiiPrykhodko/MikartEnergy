@@ -10,7 +10,7 @@ namespace MikartEnergy.DAL.Context
 {
     public class MikartContext : DbContext
     {
-        public DbSet<CallbackRequest> callbackRequests { get; private set; }
+        public DbSet<CallbackRequest> CallbackRequests { get; private set; }
 
         public MikartContext(DbContextOptions<MikartContext> options): base(options) { }
 
