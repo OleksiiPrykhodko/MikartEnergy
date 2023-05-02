@@ -14,7 +14,7 @@ namespace MikartEnergy.DAL.Entities
         public string AuthorPhone { get; set; }
         public string Message { get; set; }
         public string IntrerestedIn { get; set; }
-        public decimal Budget { get; set; }
+        public int Budget { get; set; }
         public bool InWork { get; set; }
     }
 }
