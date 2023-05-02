@@ -31,5 +31,28 @@ namespace MikartEnergy.DAL.Context
                 throw;
             }
         }
+
+        // Overwriting methods to avoid removing entities from the database. 
+        // Use extension method SetAuditProperties() implemented in ChangeTrackerExtensions for it.
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            ChangeTracker.SetAuditProperties();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            ChangeTracker.SetAuditProperties();
+            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+        public override int SaveChanges()
+        {
+            ChangeTracker.SetAuditProperties();
+            return base.SaveChanges();
+        }
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            ChangeTracker.SetAuditProperties();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
     }
 }
