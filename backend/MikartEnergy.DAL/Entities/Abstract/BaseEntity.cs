@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MikartEnergy.DAL.Entities.Abstract
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity : IBaseEntity
     {
         private DateTime _createdAt;
 
@@ -16,6 +16,7 @@ namespace MikartEnergy.DAL.Entities.Abstract
         [Key]
         // TODO: If Id well be generate in ctor, then change to [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
+        public bool IsDeleted { get; set; }
 
         public DateTime CreatedAt
         {
@@ -25,6 +26,5 @@ namespace MikartEnergy.DAL.Entities.Abstract
 
         public DateTime UpdatedAt { get; set; }
 
-        public bool IsDeleted { get; set; }
     }
 }
