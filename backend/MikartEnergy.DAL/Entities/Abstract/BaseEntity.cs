@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace MikartEnergy.DAL.Entities.Abstract
 {
@@ -11,6 +13,8 @@ namespace MikartEnergy.DAL.Entities.Abstract
             CreatedAt = UpdatedAt = DateTime.Now;
         }
 
+        [Key]
+        // TODO: If Id well be generate in ctor, then change to [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
         public DateTime CreatedAt
@@ -21,6 +25,6 @@ namespace MikartEnergy.DAL.Entities.Abstract
 
         public DateTime UpdatedAt { get; set; }
 
-        public bool Deleted { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
