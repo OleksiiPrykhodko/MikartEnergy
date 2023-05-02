@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MikartEnergy.BLL.Services;
 using MikartEnergy.DAL.Context;
 
 namespace MikartEnergy.WebAPI
@@ -17,6 +18,8 @@ namespace MikartEnergy.WebAPI
             builder.Services.AddSwaggerGen();
             // Add DB service.
             builder.Services.AddDbContext<MikartContext>(options => options.UseInMemoryDatabase("MikartInMemoryDB"));
+
+            builder.Services.AddScoped<CallbackRequestService>();
 
             var app = builder.Build();
 
