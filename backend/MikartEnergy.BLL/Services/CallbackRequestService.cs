@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MikartEnergy.BLL.Mapping;
 using MikartEnergy.BLL.Services.Abstract;
 using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.DAL.Context;
@@ -19,19 +20,9 @@ namespace MikartEnergy.BLL.Services
 
         }
 
-        public async Task<CallbackRequestDTO> CreateCallbackRequest(NewCallbackRequestDTO request)
+        public async Task<CallbackRequestDTO> CreateCallbackRequest(NewCallbackRequestDTO dto)
         {
-            CallbackRequest callbackRequest = new CallbackRequest
-            {
-                AuthorName = request.AuthorName,
-                AuthorEmail = request.AuthorEmail,
-                AuthorPhone = request.AuthorPhone,
-                IntrerestedIn = request.IntrerestedIn,
-                Message = request.Message,
-                Budget = request.Budget,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
-            };
+            var callbackRequest = dto.ToCallbackRequest();
 
             _context.CallbackRequests.Add(callbackRequest);
             await _context.SaveChangesAsync();
@@ -39,7 +30,7 @@ namespace MikartEnergy.BLL.Services
             var createdRequest = await _context.CallbackRequests
                                         .FirstAsync(r => r.Id == callbackRequest.Id);
 
-            CallbackRequestDTO responseDTO = CallbackRequestToDTO(createdRequest);
+            CallbackRequestDTO responseDTO = createdRequest.ToCallbackRequestDTO();
 
             return responseDTO;
 
@@ -49,7 +40,7 @@ namespace MikartEnergy.BLL.Services
         {
             var requests = getDeleted ? await _context.CallbackRequests.ToListAsync()
                                                 : await _context.CallbackRequests.Where(r => !r.IsDeleted).ToListAsync();
-            return requests.Select(e => CallbackRequestToDTO(e));
+            return requests.Select(e => e.ToCallbackRequestDTO());
         }
 
         public async Task<bool> DeleteCallbackRequest(Guid id)
@@ -65,29 +56,20 @@ namespace MikartEnergy.BLL.Services
             return false;
         }
 
-        private CallbackRequestDTO CallbackRequestToDTO(CallbackRequest entity)
+        public async Task<bool> UpdateCallbackRequest(CallbackRequestDTO dto)
         {
-            if (entity is null)
+            if(await _context.CallbackRequests.AnyAsync(c => c.Id == dto.Id))
             {
-                throw new NullReferenceException($"Null argument of {nameof(CallbackRequest)}");
+                var entity = dto.ToCallbackRequest();
+                entity.UpdatedAt = DateTime.Now;
+                _context.Update(entity);
+                await _context.SaveChangesAsync();
+                return true;
             }
 
-            CallbackRequestDTO dto = new CallbackRequestDTO
-            {
-                Id = entity.Id,
-                IsDeleted = entity.IsDeleted,
-                InWork = entity.InWork,
-                CreatedAt = entity.CreatedAt,
-                UpdatedAt = entity.UpdatedAt,
-                AuthorName = entity.AuthorName,
-                AuthorEmail = entity.AuthorEmail,
-                AuthorPhone = entity.AuthorPhone,
-                IntrerestedIn = entity.IntrerestedIn,
-                Message = entity.Message,
-                Budget = entity.Budget
-            };
+            return false;
 
-            return dto;
-        }
+        } 
+
     }
 }

@@ -47,14 +47,14 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpPut]
         [AllowAnonymous]
-        public async Task<ActionResult<CallbackRequestDTO>> Put([FromBody] CallbackRequestDTO dto)
+        public async Task<ActionResult<bool>> Put([FromBody] CallbackRequestDTO dto)
         {
             if (ModelState.IsValid)
             {
-                return Ok();
+                return Ok(await _callbackRequestService.UpdateCallbackRequest(dto));
             }
 
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpDelete("{id}")]
