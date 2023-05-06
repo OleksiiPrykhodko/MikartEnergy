@@ -39,20 +39,7 @@ namespace MikartEnergy.BLL.Services
             var createdRequest = await _context.CallbackRequests
                                         .FirstAsync(r => r.Id == callbackRequest.Id);
 
-            CallbackRequestDTO responseDTO = new CallbackRequestDTO
-            {
-                Id = callbackRequest.Id,
-                IsDeleted = callbackRequest.IsDeleted,
-                InWork = callbackRequest.InWork,
-                CreatedAt = createdRequest.CreatedAt,
-                UpdatedAt = createdRequest.UpdatedAt,
-                AuthorName = createdRequest.AuthorName,
-                AuthorEmail = createdRequest.AuthorEmail,
-                AuthorPhone = createdRequest.AuthorPhone,
-                IntrerestedIn = createdRequest.IntrerestedIn,
-                Message = createdRequest.Message,
-                Budget = createdRequest.Budget
-            };
+            CallbackRequestDTO responseDTO = CallbackRequestToDTO(createdRequest);
 
             return responseDTO;
 

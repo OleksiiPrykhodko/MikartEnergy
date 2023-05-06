@@ -11,4 +11,8 @@
     <ProjectReference Include="..\MikartEnergy.DAL\MikartEnergy.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mapping\" />
+  </ItemGroup>
+
 </Project>
