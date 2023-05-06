@@ -63,7 +63,7 @@ namespace MikartEnergy.WebAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                return await _callbackRequestService.DeleteCallbackRequests(id) ? NoContent() : NotFound();
+                return await _callbackRequestService.DeleteCallbackRequest(id) ? NoContent() : NotFound();
             }
             
             return BadRequest();

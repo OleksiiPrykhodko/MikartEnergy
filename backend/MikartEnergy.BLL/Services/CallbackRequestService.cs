@@ -52,7 +52,7 @@ namespace MikartEnergy.BLL.Services
             return requests.Select(e => CallbackRequestToDTO(e));
         }
 
-        public async Task<bool> DeleteCallbackRequests(Guid id)
+        public async Task<bool> DeleteCallbackRequest(Guid id)
         {
             var request = await _context.CallbackRequests.FirstOrDefaultAsync(r => r.Id == id);
 
