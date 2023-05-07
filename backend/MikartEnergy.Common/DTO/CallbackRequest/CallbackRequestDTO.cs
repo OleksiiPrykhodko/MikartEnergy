@@ -18,7 +18,7 @@ namespace MikartEnergy.Common.DTO.CallbackRequest
         public bool IsDeleted { get; set; }
 
         public bool Successful { get; set; } = true;
-        public KeyValuePair<ResponseErrors, string>[] Errors { get; set; }
+        public KeyValuePair<ResponseError, string>[] Errors { get; set; }
 
         public string AuthorName { get; set; }
         public string AuthorEmail { get; set; }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.Common.Enums
 {
-    public enum ResponseErrors
+    public enum ResponseError
     {
-        InvalidModelState,
-        NotFound
+        InvalidModelState, 
+        NotFound 
     }
 }
