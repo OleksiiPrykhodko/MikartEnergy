@@ -23,14 +23,14 @@ namespace MikartEnergy.WebAPI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<CallbackRequestDTO>>> Get()
         {
-            return Ok(await _callbackRequestService.GetAllCallbackRequests(false));
+            return Ok(await _callbackRequestService.GetAllCallbackRequestsAsync(false));
         }
 
         [HttpGet("all")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<CallbackRequestDTO>>> GetAll()
         {
-            return Ok(await _callbackRequestService.GetAllCallbackRequests(true));
+            return Ok(await _callbackRequestService.GetAllCallbackRequestsAsync(true));
         }
 
         [HttpPost]
@@ -39,10 +39,11 @@ namespace MikartEnergy.WebAPI.Controllers
         {
             if(ModelState.IsValid) 
             {
-                return Ok(await _callbackRequestService.CreateCallbackRequest(dto));
+                return Ok(await _callbackRequestService.CreateCallbackRequestAsync(dto));
             }
-            
-            return BadRequest();
+
+            var errorMessages = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            return BadRequest( await _callbackRequestService.CreateBadRequestResponseAsync(errorMessages) );
         }
 
         [HttpPut]
@@ -51,10 +52,11 @@ namespace MikartEnergy.WebAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok(await _callbackRequestService.UpdateCallbackRequest(dto));
+                return Ok(await _callbackRequestService.UpdateCallbackRequestAsync(dto));
             }
 
-            return NotFound();
+            var errorMessages = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            return BadRequest(await _callbackRequestService.CreateBadRequestResponseAsync(errorMessages));
         }
 
         [HttpDelete("{id}")]
@@ -63,11 +65,10 @@ namespace MikartEnergy.WebAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                return await _callbackRequestService.DeleteCallbackRequest(id) ? NoContent() : NotFound();
+                return await _callbackRequestService.DeleteCallbackRequestAsync(id) ? NoContent() : NotFound();
             }
             
-            return BadRequest();
-            
+            return BadRequest();            
         }
     }
 }
