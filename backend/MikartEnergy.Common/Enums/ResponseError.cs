@@ -8,7 +8,8 @@ namespace MikartEnergy.Common.Enums
 {
     public enum ResponseError
     {
-        InvalidModelState, 
-        NotFound 
+        InvalidModelState = 1, 
+        NotFound,
+        InvalidDtoFieldValue
     }
 }
