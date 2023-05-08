@@ -2,6 +2,7 @@
 using MikartEnergy.BLL.Mapping;
 using MikartEnergy.BLL.Services.Abstract;
 using MikartEnergy.Common.DTO.CallbackRequest;
+using MikartEnergy.Common.Enums;
 using MikartEnergy.DAL.Context;
 using MikartEnergy.DAL.Entities;
 using System;
@@ -20,8 +21,27 @@ namespace MikartEnergy.BLL.Services
 
         }
 
-        public async Task<CallbackRequestDTO> CreateCallbackRequest(NewCallbackRequestDTO dto)
+        public async Task<CallbackRequestDTO> CreateCallbackRequestAsync(NewCallbackRequestDTO dto)
         {
+            if (string.IsNullOrWhiteSpace(dto.AuthorName))
+            {
+                var request = new CallbackRequestDTO();
+                request.AddErrorToDTO(ResponseError.InvalidDtoFieldValue, "Author name can't be empty.");
+                return request;
+            }
+            if (string.IsNullOrWhiteSpace(dto.AuthorEmail))
+            {
+                var request = new CallbackRequestDTO();
+                request.AddErrorToDTO(ResponseError.InvalidDtoFieldValue, "Author email can't be empty.");
+                return request;
+            }
+            if (string.IsNullOrWhiteSpace(dto.Message))
+            {
+                var request = new CallbackRequestDTO();
+                request.AddErrorToDTO(ResponseError.InvalidDtoFieldValue, "Message can't be empty.");
+                return request;
+            }
+
             var callbackRequest = dto.ToCallbackRequest();
 
             _context.CallbackRequests.Add(callbackRequest);
@@ -36,40 +56,60 @@ namespace MikartEnergy.BLL.Services
 
         }
 
-        public async Task<IEnumerable<CallbackRequestDTO>> GetAllCallbackRequests(bool getDeleted)
+        public async Task<IEnumerable<CallbackRequestDTO>> GetAllCallbackRequestsAsync(bool getDeleted)
         {
             var requests = getDeleted ? await _context.CallbackRequests.ToListAsync()
                                                 : await _context.CallbackRequests.Where(r => !r.IsDeleted).ToListAsync();
             return requests.Select(e => e.ToCallbackRequestDTO());
         }
 
-        public async Task<bool> DeleteCallbackRequest(Guid id)
+        public async Task<bool> DeleteCallbackRequestAsync(Guid id)
         {
-            var request = await _context.CallbackRequests.FirstOrDefaultAsync(r => r.Id == id);
+            var entity = await _context.CallbackRequests.FirstOrDefaultAsync(r => r.Id == id);
 
-            if (request is not null)
+            if (entity is not null && !entity.IsDeleted)
             {
-                _context.CallbackRequests.Remove(request);
+                _context.CallbackRequests.Remove(entity);
+                await _context.SaveChangesAsync();
                 return true;
             }
 
             return false;
         }
 
-        public async Task<bool> UpdateCallbackRequest(CallbackRequestDTO dto)
+        public async Task<CallbackRequestDTO> UpdateCallbackRequestAsync(CallbackRequestDTO dto)
         {
-            if(await _context.CallbackRequests.AnyAsync(c => c.Id == dto.Id))
+            if (await _context.CallbackRequests.AnyAsync(c => c.Id == dto.Id))
             {
                 var entity = dto.ToCallbackRequest();
                 entity.UpdatedAt = DateTime.Now;
                 _context.Update(entity);
                 await _context.SaveChangesAsync();
-                return true;
+                return entity.ToCallbackRequestDTO();
             }
 
-            return false;
+            dto.AddErrorToDTO(ResponseError.NotFound, "Callback was not found.");
+            return dto;
+        }
 
-        } 
+        public async Task<CallbackRequestDTO> CreateBadRequestResponseAsync(IEnumerable<string> messages)
+        {
+            return await Task.Run<CallbackRequestDTO>(() =>
+            {
+                var dto = new CallbackRequestDTO();
+                dto.AddErrorToDTO(messages.ToList()
+                    .Select(m => new KeyValuePair<ResponseError, string>(ResponseError.InvalidModelState, m)));
+                return dto;
+            });
+        }
+
+        public async Task<CallbackRequestDTO> CreateBadRequestResponseAsync()
+        {
+            return await CreateBadRequestResponseAsync(new string[] { ResponseError.InvalidModelState.ToString() });
+        }
+
+
+
 
     }
 }
