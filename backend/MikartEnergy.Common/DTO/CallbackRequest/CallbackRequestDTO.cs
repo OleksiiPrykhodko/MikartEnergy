@@ -9,16 +9,13 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.Common.DTO.CallbackRequest
 {
-    public class CallbackRequestDTO : IResponseStatusDTO
+    public class CallbackRequestDTO : ResponseStatusDTO
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public bool InWork { get; set; }
         public bool IsDeleted { get; set; }
-
-        public bool Successful { get; set; } = true;
-        public KeyValuePair<ResponseError, string>[] Errors { get; set; }
 
         public string AuthorName { get; set; }
         public string AuthorEmail { get; set; }
