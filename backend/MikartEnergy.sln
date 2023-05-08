@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MikartEnergy.WebAPI", "MikartEnergy.WebAPI\MikartEnergy.WebAPI.csproj", "{3AEF8E08-1CB8-4C8F-A886-1E74FE9583F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MikartEnergy.DAL", "MikartEnergy.DAL\MikartEnergy.DAL.csproj", "{D11ABFBB-074A-4DEF-B656-EF669165C810}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MikartEnergy.BLL", "MikartEnergy.BLL\MikartEnergy.BLL.csproj", "{1B9631E5-AB09-4DC2-B202-4DCF2F5F3F86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MikartEnergy.Common", "MikartEnergy.Common\MikartEnergy.Common.csproj", "{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AEF8E08-1CB8-4C8F-A886-1E74FE9583F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEF8E08-1CB8-4C8F-A886-1E74FE9583F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEF8E08-1CB8-4C8F-A886-1E74FE9583F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEF8E08-1CB8-4C8F-A886-1E74FE9583F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11ABFBB-074A-4DEF-B656-EF669165C810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11ABFBB-074A-4DEF-B656-EF669165C810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D11ABFBB-074A-4DEF-B656-EF669165C810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D11ABFBB-074A-4DEF-B656-EF669165C810}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B9631E5-AB09-4DC2-B202-4DCF2F5F3F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B9631E5-AB09-4DC2-B202-4DCF2F5F3F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B9631E5-AB09-4DC2-B202-4DCF2F5F3F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B9631E5-AB09-4DC2-B202-4DCF2F5F3F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6164FE0B-95F7-4F9F-8D16-802EAAF743B8}
+	EndGlobalSection
+EndGlobal
