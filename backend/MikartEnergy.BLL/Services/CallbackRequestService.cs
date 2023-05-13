@@ -23,6 +23,7 @@ namespace MikartEnergy.BLL.Services
 
         public async Task<CallbackRequestDTO> CreateCallbackRequestAsync(NewCallbackRequestDTO dto)
         {
+            // TODO: Delete it and move validation to Fluent Validation.
             if (string.IsNullOrWhiteSpace(dto.AuthorName))
             {
                 var request = new CallbackRequestDTO();
@@ -92,6 +93,7 @@ namespace MikartEnergy.BLL.Services
             return dto;
         }
 
+        // TODO: Move this method to base class and do it generic.
         public async Task<CallbackRequestDTO> CreateBadRequestResponseAsync(IEnumerable<string> messages)
         {
             return await Task.Run<CallbackRequestDTO>(() =>
