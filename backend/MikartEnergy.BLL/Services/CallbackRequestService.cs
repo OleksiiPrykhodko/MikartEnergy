@@ -76,7 +76,6 @@ namespace MikartEnergy.BLL.Services
         }
 
         // TODO: Move this method to base class and do it generic.
-
         public async Task<CallbackRequestDTO> CreateBadRequestResponseAsync(CallbackRequestDTO dto, IEnumerable<KeyValuePair<string, string>> messages)
         {
             return await Task.Run<CallbackRequestDTO>(() =>
