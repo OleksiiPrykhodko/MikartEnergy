@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -76,15 +77,14 @@ namespace MikartEnergy.BLL.Services
 
         // TODO: Move this method to base class and do it generic.
 
-        public async Task<CallbackRequestDTO> CreateBadRequestResponseAsync(IEnumerable<KeyValuePair<string, string>> messages)
+        public async Task<CallbackRequestDTO> CreateBadRequestResponseAsync(CallbackRequestDTO dto, IEnumerable<KeyValuePair<string, string>> messages)
         {
             return await Task.Run<CallbackRequestDTO>(() =>
             {
-                var dto = new CallbackRequestDTO();
                 dto.AddErrorToDTO(messages);
                 return dto;
             });
         }
-
+        
     }
 }

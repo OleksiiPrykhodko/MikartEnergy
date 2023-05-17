@@ -1,6 +1,8 @@
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using MikartEnergy.BLL.Services;
 using MikartEnergy.DAL.Context;
+using MikartEnergy.WebAPI.Extensions;
 
 namespace MikartEnergy.WebAPI
 {
@@ -16,10 +18,14 @@ namespace MikartEnergy.WebAPI
             
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            // Add DB service.
+
+            // Add DB Context.
             builder.Services.AddDbContext<MikartContext>(options => options.UseInMemoryDatabase("MikartInMemoryDB"));
 
-            builder.Services.AddScoped<CallbackRequestService>();
+            // Add business logic services
+            builder.Services.RegisterCustomServices();
+            // Add FluentValidation 
+            builder.Services.RegisterCustomValidators();
 
             var app = builder.Build();
 
