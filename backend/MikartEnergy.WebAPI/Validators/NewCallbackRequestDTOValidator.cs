@@ -22,18 +22,18 @@ namespace MikartEnergy.WebAPI.Validators
                 .NotNull().WithMessage($"{nameof(NewCallbackRequestDTO.AuthorPhone)} can't be NULL.")
                 .NotEmpty().WithMessage($"{nameof(NewCallbackRequestDTO.AuthorPhone)} can't be empty.")
                 .MinimumLength(10).WithMessage($"{nameof(NewCallbackRequestDTO.AuthorPhone)} can't be shorter than 10 chars.")
-                .MaximumLength(26).WithMessage($"{nameof(NewCallbackRequestDTO.AuthorPhone)} can't be longer than 10 chars.");
+                .MaximumLength(16).WithMessage($"{nameof(NewCallbackRequestDTO.AuthorPhone)} can't be longer than 16 chars.");
 
             RuleFor(callbackRequest => callbackRequest.Message)
                 .NotNull().WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be NULL.")
                 .NotEmpty().WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be empty.")
                 .MinimumLength(10).WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be shorter than 10 chars.")
-                .MaximumLength(255).WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be longer than 255 chars.");       
+                .MaximumLength(500).WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be longer than 500 chars.");       
             
             RuleFor(callbackRequest => callbackRequest.IntrerestedIn)
                 .NotNull().WithMessage($"{nameof(NewCallbackRequestDTO.IntrerestedIn)} can't be NULL.")
                 .NotEmpty().WithMessage($"{nameof(NewCallbackRequestDTO.IntrerestedIn)} can't be empty.")
-                .MaximumLength(255).WithMessage($"{nameof(NewCallbackRequestDTO.IntrerestedIn)} can't be longer than 255 chars.");
+                .MaximumLength(250).WithMessage($"{nameof(NewCallbackRequestDTO.IntrerestedIn)} can't be longer than 250 chars.");
 
             RuleFor(callbackRequest => callbackRequest.Budget)
                 .GreaterThan(0).WithMessage($"{nameof(NewCallbackRequestDTO.Budget)} must be greater than 0.")

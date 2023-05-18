@@ -34,18 +34,18 @@ namespace MikartEnergy.WebAPI.Validators
                 .NotNull().WithMessage($"{nameof(CallbackRequestDTO.AuthorPhone)} can't be NULL.")
                 .NotEmpty().WithMessage($"{nameof(CallbackRequestDTO.AuthorPhone)} can't be empty.")
                 .MinimumLength(10).WithMessage($"{nameof(CallbackRequestDTO.AuthorPhone)} can't be shorter than 10 chars.")
-                .MaximumLength(26).WithMessage($"{nameof(CallbackRequestDTO.AuthorPhone)} can't be longer than 10 chars.");
+                .MaximumLength(16).WithMessage($"{nameof(CallbackRequestDTO.AuthorPhone)} can't be longer than 16 chars.");
 
             RuleFor(callbackRequest => callbackRequest.Message)
                 .NotNull().WithMessage($"{nameof(CallbackRequestDTO.Message)} can't be NULL.")
                 .NotEmpty().WithMessage($"{nameof(CallbackRequestDTO.Message)} can't be empty.")
                 .MinimumLength(10).WithMessage($"{nameof(CallbackRequestDTO.Message)} can't be shorter than 10 chars.")
-                .MaximumLength(255).WithMessage($"{nameof(CallbackRequestDTO.Message)} can't be longer than 255 chars.");
+                .MaximumLength(500).WithMessage($"{nameof(CallbackRequestDTO.Message)} can't be longer than 500 chars.");
 
             RuleFor(callbackRequest => callbackRequest.IntrerestedIn)
                 .NotNull().WithMessage($"{nameof(CallbackRequestDTO.IntrerestedIn)} can't be NULL.")
                 .NotEmpty().WithMessage($"{nameof(CallbackRequestDTO.IntrerestedIn)} can't be empty.")
-                .MaximumLength(255).WithMessage($"{nameof(CallbackRequestDTO.IntrerestedIn)} can't be longer than 255 chars.");
+                .MaximumLength(250).WithMessage($"{nameof(CallbackRequestDTO.IntrerestedIn)} can't be longer than 250 chars.");
 
             RuleFor(callbackRequest => callbackRequest.Budget)
                 .GreaterThan(0).WithMessage($"{nameof(CallbackRequestDTO.Budget)} must be greater than 0.")
