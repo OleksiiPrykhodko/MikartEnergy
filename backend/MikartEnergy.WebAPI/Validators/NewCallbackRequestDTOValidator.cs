@@ -8,10 +8,15 @@ namespace MikartEnergy.WebAPI.Validators
     {
         public NewCallbackRequestDTOValidator()
         {
-            RuleFor(callbackRequest => callbackRequest.AuthorName)
-                .NotNull().WithMessage($"{nameof(NewCallbackRequestDTO.AuthorName)} can't be NULL.")
-                .NotEmpty().WithMessage($"{nameof(NewCallbackRequestDTO.AuthorName)} can't be empty.")
-                .MaximumLength(100).WithMessage($"{nameof(NewCallbackRequestDTO.AuthorName)} can't be longer than 100 chars.");
+            RuleFor(callbackRequest => callbackRequest.AuthorFirstName)
+                .NotNull().WithMessage($"{nameof(NewCallbackRequestDTO.AuthorFirstName)} can't be NULL.")
+                .NotEmpty().WithMessage($"{nameof(NewCallbackRequestDTO.AuthorFirstName)} can't be empty.")
+                .MaximumLength(50).WithMessage($"{nameof(NewCallbackRequestDTO.AuthorFirstName)} can't be longer than 50 chars.");
+
+            RuleFor(callbackRequest => callbackRequest.AuthorLastName)
+                .NotNull().WithMessage($"{nameof(NewCallbackRequestDTO.AuthorLastName)} can't be NULL.")
+                .NotEmpty().WithMessage($"{nameof(NewCallbackRequestDTO.AuthorLastName)} can't be empty.")
+                .MaximumLength(50).WithMessage($"{nameof(NewCallbackRequestDTO.AuthorLastName)} can't be longer than 50 chars.");
 
             RuleFor(callbackRequest => callbackRequest.AuthorEmail)
                 .NotNull().WithMessage($"{nameof(NewCallbackRequestDTO.AuthorEmail)} can't be NULL.")
@@ -28,8 +33,8 @@ namespace MikartEnergy.WebAPI.Validators
                 .NotNull().WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be NULL.")
                 .NotEmpty().WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be empty.")
                 .MinimumLength(10).WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be shorter than 10 chars.")
-                .MaximumLength(500).WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be longer than 500 chars.");       
-            
+                .MaximumLength(500).WithMessage($"{nameof(NewCallbackRequestDTO.Message)} can't be longer than 500 chars.");
+
             RuleFor(callbackRequest => callbackRequest.IntrerestedIn)
                 .NotNull().WithMessage($"{nameof(NewCallbackRequestDTO.IntrerestedIn)} can't be NULL.")
                 .NotEmpty().WithMessage($"{nameof(NewCallbackRequestDTO.IntrerestedIn)} can't be empty.")

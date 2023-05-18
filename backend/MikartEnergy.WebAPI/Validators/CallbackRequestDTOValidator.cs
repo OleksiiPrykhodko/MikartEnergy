@@ -19,11 +19,17 @@ namespace MikartEnergy.WebAPI.Validators
                 .NotNull().WithMessage($"{nameof(CallbackRequestDTO.UpdatedAt)} can't be NULL.")
                 .LessThanOrEqualTo(DateTime.Now).WithMessage($"{nameof(CallbackRequestDTO.UpdatedAt)} can't be now or later.");
 
-            RuleFor(callbackRequest => callbackRequest.AuthorName)
-                .NotNull().WithMessage($"{nameof(CallbackRequestDTO.AuthorName)} can't be NULL.")
-                .NotEmpty().WithMessage($"{nameof(CallbackRequestDTO.AuthorName)} can't be empty.")
-                .MinimumLength(2).WithMessage($"{nameof(CallbackRequestDTO.AuthorName)} can't be shorter than 2 chars.")
-                .MaximumLength(100).WithMessage($"{nameof(CallbackRequestDTO.AuthorName)} can't be longer than 100 chars.");
+            RuleFor(callbackRequest => callbackRequest.AuthorFirstName)
+                .NotNull().WithMessage($"{nameof(CallbackRequestDTO.AuthorFirstName)} can't be NULL.")
+                .NotEmpty().WithMessage($"{nameof(CallbackRequestDTO.AuthorFirstName)} can't be empty.")
+                .MinimumLength(2).WithMessage($"{nameof(CallbackRequestDTO.AuthorFirstName)} can't be shorter than 2 chars.")
+                .MaximumLength(50).WithMessage($"{nameof(CallbackRequestDTO.AuthorFirstName)} can't be longer than 50 chars.");
+
+            RuleFor(callbackRequest => callbackRequest.AuthorLastName)
+                .NotNull().WithMessage($"{nameof(CallbackRequestDTO.AuthorLastName)} can't be NULL.")
+                .NotEmpty().WithMessage($"{nameof(CallbackRequestDTO.AuthorLastName)} can't be empty.")
+                .MinimumLength(2).WithMessage($"{nameof(CallbackRequestDTO.AuthorLastName)} can't be shorter than 2 chars.")
+                .MaximumLength(50).WithMessage($"{nameof(CallbackRequestDTO.AuthorLastName)} can't be longer than 50 chars.");
 
             RuleFor(callbackRequest => callbackRequest.AuthorEmail)
                 .NotNull().WithMessage($"{nameof(CallbackRequestDTO.AuthorEmail)} can't be NULL.")

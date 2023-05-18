@@ -10,7 +10,10 @@ namespace MikartEnergy.DAL.Entities
 {
     public class CallbackRequest : BaseEntity
     {
-        public string AuthorName { get; set; }
+        [MaxLength(60)]
+        public string AuthorFirstName { get; set; }
+        [MaxLength(60)]
+        public string AuthorLastName { get; set; }
         [MaxLength(60)]
         public string AuthorEmail { get; set; }
         [MaxLength(16)]

@@ -9,7 +9,8 @@ namespace MikartEnergy.Common.DTO.CallbackRequest
 {
     public class NewCallbackRequestDTO : ResponseStatusDTO
     {
-        public string AuthorName { get; set; }
+        public string AuthorFirstName { get; set; }
+        public string AuthorLastName { get; set; }
         public string AuthorEmail { get; set; }
         public string AuthorPhone { get; set; }
         public string Message { get; set; }
