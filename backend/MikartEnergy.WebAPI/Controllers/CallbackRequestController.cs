@@ -58,7 +58,7 @@ namespace MikartEnergy.WebAPI.Controllers
 
             var errorsMessages = validationResult.Errors
                 .Select(e => new KeyValuePair<string, string>(e.PropertyName, e.ErrorMessage));
-            return BadRequest( await _callbackRequestService.CreateBadRequestResponseAsync(errorsMessages) );
+            return BadRequest( await _callbackRequestService.CreateBadRequestResponseAsync(dto, errorsMessages) );
         }
 
         [HttpPut]
@@ -74,7 +74,7 @@ namespace MikartEnergy.WebAPI.Controllers
 
             var errorsMessages = validationResult.Errors
                 .Select(e => new KeyValuePair<string, string>(e.PropertyName, e.ErrorMessage));
-            return BadRequest(await _callbackRequestService.CreateBadRequestResponseAsync(errorsMessages));
+            return BadRequest(await _callbackRequestService.CreateBadRequestResponseAsync(dto, errorsMessages));
            
         }
 
