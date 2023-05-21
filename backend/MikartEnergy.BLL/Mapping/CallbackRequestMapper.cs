@@ -16,7 +16,8 @@ namespace MikartEnergy.BLL.Mapping
         public static CallbackRequest ToCallbackRequest(this NewCallbackRequestDTO dto)
         {
             return new CallbackRequest{
-                AuthorName = dto.AuthorName,
+                AuthorFirstName = dto.AuthorFirstName,
+                AuthorLastName = dto.AuthorLastName,
                 AuthorEmail = dto.AuthorEmail,
                 AuthorPhone = dto.AuthorPhone,
                 IntrerestedIn = dto.IntrerestedIn,
@@ -36,7 +37,8 @@ namespace MikartEnergy.BLL.Mapping
                 InWork = entity.InWork,
                 CreatedAt = entity.CreatedAt,
                 UpdatedAt = entity.UpdatedAt,
-                AuthorName = entity.AuthorName,
+                AuthorFirstName = entity.AuthorFirstName,
+                AuthorLastName = entity.AuthorLastName,
                 AuthorEmail = entity.AuthorEmail,
                 AuthorPhone = entity.AuthorPhone,
                 IntrerestedIn = entity.IntrerestedIn,
@@ -54,7 +56,8 @@ namespace MikartEnergy.BLL.Mapping
                 InWork = dto.InWork,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
-                AuthorName = dto.AuthorName,
+                AuthorFirstName = dto.AuthorFirstName,
+                AuthorLastName = dto.AuthorLastName,
                 AuthorEmail = dto.AuthorEmail,
                 AuthorPhone = dto.AuthorPhone,
                 IntrerestedIn = dto.IntrerestedIn,

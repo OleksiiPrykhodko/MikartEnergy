@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using MikartEnergy.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,11 @@ namespace MikartEnergy.DAL.Context
     {
         public DbSet<CallbackRequest> CallbackRequests { get; private set; }
 
-        public MikartContext(DbContextOptions<MikartContext> options): base(options) { }
+        public MikartContext(DbContextOptions<MikartContext> options): base(options) 
+        {
+            // Without this call, Entity Framework do not seed data into the InMemoryDB.
+            Database.EnsureCreated();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,10 +25,12 @@ namespace MikartEnergy.DAL.Context
             {
                 // Setting up entities using extension method.
                 modelBuilder.Configure();
-
+                
                 // Seeding data using extension method.
                 // TODO: Is this method will be called every time after adding a new migration? 
                 modelBuilder.Seed();
+
+                base.OnModelCreating(modelBuilder);
             }
             catch (System.Exception e)
             {
@@ -31,6 +38,7 @@ namespace MikartEnergy.DAL.Context
                 throw;
             }
         }
+        
 
         // Overwriting methods to avoid removing entities from the database. 
         // Use extension method SetAuditProperties() implemented in ChangeTrackerExtensions for it.

@@ -1,4 +1,6 @@
-﻿using MikartEnergy.DAL.Context;
+﻿using MikartEnergy.Common.DTO.Abstract;
+using MikartEnergy.Common.DTO.CallbackRequest;
+using MikartEnergy.DAL.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,15 @@ namespace MikartEnergy.BLL.Services.Abstract
         public BaseService(MikartContext context)
         {
             _context = context;
+        }
+
+        public async Task<T> CreateBadRequestResponseAsync<T>(T dto, IEnumerable<KeyValuePair<string, string>> messages) where T : IResponseStatusDTO
+        {
+            return await Task.Run<T>(() =>
+            {
+                dto.AddErrorToDTO(messages);
+                return dto;
+            });
         }
     }
 }

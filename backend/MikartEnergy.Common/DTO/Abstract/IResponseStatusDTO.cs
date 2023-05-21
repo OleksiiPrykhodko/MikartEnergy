@@ -9,10 +9,10 @@ namespace MikartEnergy.Common.DTO.Abstract
 {
     public interface IResponseStatusDTO
     {
-        bool Successful { get; set; }
-        List<KeyValuePair<ResponseError, string>> Errors { get; }
+        bool Successful { get; }
+        List<KeyValuePair<string, string>> Errors { get; }
 
-        void AddErrorToDTO(ResponseError error, string message);
-        void AddErrorToDTO(params KeyValuePair<ResponseError, string>[] errors);
+        void AddErrorToDTO(string error, string message);
+        void AddErrorToDTO(IEnumerable<KeyValuePair<string, string>> errors);
     }
 }

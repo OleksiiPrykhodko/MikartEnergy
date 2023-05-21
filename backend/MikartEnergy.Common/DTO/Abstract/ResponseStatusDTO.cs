@@ -10,21 +10,17 @@ namespace MikartEnergy.Common.DTO.Abstract
 {
     public abstract class ResponseStatusDTO: IResponseStatusDTO
     {
-        public bool Successful { get; set; } = true;
-        public List<KeyValuePair<ResponseError, string>> Errors { get; } =
-            new List<KeyValuePair<ResponseError, string>>();
+        public bool Successful { get; private set; } = true;
+        public List<KeyValuePair<string, string>> Errors { get; } =
+            new List<KeyValuePair<string, string>>();
 
-        public void AddErrorToDTO(ResponseError error, string message)
+        public void AddErrorToDTO(string error, string message)
         {
             Successful = false;
-            Errors.Add(new KeyValuePair<ResponseError, string>(error, message));
+            Errors.Add(new KeyValuePair<string, string>(error, message));
         }
-        public void AddErrorToDTO(params KeyValuePair<ResponseError, string>[] errors)
-        {
-            Successful = false;
-            Errors.AddRange(errors);
-        }
-        public void AddErrorToDTO(IEnumerable<KeyValuePair<ResponseError, string>> errors)
+
+        public void AddErrorToDTO(IEnumerable<KeyValuePair<string, string>> errors)
         {
             Successful = false;
             Errors.AddRange(errors);

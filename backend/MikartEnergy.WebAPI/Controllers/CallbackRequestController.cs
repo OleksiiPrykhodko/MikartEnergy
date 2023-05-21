@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MikartEnergy.BLL.Services;
 using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.DAL.Context;
 using MikartEnergy.DAL.Entities;
+using MikartEnergy.WebAPI.Validators;
+using System;
 
 namespace MikartEnergy.WebAPI.Controllers
 {
@@ -14,9 +18,17 @@ namespace MikartEnergy.WebAPI.Controllers
     public class CallbackRequestController : Controller
     {
         private readonly CallbackRequestService _callbackRequestService;
-        public CallbackRequestController(CallbackRequestService callbackRequestService) 
+        private readonly IValidator<NewCallbackRequestDTO> _newCallbackRequestValidator;
+        private readonly IValidator<CallbackRequestDTO> _callbackRequestValidator;
+
+        public CallbackRequestController(
+            CallbackRequestService callbackRequestService,
+            IValidator<NewCallbackRequestDTO> newCallbackRequestValidator,
+            IValidator<CallbackRequestDTO> validator) 
         { 
             _callbackRequestService = callbackRequestService;
+            _newCallbackRequestValidator = newCallbackRequestValidator;
+            _callbackRequestValidator = validator;
         }
 
         [HttpGet]
@@ -35,28 +47,35 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult<CallbackRequestDTO>> Create([FromBody] NewCallbackRequestDTO dto)
+        public async Task<ActionResult<CallbackRequestDTO>> Post([FromBody] NewCallbackRequestDTO dto)
         {
-            if(ModelState.IsValid) 
+            var validationResult = await _newCallbackRequestValidator.ValidateAsync(dto);
+
+            if (validationResult.IsValid)
             {
                 return Ok(await _callbackRequestService.CreateCallbackRequestAsync(dto));
             }
 
-            var errorMessages = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-            return BadRequest( await _callbackRequestService.CreateBadRequestResponseAsync(errorMessages) );
+            var errorsMessages = validationResult.Errors
+                .Select(e => new KeyValuePair<string, string>(e.PropertyName, e.ErrorMessage));
+            return BadRequest( await _callbackRequestService.CreateBadRequestResponseAsync(dto, errorsMessages) );
         }
 
         [HttpPut]
         [AllowAnonymous]
         public async Task<ActionResult<bool>> Put([FromBody] CallbackRequestDTO dto)
         {
-            if (ModelState.IsValid)
+            var validationResult = await _callbackRequestValidator.ValidateAsync(dto);
+
+            if (validationResult.IsValid)
             {
                 return Ok(await _callbackRequestService.UpdateCallbackRequestAsync(dto));
             }
 
-            var errorMessages = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-            return BadRequest(await _callbackRequestService.CreateBadRequestResponseAsync(errorMessages));
+            var errorsMessages = validationResult.Errors
+                .Select(e => new KeyValuePair<string, string>(e.PropertyName, e.ErrorMessage));
+            return BadRequest(await _callbackRequestService.CreateBadRequestResponseAsync(dto, errorsMessages));
+           
         }
 
         [HttpDelete("{id}")]
