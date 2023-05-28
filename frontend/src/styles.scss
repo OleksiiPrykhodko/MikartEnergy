@@ -147,9 +147,17 @@ a.text-gradient-danger{
 }
 
 
-// HEiGHT
-.vh-50{
-  height: 50vh;
+// HEIGHT
+.v{
+  &h-50{
+    height: 50vh;
+  }
+  &h-75{
+    height: 75vh;
+  }
+  &h-90{
+    height: 90vh;
+  }
 }
 
 
@@ -203,14 +211,6 @@ a.text-gradient-danger{
   }
   &b-7{
     padding-bottom: 6rem !important;
-  }
-}
-
-
-// HEIGHT
-.v{
-  &h-75{
-    height: 75vh;
   }
 }
 
