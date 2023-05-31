@@ -33,7 +33,7 @@ namespace MikartEnergy.Common.DTO.Product
         public IEnumerable<string> RelatedProductIDs { get; set; }
 
         public int MinimalOrderQuantity { get; set; } = 1;
-        public int MaximalOrderQuantity { get; set; } = 1;
+        public int MaximalOrderQuantity { get; set; } = int.MaxValue;
         public int OrderQuantityMultiple { get; set; } = 1;
         public bool InStock { get; set; } = true;
         public decimal Price { get; set; } = 0.00m;
