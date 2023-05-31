@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,33 +8,33 @@ import { Observable } from 'rxjs';
 })
 export class HttpInternalService {
 
-  public baseUrl: string = environment.apiUrl;
-  public headers = new HttpHeaders();
+  private _baseUrl: string = environment.apiUrl;
+  private _headers = new HttpHeaders();
 
   constructor(private http: HttpClient) { }
 
   public getHeaders(): HttpHeaders {
-    return this.headers;
+    return this._headers;
   }
 
   public getHeader(key: string): string {
-    return this.headers.get(key) ?? "";
+    return this._headers.get(key) ?? "";
   }
 
   public setHeader(key: string, value: string): void {
-    this.headers.set(key, value);
+    this._headers.set(key, value);
   }
 
   public deleteHeader(key: string): void {
-    this.headers.delete(key);
+    this._headers.delete(key);
   }
 
-  public getRequest<T>(url: string, httpParams?: any): Observable<T> {
-    return this.http.get<T>(this.buildUrl(url), { headers: this.getHeaders(), params: httpParams });
+  public getRequest<T>(url: string, httpQueryParams?: HttpParams): Observable<T> {
+    return this.http.get<T>(this.buildUrl(url), { headers: this.getHeaders(), params: httpQueryParams });
   }
 
-  public getFullRequest<T>(url: string, httpParams?: any): Observable<HttpResponse<T>> {
-    return this.http.get<T>(this.buildUrl(url), { observe: 'response', headers: this.getHeaders(), params: httpParams });
+  public getFullRequest<T>(url: string, httpQueryParams?: HttpParams): Observable<HttpResponse<T>> {
+    return this.http.get<T>(this.buildUrl(url), { observe: 'response', headers: this.getHeaders(), params: httpQueryParams });
   }
 
   public postClearRequest<T>(url: string, payload: object): Observable<T> {
@@ -57,19 +57,19 @@ export class HttpInternalService {
     return this.http.put<T>(this.buildUrl(url), payload, { headers: this.getHeaders(), observe: 'response' });
   }
 
-  public deleteRequest<T>(url: string, httpParams?: any): Observable<T> {
-    return this.http.delete<T>(this.buildUrl(url), { headers: this.getHeaders(), params: httpParams });
+  public deleteRequest<T>(url: string, httpQueryParams?: HttpParams): Observable<T> {
+    return this.http.delete<T>(this.buildUrl(url), { headers: this.getHeaders(), params: httpQueryParams });
   }
 
-  public deleteFullRequest<T>(url: string, httpParams?: any): Observable<HttpResponse<T>> {
-    return this.http.delete<T>(this.buildUrl(url), { headers: this.getHeaders(), observe: 'response', params: httpParams });
+  public deleteFullRequest<T>(url: string, httpQueryParams?: HttpParams): Observable<HttpResponse<T>> {
+    return this.http.delete<T>(this.buildUrl(url), { headers: this.getHeaders(), observe: 'response', params: httpQueryParams });
   }
 
   public buildUrl(url: string): string {
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
-    return this.baseUrl + url;
+    return this._baseUrl + url;
   }
 
   public prepareData(payload: object): string {
