@@ -9,6 +9,7 @@ $orange-light: #FF6C40; // logo color #F89F00
 $cyan-dark: #00a2c5; // #18C3E9;
 $blue-sky: #e7f3fa; // #f3f6fc
 $light-cloud: #f3f6fc;
+$white:    #fff;
 
 
 // MY VARIABLES
@@ -73,6 +74,10 @@ $transition-collapse-width:   width 0.5s ease ;
 $link-color:        $primary;
 $link-decoration:   none;
 $link-hover-color:  transparentize($primary, .2);
+
+
+// CARD
+$card-cap-bg:       $white;
 
 
 //----------------------------End of Redefining bootstrap variables--------------------//
