@@ -11,7 +11,7 @@ namespace MikartEnergy.Common.DTO.Product
 {
     internal class ProductDTO : ResponseStatusDTO
     {
-        public string ID { get; set; }
+        public string Id { get; set; }
         public string ManufacturerName { get; set; }
         public string OrderNumber { get; set; }
         public string ProductName { get; set; }
@@ -21,7 +21,7 @@ namespace MikartEnergy.Common.DTO.Product
 
         public string ImageLowQualityURL { get; set; }
         public string ImageHighQualityURL { get; set; }
-        public string PDFwith3dURL { get; set; }
+        public string PdfWith3dURL { get; set; }
 
         public string LinkToProductPage { get; set; }
         public string LinkToManuals { get; set; }
@@ -34,7 +34,7 @@ namespace MikartEnergy.Common.DTO.Product
 
         public int MinimalOrderQuantity { get; set; } = 1;
         public int MaximalOrderQuantity { get; set; } = int.MaxValue;
-        public int OrderQuantityMultiple { get; set; } = 1;
+        public int OrderQuantityMultiplier { get; set; } = 1;
         public bool InStock { get; set; } = true;
         public decimal Price { get; set; } = 0.00m;
         public string PriceCurrency { get; set; }
