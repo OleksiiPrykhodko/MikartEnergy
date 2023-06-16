@@ -279,6 +279,21 @@ a.text-gradient-danger{
   }
 }
 
+.zoomed-img-4{
+  img{
+    -webkit-transform: scale(1);
+	  transform: scale(1);
+	  -webkit-transition: 1s ease-in-out;
+	  transition: 1s ease-in-out;
+  }
+
+  &:hover{
+    img{
+      -webkit-transform: scale(1.4);
+      transform: scale(1.4);
+    }
+  }
+}
 
 // AVATAR
 .avatar{
