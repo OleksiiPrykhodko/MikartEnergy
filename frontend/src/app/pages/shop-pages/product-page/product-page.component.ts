@@ -11,7 +11,7 @@ import { Product } from 'src/app/models/product/product';
 
 export class ProductPageComponent {
 
-  public _infoLoaded: boolean = true;
+  public _infoLoaded: boolean = false;
   public _productIdFromRoute: string = "";
   private _subscriptionToRoutParamChange: Subscription;
   private _product: Product;
