@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "contacts", component: ContactsPageComponent },
   { path: "shop", component: ShopPageComponent},
   { path: "shop/products", component: ProductsPageComponent },
-  { path: "shop/products/:idProduct", component: ProductPageComponent },
+  { path: "shop/products/:productID", component: ProductPageComponent },
   { path: "design", component: DesignPageComponent }
 ];
 
