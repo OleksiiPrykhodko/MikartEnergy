@@ -3,32 +3,38 @@
     <!-- FIRST ELEMENT -->
     <div class="container pt-5 border border-1 border-danger">
         <div class="card shadow">
-            <div class="card-header p-4 h2" [hidden]="_infoLoaded">
-                CIRCUIT BREAKER 10KA 1POLE B2 "{{_productIdFromRoute}}"
+            <div class="card-header p-4 h2" [hidden]="checkLoading()">
+                CIRCUIT BREAKER 10KA 1POLE B2
             </div>
-            <div class="card-header p-4 h2 placeholder-glow" [hidden]="!_infoLoaded">
+            <div class="card-header p-4 h2 placeholder-glow" [hidden]="!checkLoading()">
                 <span class="placeholder placeholder-lg col-7"></span>
             </div>
             <div class="card-body p-4">
                 <div class="row">
-                    <div class="col-lg-6 zoomed-img-4 d-flex justify-content-center align-items-center border border-1 border-warning">
-                        <img class="vh-50" [hidden]="_infoLoaded" src="https://static.siemens.com/mimes/10001000PNG/G_I202_XX_26129P.png" alt="">
-                        <div class="text-opacity-50 spinner-grow text-warning vh-50" [hidden]="!_infoLoaded" role="status">
+                    <div
+                        class="col-lg-6 zoomed-img-4 d-flex justify-content-center align-items-center border border-1 border-warning">
+                        <img class="vh-50" [hidden]="checkLoading()"
+                            src="https://static.siemens.com/mimes/10001000PNG/G_I202_XX_26129P.png" alt="">
+                        <div class="text-opacity-50 spinner-grow text-warning vh-50" [hidden]="!checkLoading()"
+                            role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
                     <div class="col-lg-6 mt-4 mt-lg-0 border border-1 border-warning">
-                        <h3 class="mb-3" [hidden]="_infoLoaded">5SL4102-6</h3>
-                        <h3 class="mb-3 placeholder-glow" [hidden]="!_infoLoaded">
+                        <h3 class="mb-3" [hidden]="checkLoading()">5SL4102-6</h3>
+                        <h3 class="mb-3 placeholder-glow" [hidden]="!checkLoading()">
                             <span class="placeholder placeholder col-6"></span>
                         </h3>
-                        <p class="fw-semibold" [hidden]="_infoLoaded"> <!--fs-1--> Miniature circuit breaker 230/400 V 10kA, 1-pole, B, 2A
-                            Miniature circuit breaker SENTRON 5SL for fail-safe short-circuit and overload protection for
+                        <p class="fw-semibold" [hidden]="checkLoading()"> <!--fs-1--> Miniature circuit breaker 230/400 V
+                            10kA, 1-pole, B, 2A
+                            Miniature circuit breaker SENTRON 5SL for fail-safe short-circuit and overload protection
+                            for
                             standard applications in residential and non-residential buildings.The 5SL miniature circuit
                             breakers are available in 1-, 2-, 3-, 4-pole and 1+N- and 3+N-pole versions and in further
-                            special types.The extensive accessories, such as the auxiliary switch, allow the functions to be
+                            special types.The extensive accessories, such as the auxiliary switch, allow the functions
+                            to be
                             extended in a wide variety of ways</p>
-                        <p class="placeholder-glow" [hidden]="!_infoLoaded">
+                        <p class="placeholder-glow" [hidden]="!checkLoading()">
                             <span class="placeholder col-11"></span>
                             <span class="placeholder col-10"></span>
                             <span class="placeholder col-11"></span>
@@ -37,20 +43,137 @@
                             <span class="placeholder col-11"></span>
                             <span class="placeholder col-7"></span>
                         </p>
+                        <br>
+                        <a [hidden]="!checkProductPageLink()" href= {{getProductPageLink()}} target="_blank"><i
+                                 class="fa-solid fa-gear fs-2 me-3"></i></a>
+                        <a [hidden]="!checkManualsLink()" href= {{getManualsLink()}} target="_blank"><i
+                                 class="fa-solid fa-book fs-2 me-3"></i></a>
+                        <a [hidden]="!checkTechnicalDataLink()" href= {{getTechnicalDataLink()}} target="_blank"><i
+                                 class="fa-solid fa-glasses fs-2 me-3"></i></a>
+                        <a [hidden]="!checkExamplesLink()" href= {{getExamplesLink()}} target="_blank"><i
+                                 class="fa-solid fa-gears fs-2 me-3"></i></a>
+                        <a [hidden]="!checkFaqLink()" href= {{getFaqLink()}} target="_blank"><i
+                                 class="fa-regular fa-face-grin-beam-sweat fs-2 me-3"></i></a>
+                        <a [hidden]="!checkPdfLink()" href= {{getPdfLink()}} download target="_blank"><i
+                                 class="fa-brands fa-codepen fs-2 me-3"></i></a>
+                        <a [hidden]="!checkVideoLink()" href= {{getVideoLink()}} target="_blank"><i
+                                 class="fa-brands fa-youtube fs-2 me-3"></i></a>
                         <hr>
-                        <button type="button" [hidden]="_infoLoaded" class="btn btn-lg btn-warning">Buy now</button>
-                        <button type="button" [hidden]="!_infoLoaded" tabindex="-1" class="disabled btn btn-lg btn-warning">
-                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                            Loading...
-                        </button>
+                        <div class="d-flex">
+
+                            <button type="button" [hidden]="checkLoading()" class="btn btn-lg btn-warning">Buy now</button>
+                            <button type="button" [hidden]="!checkLoading()" tabindex="-1"
+                                class="disabled btn btn-lg btn-warning">
+                                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </button>
+                            <h2 class="ms-auto">{{getPriceAmount() | currency:getPriceCurrency() + " "}}</h2>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- SECONT ELEMENT -->
-    <div class="container pt-5 border border-1 border-danger" [hidden]="_infoLoaded">
+    <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading() && checkVideoLink()">
+        <h3 class="ps-4 pb-2">Official video</h3>
+        <div class="row">
+            <div class="col-lg-9 col-xl-8 m-auto">
+                <div class="card overflow-hidden ratio ratio-16x9 ">
+                    <div class="ratio ratio-16x9 ">
+                        <iframe src="https://www.youtube.com/embed/RxqOeUf0GOI" title="YouTube video" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THIRD ELEMENT-->
+    <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading()">
+        <h3 class="ps-4 pb-2">Links to</h3>
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <div class="list-group list-group-flush h4">
+                    <a href= {{getProductPageLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <i class="fa-solid fa-gear fs-3 me-3"></i>
+                            </div>
+                            <div class="col">
+                                Product page
+                            </div>
+                        </div>
+                    </a>
+                    <a href= {{getManualsLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <i class="fa-solid fa-book fs-3 me-3"></i>
+                            </div>
+                            <div class="col">
+                                Manuals / Operating instructions
+                            </div>
+                        </div>
+                    </a>
+                    <a href={{getTechnicalDataLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <i class="fa-solid fa-glasses fs-3 me-3"></i>
+                            </div>
+                            <div class="col">
+                                Technical data
+                            </div>
+                        </div>
+                    </a>
+                    <a href={{getExamplesLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <i class="fa-solid fa-gears fs-3 me-3"></i>
+                            </div>
+                            <div class="col">
+                                Application Examples
+                            </div>
+                        </div>
+                    </a>
+                    <a href={{getFaqLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <i class="fa-regular fa-face-grin-beam-sweat fs-3 me-3"></i>
+                            </div>
+                            <div class="col">
+                                FAQs
+                            </div>
+                        </div>
+                    </a>
+                    <a href={{getPdfLink()}} download target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <i class="fa-brands fa-codepen fs-3 me-3"></i>
+                            </div>
+                            <div class="col">
+                                3D in PDF file
+                            </div>
+                        </div>
+                    </a>
+                    <a href={{getVideoLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <i class="fa-brands fa-youtube fs-3 me-3"></i>
+                            </div>
+                            <div class="col">
+                                Video
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOURTH ELEMENT -->
+    <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading()">
         <h3 class="ps-4 pb-2">Technical data</h3>
         <div class="card shadow">
             <div class="card-body p-4">
@@ -58,27 +181,28 @@
                     <table class="table table-hover align-middle table-borderless">
                         <tbody>
                             <tr>
-                              <th scope="row" class="fw-normal">power loss [W] for rated value of the current at AC in hot operating state per pole</th>
-                              <td>1.8 W</td>
-                            </tr>
-                            <tr >
-                              <th scope="row" class="fw-normal">Jacob</th>
-                              <td>@fat</td>
+                                <th scope="row" class="fw-normal">power loss [W] for rated value of the current at AC in
+                                    hot operating state per pole</th>
+                                <td>1.8 W</td>
                             </tr>
                             <tr>
-                              <th scope="row" class="fw-normal">Thornton</th>
-                              <td>@twitter</td>
+                                <th scope="row" class="fw-normal">Jacob</th>
+                                <td>@fat</td>
                             </tr>
-                          </tbody>
+                            <tr>
+                                <th scope="row" class="fw-normal">Thornton</th>
+                                <td>@twitter</td>
+                            </tr>
+                        </tbody>
                     </table>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- THIRD ELEMENT-->
-    <div class="container pt-5 border border-1 border-danger" [hidden]="_infoLoaded">
+    <!-- LAST ELEMENT -->
+    <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading()">
         <h3 class="ps-4 pb-2">Related products</h3>
-
     </div>
+
 </div>
