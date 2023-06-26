@@ -14,7 +14,7 @@
                     <div
                         class="col-lg-6 zoomed-img-4 d-flex justify-content-center align-items-center border border-1 border-warning">
                         <img class="vh-50" [hidden]="checkLoading()"
-                            src="https://static.siemens.com/mimes/10001000PNG/G_I202_XX_26129P.png" alt="">
+                            src={{getImageHighQualityURL()}} alt="">
                         <div class="text-opacity-50 spinner-grow text-warning vh-50" [hidden]="!checkLoading()"
                             role="status">
                             <span class="visually-hidden">Loading...</span>

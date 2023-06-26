@@ -61,6 +61,9 @@ export class ProductPageComponent {
     return true;
   }
 
+  public getImageHighQualityURL(): string{
+    return "https://static.siemens.com/mimes/10001000PNG/G_I202_XX_26129P.png";
+  }
   public getProductPageLink(): string {
     return "https://www.industry-mobile-support.siemens-info.com/#/en/product/5SL4102-6";
   }
