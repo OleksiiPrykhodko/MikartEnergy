@@ -146,7 +146,7 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
                         MinimalOrderQuantity = int.Parse(GetXElementsByParent(elements, "PRODUCT_ORDER_DETAILS").First(e => e.Name.LocalName == "QUANTITY_MIN").Value),
                         OrderQuantityMultiplier = int.Parse(GetXElementsByParent(elements, "PRODUCT_ORDER_DETAILS").First(e => e.Name.LocalName == "QUANTITY_INTERVAL").Value),
 
-                        Price = int.Parse(GetXElementsByParent(elements, "PRODUCT_PRICE_DETAILS").First(e => e.Name.LocalName == "PRODUCT_PRICE").Elements().First(e => e.Name.LocalName == "PRICE_AMOUNT").Value),
+                        Price = decimal.Parse(GetXElementsByParent(elements, "PRODUCT_PRICE_DETAILS").First(e => e.Name.LocalName == "PRODUCT_PRICE").Elements().First(e => e.Name.LocalName == "PRICE_AMOUNT").Value),
                         PriceCurrency = GetXElementsByParent(elements, "PRODUCT_PRICE_DETAILS").First(e => e.Name.LocalName == "PRODUCT_PRICE").Elements().First(e => e.Name.LocalName == "PRICE_CURRENCY").Value
                     };
                 });
