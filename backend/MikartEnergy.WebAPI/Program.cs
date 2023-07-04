@@ -2,7 +2,9 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using MikartEnergy.BLL.Services;
 using MikartEnergy.DAL.Context;
+using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.WebAPI.Extensions;
+using System.Reflection;
 
 namespace MikartEnergy.WebAPI
 {
@@ -24,9 +26,9 @@ namespace MikartEnergy.WebAPI
 
             // Add DB Context.
             builder.Services.AddDbContext<MikartContext>(options => options.UseInMemoryDatabase("MikartInMemoryDB"));
-
+            
             // Add business logic services.
-            builder.Services.RegisterCustomServices();
+            builder.Services.RegisterCustomServices(builder);
             // Add FluentValidation.
             builder.Services.RegisterCustomValidators();
 
