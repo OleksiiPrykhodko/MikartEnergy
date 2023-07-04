@@ -34,14 +34,14 @@ namespace MikartEnergy.WebAPI.Controllers
             return Ok(await _productsService.GetProductByIdAsync(id));
         }
 
-        [HttpGet("[controller]/minimal")]
+        [HttpGet("minimal")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductMinimalDTO>>> GetProductsMinamal()
         {
             return Ok(await _productsService.GetAllProductsMinamalAsync());
         }
 
-        [HttpGet("[controller]/minimal/{id}")]
+        [HttpGet("minimal/{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductMinimalDTO>>> GetProductMinamal(string id)
         {
