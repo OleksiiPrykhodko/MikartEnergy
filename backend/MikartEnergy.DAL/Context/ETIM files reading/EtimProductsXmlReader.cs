@@ -12,6 +12,7 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
     {
         private readonly string _pathToFile;
         private IEnumerable<Product> _products;
+        private int _productsNumber;
 
         public EtimProductsXmlReader(string pathToFile)
         {
@@ -32,9 +33,15 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
             if (_products is null)
             {
                 _products = GetProductsFromEtimXmlFile();
+                _productsNumber = _products.Count();
                 return _products;
             }
             return _products;
+        }
+
+        public int Count()
+        {
+            return _productsNumber;
         }
 
         private IEnumerable<Product> GetProductsFromEtimXmlFile()
