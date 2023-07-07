@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MikartEnergy.BLL.Services;
 using MikartEnergy.Common.DTO.CallbackRequest;
+using MikartEnergy.Common.DTO.Pagination;
 using MikartEnergy.Common.DTO.Product;
 using System.Security.Cryptography.X509Certificates;
 
@@ -22,9 +23,9 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
+        public async Task<ActionResult<PaginationResponseDTO<ProductDTO>>> Get([FromQuery]PaginationRequestDTO request)
         {
-            return Ok(await _productsService.GetAllProductsAsync());
+            return Ok(await _productsService.GetAllProductsAsync(request));
         }
 
         [HttpGet("{id}")]
@@ -36,9 +37,9 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet("minimal")]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<ProductMinimalDTO>>> GetProductsMinamal()
+        public async Task<ActionResult<PaginationResponseDTO<ProductMinimalDTO>>> GetProductsMinamal(PaginationRequestDTO request)
         {
-            return Ok(await _productsService.GetAllProductsMinamalAsync());
+            return Ok(await _productsService.GetAllProductsMinamalAsync(request));
         }
 
         [HttpGet("minimal/{id}")]
