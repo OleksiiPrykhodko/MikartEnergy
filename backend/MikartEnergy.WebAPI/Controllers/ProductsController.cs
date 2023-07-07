@@ -23,7 +23,7 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<PaginationResponseDTO<ProductDTO>>> Get([FromQuery]PaginationRequestDTO request)
+        public async Task<ActionResult<PaginationResponseDTO<ProductDTO>>> Get([FromQuery] PaginationRequestDTO request)
         {
             return Ok(await _productsService.GetAllProductsAsync(request));
         }
@@ -37,7 +37,7 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet("minimal")]
         [AllowAnonymous]
-        public async Task<ActionResult<PaginationResponseDTO<ProductMinimalDTO>>> GetProductsMinamal(PaginationRequestDTO request)
+        public async Task<ActionResult<PaginationResponseDTO<ProductMinimalDTO>>> GetProductsMinamal([FromQuery] PaginationRequestDTO request)
         {
             return Ok(await _productsService.GetAllProductsMinamalAsync(request));
         }
