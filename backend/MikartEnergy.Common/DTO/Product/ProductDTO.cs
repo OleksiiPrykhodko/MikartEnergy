@@ -9,7 +9,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace MikartEnergy.Common.DTO.Product
 {
-    public class ProductDTO : ResponseStatusDTO
+    public class ProductDTO
     {
         public string Id { get; set; } = string.Empty;
         public string ManufacturerName { get; set; } = string.Empty;

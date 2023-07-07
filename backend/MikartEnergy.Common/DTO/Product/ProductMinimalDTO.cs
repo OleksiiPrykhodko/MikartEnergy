@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.Common.DTO.Product
 {
-    public class ProductMinimalDTO : ResponseStatusDTO
+    public class ProductMinimalDTO
     {
         public string Id { get; set; } = string.Empty;
         public string ManufacturerName { get; set; } = string.Empty;
