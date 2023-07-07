@@ -1,6 +1,7 @@
 ﻿using MikartEnergy.BLL.Mapping;
 using MikartEnergy.BLL.Services.Abstract;
 using MikartEnergy.Common.DTO.CallbackRequest;
+using MikartEnergy.Common.DTO.Pagination;
 using MikartEnergy.Common.DTO.Product;
 using MikartEnergy.Common.Enums;
 using MikartEnergy.DAL.Context;
@@ -22,15 +23,20 @@ namespace MikartEnergy.BLL.Services
         private List<Product> _productsList;
 
         public ProductService(IEtimProductsFileReader etimProductsFileReader)
-        {
-            //_path = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? "";
+        { 
             _etimProductsFileReader = etimProductsFileReader;
             _productsList = _etimProductsFileReader.GetProducts().ToList();
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetAllProductsAsync()
+        public async Task<PaginationResponseDTO<ProductDTO>> GetAllProductsAsync(PaginationRequestDTO request)
         {
-            return await Task.Run(() => _productsList.Select(p => p.ToProductDTO()));
+            var skipeAmount = (request.PageIndex - 1) * request.PageSize;
+
+            return await Task.Run(() => new PaginationResponseDTO<ProductDTO>()
+            {
+                Items = _productsList.Skip(skipeAmount).Take(request.PageSize).Select(p => p.ToProductDTO()),
+                TotalItemsNumber = _productsList.Count()
+            });
         }
 
         public async Task<ProductDTO> GetProductByIdAsync(string id)
@@ -50,9 +56,15 @@ namespace MikartEnergy.BLL.Services
             });
         }
 
-        public async Task<IEnumerable<ProductMinimalDTO>> GetAllProductsMinamalAsync()
+        public async Task<PaginationResponseDTO<ProductMinimalDTO>> GetAllProductsMinamalAsync(PaginationRequestDTO request)
         {
-            return await Task.Run(() => _productsList.Select(p => p.ToProductMinimalDTO()));
+            var skipeAmount = (request.PageIndex - 1) * request.PageSize;
+
+            return await Task.Run(() => new PaginationResponseDTO<ProductMinimalDTO>()
+            {
+                Items = _productsList.Skip(skipeAmount).Take(request.PageSize).Select(p => p.ToProductMinimalDTO()),
+                TotalItemsNumber = _productsList.Count()
+            });
         }
 
         public async Task<ProductMinimalDTO> GetProductMinamalByIdAsync(string id)
