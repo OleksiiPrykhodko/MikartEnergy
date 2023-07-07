@@ -10,5 +10,6 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
     public interface IEtimProductsFileReader
     {
         IEnumerable<Product> GetProducts();
+        int Count();
     }
 }
