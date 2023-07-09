@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MikartEnergy.BLL.Services;
 using MikartEnergy.Common.DTO.CallbackRequest;
+using MikartEnergy.Common.DTO.Pagination;
 using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.WebAPI.Validators;
 using System.Reflection;
@@ -22,8 +23,8 @@ namespace MikartEnergy.WebAPI.Extensions
             services.AddSingleton<IEtimProductsFileReader, EtimProductsXmlReader>(
                 x => new EtimProductsXmlReader(pathToAssembly + "\\" + etimFilePath));
 
-            services.AddSingleton<ProductService>();
             services.AddScoped<CallbackRequestService>();
+            services.AddSingleton<ProductService>();
         }
 
         /// <summary>
@@ -32,8 +33,12 @@ namespace MikartEnergy.WebAPI.Extensions
         /// <param name="services"></param>
         public static void RegisterCustomValidators(this IServiceCollection services)
         {
+            // CallbackRequests validators.
             services.AddScoped<IValidator<NewCallbackRequestDTO>, NewCallbackRequestDTOValidator>();
             services.AddScoped<IValidator<CallbackRequestDTO>, CallbackRequestDTOValidator>();
+
+            // Pagination validator.
+            services.AddScoped<IValidator<PaginationRequestDTO>, PaginationRequestDTOValidator>();
         }
     }
 }
