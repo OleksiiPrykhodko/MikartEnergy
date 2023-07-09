@@ -18,9 +18,10 @@ namespace MikartEnergy.BLL.Services
 {
     public class CallbackRequestService : BaseService
     {
-        public CallbackRequestService(MikartContext context) : base(context)
+        private readonly MikartContext _context;
+        public CallbackRequestService(MikartContext context)
         {
-
+            _context = context;
         }
 
         public async Task<ResultModel<CallbackRequestDTO>> CreateCallbackRequestAsync(NewCallbackRequestDTO dto)
