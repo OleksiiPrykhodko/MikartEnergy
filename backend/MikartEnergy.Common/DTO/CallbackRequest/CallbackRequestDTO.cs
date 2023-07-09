@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.Common.DTO.CallbackRequest
 {
-    public class CallbackRequestDTO : ResponseStatusDTO
+    public class CallbackRequestDTO
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }

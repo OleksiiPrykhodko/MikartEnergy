@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.Common.DTO.CallbackRequest
 {
-    public class NewCallbackRequestDTO : ResponseStatusDTO
+    public class NewCallbackRequestDTO
     {
         public string AuthorFirstName { get; set; }
         public string AuthorLastName { get; set; }
