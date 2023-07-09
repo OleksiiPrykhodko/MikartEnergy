@@ -1,12 +1,5 @@
-﻿using MikartEnergy.Common.DTO.Abstract;
-using MikartEnergy.Common.DTO.CallbackRequest;
-using MikartEnergy.Common.Models.Result;
+﻿using MikartEnergy.Common.Models.Result;
 using MikartEnergy.DAL.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MikartEnergy.BLL.Services.Abstract
 {

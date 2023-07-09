@@ -1,13 +1,4 @@
-﻿using MikartEnergy.Common.DTO.Abstract;
-using MikartEnergy.Common.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MikartEnergy.Common.DTO.CallbackRequest
+﻿namespace MikartEnergy.Common.DTO.CallbackRequest
 {
     public class CallbackRequestDTO
     {
