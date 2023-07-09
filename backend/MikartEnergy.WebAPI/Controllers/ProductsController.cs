@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MikartEnergy.BLL.Services;
@@ -6,6 +7,8 @@ using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.Common.DTO.Pagination;
 using MikartEnergy.Common.DTO.Product;
 using MikartEnergy.Common.Models.Result;
+using MikartEnergy.WebAPI.Validators;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography.X509Certificates;
 
 namespace MikartEnergy.WebAPI.Controllers
@@ -16,17 +19,30 @@ namespace MikartEnergy.WebAPI.Controllers
     public class ProductsController : Controller
     {
         private readonly ProductService _productsService;
+        private readonly IValidator<PaginationRequestDTO> _paginationValidator;
 
-        public ProductsController(ProductService productService)
+        public ProductsController(
+            ProductService productService,
+            IValidator<PaginationRequestDTO> paginationValidator)
         {
             _productsService = productService;
+            _paginationValidator = paginationValidator;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductDTO>>>> Get([FromQuery] PaginationRequestDTO request)
         {
-            return Ok(await _productsService.GetAllProductsAsync(request));
+            var validationResult = await _paginationValidator.ValidateAsync(request);
+
+            if (validationResult.IsValid)
+            {
+                return Ok(await _productsService.GetAllProductsAsync(request));
+            }
+
+            var errorsMessages = validationResult.Errors
+                .Select(err => new KeyValuePair<string, string>(err.PropertyName, err.ErrorMessage));
+            return BadRequest(await _productsService.CreateBadRequestResultAsync(request, errorsMessages));
         }
 
         [HttpGet("{id}")]
@@ -40,7 +56,16 @@ namespace MikartEnergy.WebAPI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductMinimalDTO>>>> GetProductsMinamal([FromQuery] PaginationRequestDTO request)
         {
-            return Ok(await _productsService.GetAllProductsMinamalAsync(request));
+            var validationResult = await _paginationValidator.ValidateAsync(request);
+
+            if (validationResult.IsValid)
+            {
+                return Ok(await _productsService.GetAllProductsMinamalAsync(request));
+            }
+
+            var errorsMessages = validationResult.Errors
+                .Select(err => new KeyValuePair<string, string>(err.PropertyName, err.ErrorMessage));
+            return BadRequest(await _productsService.CreateBadRequestResultAsync(request, errorsMessages));
         }
 
         [HttpGet("minimal/{id}")]
