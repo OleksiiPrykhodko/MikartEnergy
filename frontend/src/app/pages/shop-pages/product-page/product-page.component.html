@@ -3,7 +3,7 @@
     <!-- FIRST ELEMENT -->
     <div class="container pt-5 border border-1 border-danger">
         <div class="card shadow">
-            <div class="card-header p-4 h2" [hidden]="checkLoading()">
+            <div class="card-header p-4 h2 text-primary" [hidden]="checkLoading()">
                 CIRCUIT BREAKER 10KA 1POLE B2
             </div>
             <div class="card-header p-4 h2 placeholder-glow" [hidden]="!checkLoading()">
@@ -11,8 +11,7 @@
             </div>
             <div class="card-body p-4">
                 <div class="row">
-                    <div
-                        class="col-lg-6 zoomed-img-4 d-flex justify-content-center align-items-center border border-1 border-warning">
+                    <div class="col-lg-6 zoomed-img-4 d-flex justify-content-center align-items-center border border-1 border-warning">
                         <img class="vh-50" [hidden]="checkLoading()"
                             src={{getImageHighQualityURL()}} alt="">
                         <div class="text-opacity-50 spinner-grow text-warning vh-50" [hidden]="!checkLoading()"
@@ -77,7 +76,7 @@
 
     <!-- SECONT ELEMENT -->
     <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading() && checkVideoLink()">
-        <h3 class="ps-4 pb-2">Official video</h3>
+        <h3 class="ps-4 pb-2 text-primary">Official video</h3>
         <div class="row">
             <div class="col-lg-9 col-xl-8 m-auto">
                 <div class="card overflow-hidden ratio ratio-16x9 ">
@@ -93,7 +92,7 @@
 
     <!-- THIRD ELEMENT-->
     <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading()">
-        <h3 class="ps-4 pb-2">Links to</h3>
+        <h3 class="ps-4 pb-2 text-primary">Links to</h3>
         <div class="card shadow">
             <div class="card-body p-4">
                 <div class="list-group list-group-flush h4">
@@ -174,7 +173,7 @@
 
     <!-- FOURTH ELEMENT -->
     <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading()">
-        <h3 class="ps-4 pb-2">Technical data</h3>
+        <h3 class="ps-4 pb-2 text-primary">Technical data</h3>
         <div class="card shadow">
             <div class="card-body p-4">
                 <div class="table-responsive">
@@ -202,7 +201,98 @@
 
     <!-- LAST ELEMENT -->
     <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading()">
-        <h3 class="ps-4 pb-2">Related products</h3>
+        <h3 class="ps-4 pb-2 text-primary">Related products</h3>
+        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-3">
+            <div class="col zoomed-img">
+                <a href= {{getProductPageLink()}} target="_blank">
+                    <div class="card h-100 hover-shadow">
+                        <div class="img-box p-3">
+                            <img src="https://static.siemens.com/mimes/03000300JPG/G_I202_XX_26132I.jpg" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <div class="lh-sm text-primary">This is not so short card as they whant.</div>
+                            <div class="mt-1 text-muted text-truncate text-uppercase"><small>5SL4102-6</small></div>
+                            <div class="h5 mt-auto text-end">EUR 9.50</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col zoomed-img">
+                <a href= {{getProductPageLink()}} target="_blank">
+                    <div class="card  h-100 hover-shadow">
+                        <div class="p-3">
+                            <img src="https://static.siemens.com/mimes/03000300JPG/G_I202_XX_26132I.jpg" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <div class="text-muted text-truncate text-uppercase"><small>5SL4102-6</small></div>
+                            <div class="lh-sm text-primary">This is not so short card as they whant.</div>
+                            <div class="h5 mt-auto text-end">EUR 9.50</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+              <div class="card shadow h-100">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body d-flex flex-column"> 
+                    <div class="">
+                     <p class="card-text">This is a longer card with supporting text below.</p>
+                    </div>
+                    <div>
+                        <p class="card-text text-muted">5SL4102-6</p>
+                    </div>
+                    <div class="mt-auto">
+                      <h5>EUR 9.50</h5>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow h-100">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <p class="card-text">This is a longer card with supporting text below .</p>
+                  <h5 class="card-title">Card title</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+                <div class="card shadow h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in.</p>
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <p class="card-text">This is a short card.</p>
+                    <h5 class="card-title">Card title</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                </div>
+              </div>
+          </div>
     </div>
 
 </div>
