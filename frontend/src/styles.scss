@@ -312,8 +312,14 @@ a.text-gradient-danger{
   object-position: center;
 }
 
-
-
+// SHADOW
+.hover-shadow{
+  transition: box-shadow .5s;
+  box-shadow: 0 .125rem .25rem rgba($danger, .075);
+}
+.hover-shadow:hover {
+  box-shadow: 0 1rem 3rem rgba($primary, .175); 
+}
 
 
 // DO NOT DELETE
