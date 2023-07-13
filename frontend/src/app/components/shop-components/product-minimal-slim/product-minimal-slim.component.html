@@ -1,1 +1,14 @@
-<p>product-minimal-slim works!</p>
+<div class="col zoomed-img">
+    <a href= {{getLinkToProductPage()}} target="_blank">
+        <div class="card h-100 hover-shadow">
+            <div class="img-box p-3">
+                <img src={{getImageLowQualityURL()}} class="card-img-top" alt={{getOrderNumber()}}>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <div class="lh-sm text-primary">{{getProductName()}}</div>
+                <div class="mt-1 text-muted text-truncate text-uppercase"><small>{{getOrderNumber()}}</small></div>
+                <div class="h5 mt-auto text-end">{{getPriceAmount() | currency:getPriceCurrency() + " "}}</div>
+            </div>
+        </div>
+    </a>
+</div>
