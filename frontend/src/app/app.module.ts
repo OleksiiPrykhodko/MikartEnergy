@@ -14,6 +14,8 @@ import { ShopPageComponent } from './pages/shop-pages/shop-page/shop-page.compon
 import { ProductPageComponent } from './pages/shop-pages/product-page/product-page.component';
 import { ProductsPageComponent } from './pages/shop-pages/products-page/products-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductMinimalSlimComponent } from './components/shop-components/product-minimal-slim/product-minimal-slim.component';
+import { ProductMinimalWideComponent } from './components/shop-components/product-minimal-wide/product-minimal-wide.component';
 
 
 
@@ -27,7 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
     ContactsPageComponent,
     ShopPageComponent,
     ProductPageComponent,
-    ProductsPageComponent
+    ProductsPageComponent,
+    ProductMinimalSlimComponent,
+    ProductMinimalWideComponent
   ],
   imports: [
     BrowserModule,
