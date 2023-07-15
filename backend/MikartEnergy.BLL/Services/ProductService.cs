@@ -41,7 +41,8 @@ namespace MikartEnergy.BLL.Services
 
         public async Task<ResultModel<ProductDTO>> GetProductByIdAsync(string id)
         {
-            var product = _productsList.Find(p => p.Id == id);
+            var idUpper = id.ToUpper();
+            var product = _productsList.Find(p => p.Id == idUpper);
 
             if (product is not null)
             {
@@ -50,7 +51,7 @@ namespace MikartEnergy.BLL.Services
 
             return await Task.Run(() =>
             {
-                var productDTO = new ProductDTO() { Id = id };
+                var productDTO = new ProductDTO() { Id = idUpper };
                 var result = new ResultModel<ProductDTO>(productDTO);
                 result.AddErrorToDTO(ResponseError.NotFound.ToString(), "Product was not found by ID.");
                 return result;
@@ -69,7 +70,8 @@ namespace MikartEnergy.BLL.Services
 
         public async Task<ResultModel<ProductMinimalDTO>> GetProductMinamalByIdAsync(string id)
         {
-            var product = _productsList.Find(p => p.Id == id);
+            var idUpper = id.ToUpper();
+            var product = _productsList.Find(p => p.Id == idUpper);
 
             if (product is not null)
             {
@@ -78,7 +80,7 @@ namespace MikartEnergy.BLL.Services
 
             return await Task.Run(() =>
             {
-                var productDTO = new ProductMinimalDTO() { Id = id };
+                var productDTO = new ProductMinimalDTO() { Id = idUpper };
                 var result = new ResultModel<ProductMinimalDTO>(productDTO);
                 result.AddErrorToDTO(ResponseError.NotFound.ToString(), "Product was not found by ID.");
                 return result;
