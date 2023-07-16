@@ -38,7 +38,7 @@ export class ProductPageComponent {
           if(result.body?.successful){
             // All OK
             this._product = result.body?.dto;
-            this._relatedProducts = 
+            //this._relatedProducts = 
             this._infoIsLoading = false;
           }
           else{
