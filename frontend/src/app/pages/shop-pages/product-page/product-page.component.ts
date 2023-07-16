@@ -15,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 export class ProductPageComponent {
 
-  private _infoIsLoaded: boolean = false;
+  private _infoIsLoading: boolean = true;
   private _productIdFromRoute: string = "";
   private _subscriptionToRoutParamChange: Subscription;
   private _product: Product;
@@ -40,8 +40,8 @@ export class ProductPageComponent {
         this._product = result.body?.successful ? result.body?.dto : this._product;
         console.log("win");
         console.log(result.body?.dto.id);
+        this._infoIsLoading = false;
       })
-      //
   }
 
   ngOnDestroy() {
@@ -51,32 +51,35 @@ export class ProductPageComponent {
 
 
   public checkLoading(): boolean {
-    return this._infoIsLoaded;
+    return this._infoIsLoading;
   }
 
   public checkProductPageLink(): boolean {
-    return true;
+    return this.getProductPageLink() !== "";
   }
   public checkManualsLink(): boolean {
-    return true;
+    return this.getManualsLink() !== "";
   }
   public checkTechnicalDataLink(): boolean {
-    return true;
+    return this.getTechnicalDataLink() !== "";
   }
   public checkExamplesLink(): boolean {
-    return true;
+    return this.getExamplesLink() !== "";
   }
   public checkFaqLink(): boolean {
-    return true;
+    return this.getFaqLink() !== "";
   }
   public checkPdfLink(): boolean {
-    return true;
+    return this.getPdfLink() !== "";
   }
   public checkVideoLink(): boolean {
-    return true;
+    return this.getVideoLink() !== "";
+  }
+  public checkEmbededVideoLink(): boolean{
+    return this.getEmbededVideoLink() !== "";
   }
   public checkRelatedProducts(): boolean {
-    return true;
+    return this._relatedProducts.length > 0;
   }
 
   public getProductName(): string{
@@ -119,10 +122,8 @@ export class ProductPageComponent {
   public getVideoLink(): string {
     return this._product ? this._product.linkToVideo : "";
   }
-  public getEmbededVideoLink(){
-    // https://www.youtube.com/embed/RxqOeUf0GOI - https://youtu.be/DXDxYU7gJAI
-    // https://www.youtube.com/embed/DXDxYU7gJAI
-    
+  public getEmbededVideoLink(): string{
+    // The link from the backend can come empty and comes in the wrong format. 
     if(this._product && this._product.linkToVideo.startsWith("https://youtu.be/")){
       var str = this._product.linkToVideo.replace("https://youtu.be/", "https://www.youtube.com/embed/")
       return str;
