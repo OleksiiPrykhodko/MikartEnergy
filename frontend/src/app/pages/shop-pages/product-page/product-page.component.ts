@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product/product';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ProductMinimal } from 'src/app/models/product/prodact-minimal';
+import { ProductService } from 'src/app/services/shop-service/product.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-page',
@@ -16,27 +19,39 @@ export class ProductPageComponent {
   private _productIdFromRoute: string = "";
   private _subscriptionToRoutParamChange: Subscription;
   private _product: Product;
+  private _productSubscription: Subscription;
+  private _relatedProducts: ProductMinimal[] = [];
 
-  constructor(private activateRoute: ActivatedRoute, private http: HttpClient) {
+  constructor(
+    private activateRoute: ActivatedRoute,
+    private productService: ProductService) 
+  {
     this._subscriptionToRoutParamChange =
       activateRoute.params.subscribe(params => this._productIdFromRoute = params["productID"]);
   }
 
-  public _body: string = "";
-
   ngOnInit() {
-    //this.http.get("https://sie.ag/2OHKMiZ").subscribe(resp => this._body = resp.toString())
+    console.log(this._productIdFromRoute);
+
+    this._productSubscription = this.productService.getProductById(this._productIdFromRoute)
+    .subscribe(result =>
+      {
+        console.log(result.status);
+        this._product = result.body?.successful ? result.body?.dto : this._product;
+        console.log("win");
+        console.log(result.body?.dto.id);
+      })
+      //
   }
 
   ngOnDestroy() {
     this._subscriptionToRoutParamChange.unsubscribe();
+    this._productSubscription.unsubscribe();
   }
+
 
   public checkLoading(): boolean {
     return this._infoIsLoaded;
-  }
-  public getProdactId(): string {
-    return this._productIdFromRoute;
   }
 
   public checkProductPageLink(): boolean {
@@ -60,36 +75,63 @@ export class ProductPageComponent {
   public checkVideoLink(): boolean {
     return true;
   }
+  public checkRelatedProducts(): boolean {
+    return true;
+  }
 
+  public getProductName(): string{
+    return this._product ? this._product.productName : "";
+  }
   public getImageHighQualityURL(): string{
-    return "https://static.siemens.com/mimes/10001000PNG/G_I202_XX_26129P.png";
+    return this._product ? this._product.imageHighQualityURL : "";
   }
-  public getProductPageLink(): string {
-    return "https://www.industry-mobile-support.siemens-info.com/#/en/product/5SL4102-6";
+  public getOrderNumber(): string{
+    return this._product ? this._product.orderNumber : "";
   }
-  public getManualsLink(): string {
-    return "";
-  }
-  public getTechnicalDataLink(): string {
-    return "";
-  }
-  public getExamplesLink(): string {
-    return "";
-  }
-  public getFaqLink(): string {
-    return "";
-  }
-  public getPdfLink(): string {
-    return "https://static.siemens.com/mimes/imagedb_pdf/G_I202_XX_26118V.pdf";
-  }
-  public getVideoLink(): string {
-    return "";
+  public getLongDescription(): string{
+    return this._product ? this._product.longDescription : "";
   }
   public getPriceAmount(): number {
-    return 9.50;
+    return this._product ? this._product.price : 0;
   }
   public getPriceCurrency(): string {
-    return "EUR"
+    return this._product ? this._product.priceCurrency : "";
+  }
+
+  public getProductPageLink(): string {
+    return this._product ? this._product.linkToProductPage : "";
+  }
+  public getManualsLink(): string {
+    return this._product ? this._product.linkToManuals : "";
+  }
+  public getTechnicalDataLink(): string {
+    return this._product ? this._product.linkToTechnicalData : "";
+  }
+  public getExamplesLink(): string {
+    return this._product ? this._product.linkToApplicationExample : "";
+  }
+  public getFaqLink(): string {
+    return this._product ? this._product.linkToFAQ : "";
+  }
+  public getPdfLink(): string {
+    return this._product ? this._product.pdfWith3dURL : "";
+  }
+  public getVideoLink(): string {
+    return this._product ? this._product.linkToVideo : "";
+  }
+  public getEmbededVideoLink(){
+    // https://www.youtube.com/embed/RxqOeUf0GOI - https://youtu.be/DXDxYU7gJAI
+    // https://www.youtube.com/embed/DXDxYU7gJAI
+    
+    if(this._product && this._product.linkToVideo.startsWith("https://youtu.be/")){
+      var str = this._product.linkToVideo.replace("https://youtu.be/", "https://www.youtube.com/embed/")
+      return str;
+    }
+    return "";
+  }
+
+  public getRelatedProducts(): ProductMinimal[]{
+    return this._relatedProducts;
   }
 
 }

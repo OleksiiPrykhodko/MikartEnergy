@@ -4,7 +4,7 @@
     <div class="container pt-5 border border-1 border-danger">
         <div class="card shadow">
             <div class="card-header p-4 h2 text-primary" [hidden]="checkLoading()">
-                CIRCUIT BREAKER 10KA 1POLE B2
+                {{getProductName()}}
             </div>
             <div class="card-header p-4 h2 placeholder-glow" [hidden]="!checkLoading()">
                 <span class="placeholder placeholder-lg col-7"></span>
@@ -20,19 +20,13 @@
                         </div>
                     </div>
                     <div class="col-lg-6 mt-4 mt-lg-0 border border-1 border-warning">
-                        <h3 class="mb-3" [hidden]="checkLoading()">5SL4102-6</h3>
+                        <h3 class="mb-3" [hidden]="checkLoading()">{{getOrderNumber()}}</h3>
                         <h3 class="mb-3 placeholder-glow" [hidden]="!checkLoading()">
                             <span class="placeholder placeholder col-6"></span>
                         </h3>
-                        <p class="fw-semibold" [hidden]="checkLoading()"> <!--fs-1--> Miniature circuit breaker 230/400 V
-                            10kA, 1-pole, B, 2A
-                            Miniature circuit breaker SENTRON 5SL for fail-safe short-circuit and overload protection
-                            for
-                            standard applications in residential and non-residential buildings.The 5SL miniature circuit
-                            breakers are available in 1-, 2-, 3-, 4-pole and 1+N- and 3+N-pole versions and in further
-                            special types.The extensive accessories, such as the auxiliary switch, allow the functions
-                            to be
-                            extended in a wide variety of ways</p>
+                        <p class="fw-semibold" [hidden]="checkLoading()"> <!--fs-1--> 
+                            {{getLongDescription()}} 
+                        </p>
                         <p class="placeholder-glow" [hidden]="!checkLoading()">
                             <span class="placeholder col-11"></span>
                             <span class="placeholder col-10"></span>
@@ -59,7 +53,6 @@
                                  class="fa-brands fa-youtube fs-2 me-3"></i></a>
                         <hr>
                         <div class="d-flex">
-
                             <button type="button" [hidden]="checkLoading()" class="btn btn-lg btn-warning">Buy now</button>
                             <button type="button" [hidden]="!checkLoading()" tabindex="-1"
                                 class="disabled btn btn-lg btn-warning">
@@ -81,7 +74,7 @@
             <div class="col-lg-9 col-xl-8 m-auto">
                 <div class="card overflow-hidden ratio ratio-16x9 ">
                     <div class="ratio ratio-16x9 ">
-                        <iframe src="https://www.youtube.com/embed/RxqOeUf0GOI" title="YouTube video" frameborder="0"
+                        <iframe [src]="getEmbededVideoLink()" title="YouTube video" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen></iframe>
                     </div>
@@ -106,7 +99,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href= {{getManualsLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                    <a href= {{getManualsLink()}} target="_blank" [ngClass]="checkManualsLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-1 text-center">
                                 <i class="fa-solid fa-book fs-3 me-3"></i>
@@ -116,7 +109,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href={{getTechnicalDataLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                    <a href={{getTechnicalDataLink()}} target="_blank" [ngClass]="checkTechnicalDataLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-1 text-center">
                                 <i class="fa-solid fa-glasses fs-3 me-3"></i>
@@ -126,7 +119,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href={{getExamplesLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                    <a href={{getExamplesLink()}} target="_blank" [ngClass]="checkExamplesLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-1 text-center">
                                 <i class="fa-solid fa-gears fs-3 me-3"></i>
@@ -136,7 +129,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href={{getFaqLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                    <a href={{getFaqLink()}} target="_blank" [ngClass]="checkFaqLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-1 text-center">
                                 <i class="fa-regular fa-face-grin-beam-sweat fs-3 me-3"></i>
@@ -146,7 +139,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href={{getPdfLink()}} download target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                    <a href={{getPdfLink()}} download target="_blank" [ngClass]="checkPdfLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-1 text-center">
                                 <i class="fa-brands fa-codepen fs-3 me-3"></i>
@@ -156,7 +149,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href={{getVideoLink()}} target="_blank" [ngClass]="checkProductPageLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
+                    <a href={{getVideoLink()}} target="_blank" [ngClass]="checkVideoLink() ? '' : 'disabled'" class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-1 text-center">
                                 <i class="fa-brands fa-youtube fs-3 me-3"></i>
@@ -200,9 +193,12 @@
     </div>
 
     <!-- LAST ELEMENT -->
-    <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading()">
+    <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading() && checkRelatedProducts()">
         <h3 class="ps-4 pb-2 text-primary">Related products</h3>
         <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-3">
+            <app-product-minimal-slim *ngFor="let item of getRelatedProducts()" [_product]="item"></app-product-minimal-slim>
+            
+
             <div class="col zoomed-img">
                 <a href= {{getProductPageLink()}} target="_blank">
                     <div class="card h-100 hover-shadow">
