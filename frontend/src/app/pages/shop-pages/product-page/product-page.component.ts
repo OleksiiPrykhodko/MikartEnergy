@@ -23,24 +23,41 @@ export class ProductPageComponent {
   private _relatedProducts: ProductMinimal[] = [];
 
   constructor(
-    private activateRoute: ActivatedRoute,
-    private productService: ProductService) 
+    private _activateRoute: ActivatedRoute,
+    private _productService: ProductService) 
   {
     this._subscriptionToRoutParamChange =
-      activateRoute.params.subscribe(params => this._productIdFromRoute = params["productID"]);
+      _activateRoute.params.subscribe(params => this._productIdFromRoute = params["productID"]);
   }
 
   ngOnInit() {
-    console.log(this._productIdFromRoute);
-
-    this._productSubscription = this.productService.getProductById(this._productIdFromRoute)
+    this._productSubscription = this._productService.getProductById(this._productIdFromRoute)
     .subscribe(result =>
       {
-        console.log(result.status);
-        this._product = result.body?.successful ? result.body?.dto : this._product;
-        console.log("win");
-        console.log(result.body?.dto.id);
-        this._infoIsLoading = false;
+        if(result.url !== null && result.body !== null && result.status >= 200 && result.status < 400){
+          if(result.body?.successful){
+            // All OK
+            this._product = result.body?.dto;
+            this._relatedProducts = 
+            this._infoIsLoading = false;
+          }
+          else{
+            // Result model with successful = false
+            // If the error is Id not found, redirect to page "page not found".
+            result.body?.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
+          }
+        }
+        else{
+          if(result.url == null){
+            console.log(`The server is not available.`);
+          }
+          else{
+            if(result.body == null){
+              console.log(`Server response error. No required response body.`);
+            }
+            console.log(`Something go wrong. HTTP response code: ${result.status}`);
+          }
+        }
       })
   }
 
@@ -134,5 +151,9 @@ export class ProductPageComponent {
   public getRelatedProducts(): ProductMinimal[]{
     return this._relatedProducts;
   }
+
+  //private loadRelatedProducts(orderNumbers: string[]): ProductMinimal[]{
+  //  
+  //}
 
 }
