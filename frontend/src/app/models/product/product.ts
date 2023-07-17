@@ -21,7 +21,7 @@ export interface Product {
     linkToApplicationExample: string;
     linkToVideo: string;
 
-    relatedProductIDs: ProductMinimal[];
+    relatedProducts: ProductMinimal[];
 
     minimalOrderQuantity: number;
     maximalOrderQuantity: number;
