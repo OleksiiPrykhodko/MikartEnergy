@@ -34,8 +34,6 @@ namespace MikartEnergy.BLL.Mapping
                 LinkToApplicationExample = entity.LinkToApplicationExample,
                 LinkToVideo = entity.LinkToVideo,
 
-                RelatedProductIDs = entity.RelatedProductIDs,
-
                 MinimalOrderQuantity = entity.MinimalOrderQuantity,
                 MaximalOrderQuantity = entity.MaximalOrderQuantity,
                 OrderQuantityMultiplier = entity.OrderQuantityMultiplier,
