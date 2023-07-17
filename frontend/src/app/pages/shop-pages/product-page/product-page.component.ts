@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product/product';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ProductMinimal } from 'src/app/models/product/prodact-minimal';
 import { ProductService } from 'src/app/services/shop-service/product.service';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-page',
@@ -24,7 +23,8 @@ export class ProductPageComponent {
 
   constructor(
     private _activateRoute: ActivatedRoute,
-    private _productService: ProductService) 
+    private _productService: ProductService,
+    private _router: Router) 
   {
     this._subscriptionToRoutParamChange =
       _activateRoute.params.subscribe(params => this._productIdFromRoute = params["productID"]);
@@ -34,17 +34,22 @@ export class ProductPageComponent {
     this._productSubscription = this._productService.getProductById(this._productIdFromRoute)
     .subscribe(result =>
       {
-        if(result.url !== null && result.body !== null && result.status >= 200 && result.status < 400){
+        if(result.url !== null && result.body !== null && result.ok){
           if(result.body?.successful){
             // All OK
             this._product = result.body?.dto;
-            //this._relatedProducts = 
+            this._relatedProducts = this._product.relatedProducts;
             this._infoIsLoading = false;
           }
           else{
             // Result model with successful = false
-            // If the error is Id not found, redirect to page "page not found".
-            result.body?.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
+            // If the error is Id not found (key = "NotFound"), redirect to page "page not found".
+            if(result.body?.errors.some(e => e.key === "NotFound")){
+              this._router.navigate(['404'])
+            }
+            else{
+              result.body?.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
+            }
           }
         }
         else{
@@ -149,11 +154,8 @@ export class ProductPageComponent {
   }
 
   public getRelatedProducts(): ProductMinimal[]{
+    console.log("loade of min");
     return this._relatedProducts;
   }
-
-  //private loadRelatedProducts(orderNumbers: string[]): ProductMinimal[]{
-  //  
-  //}
 
 }
