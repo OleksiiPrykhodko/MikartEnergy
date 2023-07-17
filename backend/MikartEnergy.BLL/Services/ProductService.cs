@@ -46,7 +46,11 @@ namespace MikartEnergy.BLL.Services
 
             if (product is not null)
             {
-                return await Task.Run(() => new ResultModel<ProductDTO>(product.ToProductDTO()));
+                var dto = product.ToProductDTO();
+                dto.RelatedProducts = _productsList
+                    .IntersectBy(product.RelatedProductIDs, p => p.Id)
+                    .Select(p => p.ToProductMinimalDTO());
+                return await Task.Run(() => new ResultModel<ProductDTO>(dto));
             }
 
             return await Task.Run(() =>
