@@ -21,7 +21,7 @@
         public string LinkToApplicationExample { get; set; } = string.Empty;
         public string LinkToVideo { get; set; } = string.Empty;
 
-        public IEnumerable<string> RelatedProductIDs { get; set; }
+        public IEnumerable<ProductMinimalDTO> RelatedProductIDs { get; set; } = new ProductMinimalDTO[0];
 
         public int MinimalOrderQuantity { get; set; } = 1;
         public int MaximalOrderQuantity { get; set; } = int.MaxValue;

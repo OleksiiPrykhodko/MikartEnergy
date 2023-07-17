@@ -1,4 +1,5 @@
 import { keyValuePair } from "../common/keyValuePair";
+import { ProductMinimal } from "./prodact-minimal";
 
 export interface Product {
     id: string;
@@ -20,7 +21,7 @@ export interface Product {
     linkToApplicationExample: string;
     linkToVideo: string;
 
-    relatedProductIDs: string[];
+    relatedProductIDs: ProductMinimal[];
 
     minimalOrderQuantity: number;
     maximalOrderQuantity: number;
