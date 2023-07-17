@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductMinimalSlimComponent } from './components/shop-components/product-minimal-slim/product-minimal-slim.component';
 import { ProductMinimalWideComponent } from './components/shop-components/product-minimal-wide/product-minimal-wide.component';
 import { SafeUrlPipe } from './pipes/safe-url/safe-url.pipe';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 
 
@@ -33,7 +34,8 @@ import { SafeUrlPipe } from './pipes/safe-url/safe-url.pipe';
     ProductsPageComponent,
     ProductMinimalSlimComponent,
     ProductMinimalWideComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    NotFoundPageComponent
   ],
   imports: [
     BrowserModule,
