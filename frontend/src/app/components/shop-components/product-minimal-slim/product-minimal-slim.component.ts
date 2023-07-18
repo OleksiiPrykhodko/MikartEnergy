@@ -21,7 +21,7 @@ export class ProductMinimalSlimComponent {
     if (this._product.imageLowQualityURL) {
       return this._product.imageLowQualityURL;
     }
-    return ""; //TODO: Add some no found img pictire. 
+    return "assets/images/ImgNotFound.svg";
   }
   public getOrderNumber(): string{
     return this._product.orderNumber;
