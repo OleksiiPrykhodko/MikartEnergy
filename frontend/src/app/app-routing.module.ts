@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: "shop/products/:productID", component: ProductPageComponent },
   { path: "design", component: DesignPageComponent },
   { path: "404", component: NotFoundPageComponent},
-  { path: "**", component: NotFoundPageComponent} // { path: "**", redirectTo: "404" }
+  { path: "**", redirectTo: "404"} //  { path: "**", component: NotFoundPageComponent}
 ];
 
 @NgModule({
