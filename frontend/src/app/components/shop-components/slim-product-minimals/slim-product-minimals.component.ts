@@ -26,6 +26,13 @@ export class SlimProductMinimalsComponent {
   public checkLoaded(): boolean{
     return this._products.length > 0;
   }
+
+  public setLinkToProductPage(productId: string | null | undefined): string{
+    if(productId){
+      return `shop/products/${productId}`;
+    }
+    return "";
+  }
 }
 
 
