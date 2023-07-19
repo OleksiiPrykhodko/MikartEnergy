@@ -31,7 +31,7 @@ export class SlimProductMinimalsComponent {
     if(productId){
       return `shop/products/${productId}`;
     }
-    return "";
+    return "404";
   }
 }
 
