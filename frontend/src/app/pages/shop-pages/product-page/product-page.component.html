@@ -173,17 +173,12 @@
                     <table class="table table-hover align-middle table-borderless">
                         <tbody>
                             <tr>
-                                <th scope="row" class="fw-normal">power loss [W] for rated value of the current at AC in
-                                    hot operating state per pole</th>
-                                <td>1.8 W</td>
+                                <th scope="row" >Technical characteristic of product</th>
+                                <td class="fw-bolder">Value</td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="fw-normal">Jacob</th>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="fw-normal">Thornton</th>
-                                <td>@twitter</td>
+                            <tr *ngFor="let item of getTechnicalData()">
+                                <th scope="row" class="fw-normal">{{item.key}}</th>
+                                <td *ngFor="let value of item.value">{{value}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -331,7 +326,7 @@
             </div>     
           </div>
     </div>
-    <div class="container g-0 pt-5 border border-1 border-dark">
+    <div class="container g-0 pt-5">
         <app-slim-product-minimals [_products] = getRelatedProducts()></app-slim-product-minimals>
     </div>
     

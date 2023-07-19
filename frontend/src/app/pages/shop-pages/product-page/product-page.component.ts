@@ -5,6 +5,7 @@ import { Product } from 'src/app/models/product/product';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ProductMinimal } from 'src/app/models/product/prodact-minimal';
 import { ProductService } from 'src/app/services/shop-service/product.service';
+import { keyValuePair } from 'src/app/models/common/keyValuePair';
 
 @Component({
   selector: 'app-product-page',
@@ -45,7 +46,7 @@ export class ProductPageComponent {
             // Result model with successful = false
             // If the error is Id not found (key = "NotFound"), redirect to page "page not found".
             if(result.body?.errors.some(e => e.key === "NotFound")){
-              this._router.navigate(['404'])
+              this._router.navigate(['404']);
             }
             else{
               result.body?.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
@@ -153,8 +154,11 @@ export class ProductPageComponent {
     return "";
   }
 
+  public getTechnicalData():  keyValuePair<string, string[]>[]{
+    return this._product.technicalData;
+  }
+
   public getRelatedProducts(): ProductMinimal[]{
-    console.log("loade of min");
     return this._relatedProducts;
   }
 
