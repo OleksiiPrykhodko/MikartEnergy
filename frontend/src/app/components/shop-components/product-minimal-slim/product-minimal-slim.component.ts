@@ -12,7 +12,7 @@ export class ProductMinimalSlimComponent {
 
 
   public getLinkToProductPage(): string {
-    return "";
+    return `shop/products/${this._product?.id}`;
   }
   public getProductName(): string{
     return this._product.productName;
