@@ -17,16 +17,16 @@ export class HttpInternalService {
     return this._headers;
   }
 
-  public getHeader(key: string): string {
-    return this._headers.get(key) ?? "";
+  public getHeader(name: string): string {
+    return this._headers.get(name) ?? "";
   }
 
-  public setHeader(key: string, value: string): void {
-    this._headers.set(key, value);
+  public setHeader(name: string, value: string): void {
+    this._headers.set(name, value);
   }
 
-  public deleteHeader(key: string): void {
-    this._headers.delete(key);
+  public deleteHeader(name: string): void {
+    this._headers.delete(name);
   }
 
   public getRequest<T>(url: string, httpQueryParams?: HttpParams): Observable<T> {
