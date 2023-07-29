@@ -22,11 +22,11 @@ export class HttpInternalService {
   }
 
   public setHeader(name: string, value: string): void {
-    this._headers.set(name, value);
+    this._headers = this._headers.set(name, value);
   }
 
   public deleteHeader(name: string): void {
-    this._headers.delete(name);
+    this._headers = this._headers.delete(name);
   }
 
   public getRequest<T>(url: string, httpQueryParams?: HttpParams): Observable<T> {
