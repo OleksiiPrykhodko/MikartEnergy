@@ -155,7 +155,7 @@ export class ProductPageComponent {
   }
 
   public getTechnicalData():  keyValuePair<string, string[]>[]{
-    return this._product.technicalData;
+    return this._product?.technicalData ?? [];
   }
 
   public getRelatedProducts(): ProductMinimal[]{
