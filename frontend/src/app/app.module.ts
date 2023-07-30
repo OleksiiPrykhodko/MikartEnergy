@@ -19,6 +19,7 @@ import { ProductMinimalWideComponent } from './components/shop-components/produc
 import { SafeUrlPipe } from './pipes/safe-url/safe-url.pipe';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { SlimProductMinimalsComponent } from './components/shop-components/slim-product-minimals/slim-product-minimals.component';
+import { ConfiguratorResultPageComponent } from './pages/shop-pages/configurator-result-page/configurator-result-page.component';
 
 
 
@@ -37,7 +38,8 @@ import { SlimProductMinimalsComponent } from './components/shop-components/slim-
     ProductMinimalWideComponent,
     SafeUrlPipe,
     NotFoundPageComponent,
-    SlimProductMinimalsComponent
+    SlimProductMinimalsComponent,
+    ConfiguratorResultPageComponent
   ],
   imports: [
     BrowserModule,
