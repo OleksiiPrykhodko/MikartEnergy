@@ -15,7 +15,7 @@ namespace MikartEnergy.BLL.Mapping
         {
             return new ProductDTO
             {
-                Id = entity.SupplierPID,
+                SupplierPID = entity.SupplierPID,
                 ManufacturerName = entity.ManufacturerName,
                 OrderNumber = entity.OrderNumber,
                 ProductName = entity.ProductName,

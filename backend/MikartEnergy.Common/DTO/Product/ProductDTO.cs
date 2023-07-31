@@ -2,7 +2,7 @@
 {
     public class ProductDTO
     {
-        public string Id { get; set; } = string.Empty;
+        public string SupplierPID { get; set; } = string.Empty;
         public string ManufacturerName { get; set; } = string.Empty;
         public string OrderNumber { get; set; } = string.Empty;
         public string ProductName { get; set; } = string.Empty;

@@ -55,7 +55,7 @@ namespace MikartEnergy.BLL.Services
 
             return await Task.Run(() =>
             {
-                var productDTO = new ProductDTO() { Id = idUpper };
+                var productDTO = new ProductDTO() { SupplierPID = idUpper };
                 var result = new ResultModel<ProductDTO>(productDTO);
                 result.AddErrorToDTO(ResponseError.NotFound.ToString(), "Product was not found by ID.");
                 return result;
