@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: "development", component: DevelopmentPageComponent },
   { path: "contacts", component: ContactsPageComponent },
   { path: "shop", component: ShopPageComponent},
-  { path: "shop/configurator", component: ConfiguratorResultPageComponent },
+  { path: "shop/configurator/:resultID", component: ConfiguratorResultPageComponent },
   { path: "shop/products", component: ProductsPageComponent },
   { path: "shop/products/:productID", component: ProductPageComponent },
   { path: "design", component: DesignPageComponent },
