@@ -1,5 +1,5 @@
 export interface ProductMinimal{
-    id: string;
+    supplierPID: string;
     manufacturerName: string;
     orderNumber: string;
     productName: string;

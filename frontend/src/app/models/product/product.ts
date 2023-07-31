@@ -2,7 +2,7 @@ import { keyValuePair } from "../common/keyValuePair";
 import { ProductMinimal } from "./prodact-minimal";
 
 export interface Product {
-    id: string;
+    supplierPID: string;
     manufacturerName: string;
     orderNumber: string;
     productName: string;

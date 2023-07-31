@@ -2,7 +2,7 @@
     <h3 class="ps-4 pb-2 text-primary">Related products</h3>
     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-3">
         <div *ngFor="let item of getProductMinimals()" class="col zoomed-img">
-            <a href = {{setLinkToProductPage(item?.id)}} target="_blank">
+            <a href = {{setLinkToProductPage(item?.supplierPID)}} target="_blank">
                 <div class="card h-100 hover-shadow">
                     <div class="img-box p-3">
                         <img [src]="item.imageLowQualityURL" class="card-img-top" alt="...">
