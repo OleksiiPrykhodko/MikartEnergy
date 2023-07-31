@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.DAL.Entities
 {
-    public class Product : BaseEntity
+    public class Product 
     {
         [MaxLength(60)]
         public string Id { get; set; } = string.Empty;
