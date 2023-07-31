@@ -47,7 +47,7 @@ namespace MikartEnergy.BLL.Mapping
         {
             return new ProductMinimalDTO
             {
-                Id = entity.SupplierPID,
+                SupplierPID = entity.SupplierPID,
                 ManufacturerName = entity.ManufacturerName,
                 OrderNumber = entity.OrderNumber,
                 ProductName = entity.ProductName,
