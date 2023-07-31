@@ -25,6 +25,7 @@ namespace MikartEnergy.WebAPI.Extensions
 
             services.AddScoped<CallbackRequestService>();
             services.AddSingleton<ProductService>();
+            services.AddSingleton<ConfiguratorResultService>();
         }
 
         /// <summary>
