@@ -1,15 +1,10 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MikartEnergy.BLL.Services;
-using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.Common.DTO.Pagination;
 using MikartEnergy.Common.DTO.Product;
 using MikartEnergy.Common.Models.Result;
-using MikartEnergy.WebAPI.Validators;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography.X509Certificates;
 
 namespace MikartEnergy.WebAPI.Controllers
 {
@@ -74,5 +69,7 @@ namespace MikartEnergy.WebAPI.Controllers
         {
             return Ok(await _productsService.GetProductMinamalByIdAsync(id));
         }
+
     }
+
 }
