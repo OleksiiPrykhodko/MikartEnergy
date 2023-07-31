@@ -52,7 +52,7 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
                     var elements = p.Elements();
                     return new Product
                     {
-                        Id = elements.First().Value,
+                        SupplierPID = elements.First().Value,
                         ManufacturerName = GetXElementsByParent(elements, "PRODUCT_DETAILS").First(e => e.Name.LocalName == "MANUFACTURER_NAME").Value,
                         OrderNumber = GetXElementsByParent(elements, "PRODUCT_DETAILS").First(e => e.Name.LocalName == "SUPPLIER_ALT_PID").Value,
                         ProductName = GetXElementsByParent(elements, "PRODUCT_DETAILS").First(e => e.Name.LocalName == "MANUFACTURER_TYPE_DESCR").Value,

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.DAL.Entities
 {
-    public class Product 
+    public class Product : BaseEntity
     {
         [MaxLength(60)]
-        public string Id { get; set; } = string.Empty;
+        public string SupplierPID { get; set; } = string.Empty;
         [MaxLength(20)]
         public string ManufacturerName { get; set; } = string.Empty;
         [MaxLength(60)]

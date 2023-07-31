@@ -42,13 +42,13 @@ namespace MikartEnergy.BLL.Services
         public async Task<ResultModel<ProductDTO>> GetProductByIdAsync(string id)
         {
             var idUpper = id.ToUpper();
-            var product = _productsList.Find(p => p.Id == idUpper);
+            var product = _productsList.Find(p => p.SupplierPID == idUpper);
 
             if (product is not null)
             {
                 var dto = product.ToProductDTO();
                 dto.RelatedProducts = _productsList
-                    .IntersectBy(product.RelatedProductIDs, p => p.Id)
+                    .IntersectBy(product.RelatedProductIDs, p => p.SupplierPID)
                     .Select(p => p.ToProductMinimalDTO());
                 return await Task.Run(() => new ResultModel<ProductDTO>(dto));
             }
@@ -75,7 +75,7 @@ namespace MikartEnergy.BLL.Services
         public async Task<ResultModel<ProductMinimalDTO>> GetProductMinamalByIdAsync(string id)
         {
             var idUpper = id.ToUpper();
-            var product = _productsList.Find(p => p.Id == idUpper);
+            var product = _productsList.Find(p => p.SupplierPID == idUpper);
 
             if (product is not null)
             {
