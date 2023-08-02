@@ -10,7 +10,7 @@ namespace MikartEnergy.Common.DTO.Configurator
     public class TiaStProductsOrderDTO
     {
         public Guid Id { get; set; }
-        public IEnumerable<ProductMinimalDTO> ExistingInDbProducts { get; set; }
-        public IEnumerable<ProductMinimalDTO> NotExistingInDbProducts { get; set; }
+        public IEnumerable<KeyValuePair<ProductMinimalDTO, int>> ExistingInDbProducts { get; set; }
+        public IEnumerable<KeyValuePair<string, int>> NotExistingInDbProducts { get; set; }
     }
 }
