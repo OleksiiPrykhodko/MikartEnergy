@@ -9,7 +9,7 @@ namespace MikartEnergy.DAL.Entities
 {
     public class TiaStConfiguratorResult : BaseEntity
     {
-        public IEnumerable<KeyValuePair<string, int>> ExistingProducts { get; set; }
-        public IEnumerable<KeyValuePair<string, int>> NotExistingProducts { get; set; }
+        public IEnumerable<KeyValuePair<string, int>> ExistingInDbProducts { get; set; }
+        public IEnumerable<KeyValuePair<string, int>> NotExistingInDbProducts { get; set; }
     }
 }
