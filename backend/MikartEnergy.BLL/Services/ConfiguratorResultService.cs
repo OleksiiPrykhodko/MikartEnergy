@@ -1,4 +1,9 @@
-﻿using MikartEnergy.Common.DTO.Configurator;
+﻿using MikartEnergy.BLL.Mapping;
+using MikartEnergy.Common.DTO.CallbackRequest;
+using MikartEnergy.Common.DTO.Configurator;
+using MikartEnergy.Common.DTO.Product;
+using MikartEnergy.Common.Enums;
+using MikartEnergy.Common.Models.Result;
 using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.DAL.Entities;
 using System;
@@ -40,7 +45,7 @@ namespace MikartEnergy.BLL.Services
                 }
             }
 
-            // Create unique Id.
+            // Create unique Id with check.
             var resultGuid = Guid.NewGuid();
             while (_configuratorResults.Any(r => r.Id.Equals(resultGuid)))
             {
@@ -48,12 +53,32 @@ namespace MikartEnergy.BLL.Services
             }
             
             createdResult.Id = resultGuid;
-            createdResult.ExistingProducts = existingProducts;
-            createdResult.NotExistingProducts = notExistingProducts;
+            createdResult.ExistingInDbProducts = existingProducts;
+            createdResult.NotExistingInDbProducts = notExistingProducts;
 
             _configuratorResults.Add(createdResult);
 
             return createdResult.Id;
+        }
+
+        public ResultModel<TiaStProductsOrderDTO> GetConfiguratorResultByID(Guid id)
+        {
+            var configuratorResult = _configuratorResults.FirstOrDefault(r => r.Id == id);
+            
+            if (configuratorResult is null)
+            {
+                var emptyResult = new TiaStProductsOrderDTO() { Id = id };
+                var resultWithError = new ResultModel<TiaStProductsOrderDTO>(emptyResult);
+                resultWithError.AddErrorToDTO(ResponseError.NotFound.ToString(), "Configuratin result was not found by ID.");
+                return resultWithError;
+            }
+
+            var order = new TiaStProductsOrderDTO() { Id = id };
+            order.ExistingInDbProducts = configuratorResult.ExistingInDbProducts
+                .Select(p => new KeyValuePair<ProductMinimalDTO, int>(_productsList.First(product => product.SupplierPID == p.Key).ToProductMinimalDTO(), p.Value));
+            order.NotExistingInDbProducts = configuratorResult.NotExistingInDbProducts;
+
+            return new ResultModel<TiaStProductsOrderDTO>(order);
         }
 
     }
