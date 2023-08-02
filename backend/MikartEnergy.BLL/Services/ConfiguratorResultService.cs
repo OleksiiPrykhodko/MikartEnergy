@@ -75,7 +75,7 @@ namespace MikartEnergy.BLL.Services
 
             var order = new TiaStProductsOrderDTO() { Id = id };
             order.ExistingInDbProducts = configuratorResult.ExistingInDbProducts
-                .Select(p => new KeyValuePair<ProductMinimalDTO, int>(_productsList.First(product => product.SupplierPID == p.Key).ToProductMinimalDTO(), p.Value));
+                .Select(p => new KeyValuePair<ProductMinimalDTO, int>(_productsList.First(product => product.OrderNumber.ToUpper() == p.Key.ToUpper()).ToProductMinimalDTO(), p.Value));
             order.NotExistingInDbProducts = configuratorResult.NotExistingInDbProducts;
 
             return new ResultModel<TiaStProductsOrderDTO>(order);
