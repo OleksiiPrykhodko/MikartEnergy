@@ -1,7 +1,7 @@
 <div class="py-6">
 
     <!-- FIRST ELEMENT -->
-    <div class="container pt-5 border border-1 border-danger">
+    <div class="container pt-5">
         <div class="card shadow">
             <div class="card-header p-4 h2 text-primary" [hidden]="checkLoading()">
                 {{getProductName()}}
@@ -11,7 +11,7 @@
             </div>
             <div class="card-body p-4">
                 <div class="row">
-                    <div class="col-lg-6 zoomed-img-4 d-flex justify-content-center align-items-center border border-1 border-warning">
+                    <div class="col-lg-6 zoomed-img-4 d-flex justify-content-center align-items-center ">
                         <img class="vh-50" [hidden]="checkLoading()"
                             src={{getImageHighQualityURL()}} alt="">
                         <div class="text-opacity-50 spinner-grow text-warning vh-50" [hidden]="!checkLoading()"
@@ -19,7 +19,7 @@
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
-                    <div class="col-lg-6 mt-4 mt-lg-0 border border-1 border-warning">
+                    <div class="col-lg-6 mt-4 mt-lg-0">
                         <h3 class="mb-3" [hidden]="checkLoading()">{{getOrderNumber()}}</h3>
                         <h3 class="mb-3 placeholder-glow" [hidden]="!checkLoading()">
                             <span class="placeholder placeholder col-6"></span>
@@ -68,7 +68,7 @@
     </div>
 
     <!-- SECONT ELEMENT -->
-    <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading() || !checkEmbededVideoLink()">
+    <div class="container pt-5" [hidden]="checkLoading() || !checkEmbededVideoLink()">
         <h3 class="ps-4 pb-2 text-primary">Official video</h3>
         <div class="row">
             <div class="col-lg-9 col-xl-8 m-auto">
@@ -84,7 +84,7 @@
     </div>
 
     <!-- THIRD ELEMENT-->
-    <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading()">
+    <div class="container pt-5" [hidden]="checkLoading()">
         <h3 class="ps-4 pb-2 text-primary">Links to</h3>
         <div class="card shadow">
             <div class="card-body p-4">
@@ -165,7 +165,7 @@
     </div>
 
     <!-- FOURTH ELEMENT -->
-    <div class="container pt-5 border border-1 border-danger" [hidden]="checkLoading()">
+    <div class="container pt-5" [hidden]="checkLoading()">
         <h3 class="ps-4 pb-2 text-primary">Technical data</h3>
         <div class="card shadow">
             <div class="card-body p-4">
