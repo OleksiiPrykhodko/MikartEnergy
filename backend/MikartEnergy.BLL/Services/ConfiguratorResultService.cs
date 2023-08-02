@@ -11,7 +11,7 @@ namespace MikartEnergy.BLL.Services
 {
     public class ConfiguratorResultService
     {
-        private List<TiaStConfiguratorResult> ConfiguratorResults = new List<TiaStConfiguratorResult>();
+        private readonly List<TiaStConfiguratorResult> _configuratorResults = new List<TiaStConfiguratorResult>();
         private readonly IEtimProductsFileReader _etimProductsFileReader;
         private readonly List<Product> _productsList;
 
@@ -42,7 +42,7 @@ namespace MikartEnergy.BLL.Services
 
             // Create unique Id.
             var resultGuid = Guid.NewGuid();
-            while (ConfiguratorResults.Any(r => r.Id.Equals(resultGuid)))
+            while (_configuratorResults.Any(r => r.Id.Equals(resultGuid)))
             {
                 resultGuid = Guid.NewGuid();
             }
@@ -50,6 +50,8 @@ namespace MikartEnergy.BLL.Services
             createdResult.Id = resultGuid;
             createdResult.ExistingProducts = existingProducts;
             createdResult.NotExistingProducts = notExistingProducts;
+
+            _configuratorResults.Add(createdResult);
 
             return createdResult.Id;
         }
