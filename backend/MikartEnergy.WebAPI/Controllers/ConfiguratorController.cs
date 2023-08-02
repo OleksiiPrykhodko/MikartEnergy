@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MikartEnergy.BLL.Services;
 using MikartEnergy.Common.DTO.Configurator;
+using MikartEnergy.Common.Models.Result;
 using MikartEnergy.WebAPI.ModelBinders;
 
 namespace MikartEnergy.WebAPI.Controllers
@@ -33,9 +34,10 @@ namespace MikartEnergy.WebAPI.Controllers
         // GET api/<ConfiguratorController>/id
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public string Get(Guid id)
+        public ActionResult<ResultModel<TiaStProductsOrderDTO>> Get(Guid id)
         {
-            return "value";
+            var result = _configuratorService.GetConfiguratorResultByID(id);
+            return Ok(result);
         }
     }
 }
