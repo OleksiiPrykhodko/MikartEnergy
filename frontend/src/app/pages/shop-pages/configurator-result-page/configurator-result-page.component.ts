@@ -68,8 +68,8 @@ export class ConfiguratorResultPageComponent {
     this._configuratorSubscription.unsubscribe();
   }
 
-  public getExistingProducts(): ProductMinimal[]{
-    return this._tiaStProductsOrder?.existingInDbProducts.map(p => p.key) ?? [];
+  public getExistingProducts(): keyValuePair<ProductMinimal, number>[]{
+    return this._tiaStProductsOrder?.existingInDbProducts ?? [];
   }
 
   public getUnExistingProducts(): keyValuePair<string, number>[]{
