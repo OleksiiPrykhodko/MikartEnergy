@@ -9,6 +9,7 @@ import { ProductMinimal } from 'src/app/models/product/prodact-minimal';
 })
 export class WideProductMinimalsComponent {
   @Input() _products: keyValuePair<ProductMinimal, number>[];
+  @Input() _unknownProducts: keyValuePair<string, number>[];
   @Input() _title: string;
 
   ngOnChanges(){
@@ -17,12 +18,17 @@ export class WideProductMinimalsComponent {
         // If imageLowQualityURL is empty then set special img.
         if(!pair.key.imageLowQualityURL){
           pair.key.imageLowQualityURL = "assets/images/ImgNotFound.svg";
+          pair.value
         }
       });
   }
 
   public getProductMinimals(): keyValuePair<ProductMinimal, number>[] {
     return this._products;
+  }
+
+  public getUnknownProduct(): keyValuePair<string, number>[]{
+    return this._unknownProducts;
   }
 
   public checkLoaded(): boolean{
@@ -34,5 +40,13 @@ export class WideProductMinimalsComponent {
       return `shop/products/${productId}`;
     }
     return "404";
+  }
+
+  public calculatePrice(price: number, quantity: number): number{
+    return price * quantity;
+  }
+
+  public getUnknownProductImg(): string{
+    return "assets/images/x-circle.svg";
   }
 }
