@@ -19,6 +19,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { SlimProductMinimalsComponent } from './components/shop-components/slim-product-minimals/slim-product-minimals.component';
 import { ConfiguratorResultPageComponent } from './pages/shop-pages/configurator-result-page/configurator-result-page.component';
 import { WideProductMinimalsComponent } from './components/shop-components/wide-product-minimals/wide-product-minimals.component';
+import { TruncatePipe } from './pipes/truncate/truncate.pipe';
 
 
 
@@ -37,7 +38,8 @@ import { WideProductMinimalsComponent } from './components/shop-components/wide-
     NotFoundPageComponent,
     SlimProductMinimalsComponent,
     ConfiguratorResultPageComponent,
-    WideProductMinimalsComponent
+    WideProductMinimalsComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
