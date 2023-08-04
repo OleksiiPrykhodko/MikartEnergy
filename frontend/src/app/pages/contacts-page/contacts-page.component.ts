@@ -15,7 +15,7 @@ export class ContactsPageComponent {
   
   private playSound(): void {
     this._audioFile.src = "../../../assets/audio/RadioUA.mp3";
-    this._audioFile.volume = 0.1;
+    this._audioFile.volume = 0.05;
     this._audioFile.load();
     this._audioFile.play();
   }
