@@ -9,7 +9,7 @@ import { ProductMinimal } from 'src/app/models/product/prodact-minimal';
 })
 export class WideProductMinimalsComponent {
   @Input() _products: keyValuePair<ProductMinimal, number>[];
-  @Input() _unknownProducts: keyValuePair<string, number>[];
+  @Input() _unknownProducts: keyValuePair<keyValuePair<string, string>, number>[];
   @Input() _title: string;
 
   ngOnChanges(){
@@ -27,7 +27,7 @@ export class WideProductMinimalsComponent {
     return this._products;
   }
 
-  public getUnknownProduct(): keyValuePair<string, number>[]{
+  public getUnknownProduct(): keyValuePair<keyValuePair<string, string>, number>[]{
     return this._unknownProducts;
   }
 

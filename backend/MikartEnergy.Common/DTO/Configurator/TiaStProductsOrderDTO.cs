@@ -11,6 +11,6 @@ namespace MikartEnergy.Common.DTO.Configurator
     {
         public Guid Id { get; set; }
         public IEnumerable<KeyValuePair<ProductMinimalDTO, int>> ExistingInDbProducts { get; set; }
-        public IEnumerable<KeyValuePair<string, int>> NotExistingInDbProducts { get; set; }
+        public IEnumerable<KeyValuePair<KeyValuePair<string, string>, int>> NotExistingInDbProducts { get; set; }
     }
 }

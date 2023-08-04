@@ -72,7 +72,7 @@ export class ConfiguratorResultPageComponent {
     return this._tiaStProductsOrder?.existingInDbProducts ?? [];
   }
 
-  public getUnExistingProducts(): keyValuePair<string, number>[]{
+  public getUnExistingProducts(): keyValuePair<keyValuePair<string, string>, number>[]{
     return this._tiaStProductsOrder?.notExistingInDbProducts ?? [];
   }
 

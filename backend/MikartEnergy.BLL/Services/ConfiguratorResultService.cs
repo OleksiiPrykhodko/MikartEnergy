@@ -31,16 +31,18 @@ namespace MikartEnergy.BLL.Services
             var createdResult = new TiaStConfiguratorResult();
 
             var existingProducts = new List<KeyValuePair<string, int>>();
-            var notExistingProducts = new List<KeyValuePair<string, int>>();
+            var notExistingProducts = new List<KeyValuePair<KeyValuePair<string, string>, int>>();
             foreach (var result in tiaStResult)
             {
-                var pair = new KeyValuePair<string, int>(result.MANUFACTURER_PID, int.Parse(result.QUANTITY));
+                
                 if (_productsList.Any(p => p.OrderNumber.ToUpper() == result.MANUFACTURER_PID.ToUpper()))
                 {
+                    var pair = new KeyValuePair<string, int>(result.MANUFACTURER_PID, int.Parse(result.QUANTITY));
                     existingProducts.Add(pair);
                 }
                 else
                 {
+                    var pair = new KeyValuePair<KeyValuePair<string, string>, int>(new KeyValuePair<string, string>(result.MANUFACTURER_PID, result.MANUFACTURER_TYPE_DESCR), int.Parse(result.QUANTITY));
                     notExistingProducts.Add(pair);
                 }
             }

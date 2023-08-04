@@ -5,5 +5,5 @@ import { keyValuePair } from "../common/keyValuePair";
 export interface TiaStProductsOrder{
     id: string;
     existingInDbProducts: keyValuePair<ProductMinimal, number>[];
-    notExistingInDbProducts: keyValuePair<string, number>[];
+    notExistingInDbProducts: keyValuePair<keyValuePair<string,string>, number>[];
 }
