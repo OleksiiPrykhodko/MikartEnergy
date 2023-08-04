@@ -16,7 +16,7 @@
                             <div class="card-body d-flex flex-column h-100">
                                 <div class="mb-2 fw-semibold text-uppercase text-primary">{{pair.key.productName}}</div>
                                 <div class="mb-2 text-muted text-truncate text-uppercase">{{pair.key.orderNumber}}</div>
-                                <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription}}</div>
+                                <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription | truncate : 540}}  </div>
                                 <div class="row g-0 mt-auto">
                                     <div class="col h5 mb-0 me-auto text-start">Quantity: {{pair.value}}</div>
                                     <div class="col h5 mb-0 text-end">{{calculatePrice(pair.key.price, pair.value) | currency:pair.key.priceCurrency + " "}}</div>
@@ -41,7 +41,7 @@
                             <div class="card-body d-flex flex-column h-100">
                                 <div class="mb-2 fw-semibold text-uppercase text-primary">{{pair.key.productName}}</div>
                                 <div class="mb-2 text-muted text-truncate text-uppercase">{{pair.key.orderNumber}}</div>
-                                <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription}}</div>
+                                <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription | truncate : 540}}</div>
                                 <div class="row g-0 mt-auto">
                                     
                                     <div class="col-2 h5 ms-auto mb-0 text-start">Quantity: {{pair.value}} <br>Price: {{calculatePrice(pair.key.price, pair.value) | currency:pair.key.priceCurrency + " "}} </div>
@@ -66,7 +66,7 @@
                             <div class="card-body d-flex flex-column h-100">
                                 <div class="mb-2 fw-semibold text-uppercase text-primary">{{pair.key.productName}}</div>
                                 <div class="mb-2 text-muted text-truncate text-uppercase">{{pair.key.orderNumber}}</div>
-                                <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription}}</div>
+                                <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription | truncate : 540}}</div>
                                 <div class="row g-0 mt-auto">
                                     <div class="col-2 h5 ms-auto mb-0 text-start">Quantity: {{pair.value}}</div>
                                     <div class="col-2 h5 mb-0 text-start">Price: {{calculatePrice(pair.key.price, pair.value) | currency:pair.key.priceCurrency + " "}} </div>
