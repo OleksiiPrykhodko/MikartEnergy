@@ -338,10 +338,10 @@ a.text-gradient-danger {
 .hover-shadow {
   transition: box-shadow .5s;
   box-shadow: 0 .125rem .25rem rgba($danger, .075);
-}
 
-.hover-shadow:hover {
-  box-shadow: 0 1rem 3rem rgba($primary, .175);
+  &:hover{
+    box-shadow: 0 1rem 3rem rgba($primary, .175);
+  }
 }
 
 //IMAGE BOX
@@ -356,23 +356,8 @@ a.text-gradient-danger {
   }
 }
 
-// TIA ST BUTTON
-.tia-button{
-  border: 0; 
-  padding: 0; 
-  margin: 0; 
-  transition: box-shadow .5s;
-  box-shadow: 0 1rem 3rem rgba($primary, .175);
-  img{
-    border: 0; 
-    padding: 0; 
-    margin: 0;
-    width: 22rem;
-  }
-}
-.tia-button:hover{
-  box-shadow: 0 .125rem .25rem rgba($danger, .075);
-}
+
+
 
 
 // DO NOT DELETE
