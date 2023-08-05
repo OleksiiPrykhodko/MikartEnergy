@@ -16,6 +16,32 @@
                             <div class="card-body d-flex flex-column h-100">
                                 <div class="mb-2 fw-semibold text-uppercase text-primary">{{pair.key.productName}}</div>
                                 <div class="mb-2 text-muted text-truncate text-uppercase">{{pair.key.orderNumber}}</div>
+                                <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription | truncate : 540}}</div>
+                                <div class="row g-0 mt-auto">
+                                    <div class="col col-lg-3 col-xl-2 h5 ms-auto mb-0 text-start">Quantity: {{pair.value}}</div>
+                                    <div class="col col-lg-4 col-xl-3 h5 mb-0 text-start">Price: {{calculatePrice(pair.key.price, pair.value) | currency:pair.key.priceCurrency + " "}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!--
+        <div *ngFor="let pair of getProductMinimals()" class="col zoomed-img">
+            <a href = {{setLinkToProductPage(pair?.key?.supplierPID)}} target="_blank">
+                <div class="card h-100 hover-shadow">
+                    <div class="row g-0">
+                        <div class="col-12 col-md-3 col-xl-2">
+                            <div class="img-box p-3">
+                                <img [src]="pair.key.imageLowQualityURL" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-9 col-xl-10">
+                            <div class="card-body d-flex flex-column h-100">
+                                <div class="mb-2 fw-semibold text-uppercase text-primary">{{pair.key.productName}}</div>
+                                <div class="mb-2 text-muted text-truncate text-uppercase">{{pair.key.orderNumber}}</div>
                                 <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription | truncate : 540}}  </div>
                                 <div class="row g-0 mt-auto">
                                     <div class="col h5 mb-0 me-auto text-start">Quantity: {{pair.value}}</div>
@@ -27,56 +53,7 @@
                 </div>
             </a>
         </div>
-        
-        <div *ngFor="let pair of getProductMinimals()" class="col zoomed-img">
-            <a href = {{setLinkToProductPage(pair?.key?.supplierPID)}} target="_blank">
-                <div class="card h-100 hover-shadow">
-                    <div class="row g-0">
-                        <div class="col-12 col-md-3 col-xl-2">
-                            <div class="img-box p-3">
-                                <img [src]="pair.key.imageLowQualityURL" class="card-img-top" alt="...">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-9 col-xl-10">
-                            <div class="card-body d-flex flex-column h-100">
-                                <div class="mb-2 fw-semibold text-uppercase text-primary">{{pair.key.productName}}</div>
-                                <div class="mb-2 text-muted text-truncate text-uppercase">{{pair.key.orderNumber}}</div>
-                                <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription | truncate : 540}}</div>
-                                <div class="row g-0 mt-auto">
-                                    
-                                    <div class="col-2 h5 ms-auto mb-0 text-start">Quantity: {{pair.value}} <br>Price: {{calculatePrice(pair.key.price, pair.value) | currency:pair.key.priceCurrency + " "}} </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div *ngFor="let pair of getProductMinimals()" class="col zoomed-img">
-            <a href = {{setLinkToProductPage(pair?.key?.supplierPID)}} target="_blank">
-                <div class="card h-100 hover-shadow">
-                    <div class="row g-0">
-                        <div class="col-12 col-md-3 col-xl-2">
-                            <div class="img-box p-3">
-                                <img [src]="pair.key.imageLowQualityURL" class="card-img-top" alt="...">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-9 col-xl-10">
-                            <div class="card-body d-flex flex-column h-100">
-                                <div class="mb-2 fw-semibold text-uppercase text-primary">{{pair.key.productName}}</div>
-                                <div class="mb-2 text-muted text-truncate text-uppercase">{{pair.key.orderNumber}}</div>
-                                <div class="mb-3 lh-sm pe-5">{{pair.key.longDescription | truncate : 540}}</div>
-                                <div class="row g-0 mt-auto">
-                                    <div class="col-2 h5 ms-auto mb-0 text-start">Quantity: {{pair.value}}</div>
-                                    <div class="col-2 h5 mb-0 text-start">Price: {{calculatePrice(pair.key.price, pair.value) | currency:pair.key.priceCurrency + " "}} </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
+        -->
 
         <div *ngFor="let pair of getUnknownProduct()" class="col zoomed-img">
             <!-- Open modal window with contact data -->
