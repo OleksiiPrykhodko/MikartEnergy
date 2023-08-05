@@ -1,21 +1,7 @@
 <div class="container position-relative pt-6 vh-100 w-100 border border-1 border-danger">
 
-        <FORM class="position-absolute top-50 start-50 translate-middle" 
-            action="https://mall.industry.siemens.com/tst/?edition=siemens_test_ua" 
-            method="post" 
-            name="start"
-            enctype="multipart/form-data">
-            <INPUT type="hidden" name="version" value="1.0" />
-            <INPUT type="hidden" name="country" value="UA" />
-            <INPUT type="hidden" name="language" value="eng" />
-            <INPUT type="hidden" name="hookurl" value="https://localhost:44363/api/Configurator" />
-            <!-- <INPUT type="submit" value="start TIA Selection Tool" class="btn"> -->
-            <button class="tia-button" type="submit">
-                <img src="assets/images/StartTiaSt.svg" alt="buttonpng" />
-            </button>
-        </FORM>
-    
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <app-tia-st-form [_shadow]="true" [_width]="'25rem'"></app-tia-st-form>
+    </div>
+
 </div>
-
-
-<!-- &manufacturer_pid= -->
