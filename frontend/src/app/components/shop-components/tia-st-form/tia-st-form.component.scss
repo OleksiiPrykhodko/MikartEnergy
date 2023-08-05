@@ -1,0 +1,19 @@
+// TIA ST BUTTON
+.tia-button{
+    border: 0; 
+    padding: 0; 
+    margin: 0; 
+    background: 0, 0, 0,0;
+    transition: box-shadow .5s;
+    box-shadow: 0 1rem 3rem rgba(#180f3d, .175);
+    img{
+      border: 0; 
+      padding: 0; 
+      margin: 0;
+      width: 100%;
+    }
+  
+    &:hover{
+      box-shadow: 0 .125rem .25rem rgba(#FF6C40, .075);
+    }
+  }
