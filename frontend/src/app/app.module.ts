@@ -20,6 +20,7 @@ import { SlimProductMinimalsComponent } from './components/shop-components/slim-
 import { ConfiguratorResultPageComponent } from './pages/shop-pages/configurator-result-page/configurator-result-page.component';
 import { WideProductMinimalsComponent } from './components/shop-components/wide-product-minimals/wide-product-minimals.component';
 import { TruncatePipe } from './pipes/truncate/truncate.pipe';
+import { TiaStFormComponent } from './components/shop-components/tia-st-form/tia-st-form.component';
 
 
 
@@ -39,7 +40,8 @@ import { TruncatePipe } from './pipes/truncate/truncate.pipe';
     SlimProductMinimalsComponent,
     ConfiguratorResultPageComponent,
     WideProductMinimalsComponent,
-    TruncatePipe
+    TruncatePipe,
+    TiaStFormComponent
   ],
   imports: [
     BrowserModule,
