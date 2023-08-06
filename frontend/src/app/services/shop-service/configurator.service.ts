@@ -10,11 +10,40 @@ import { TiaStProductsOrder } from 'src/app/models/configurator/tiast-products-o
 })
 export class ConfiguratorService {
 
-  public routePrefix = '/api/configurator'
+  public _routePrefix = '/api/configurator';
+  private _linlToTiaStConfigurator = "https://mall.industry.siemens.com/tst/?edition=siemens_test_ua";
+  private _linlToTiaStConfiguratorWithProductPID = "https://mall.industry.siemens.com/tst/?edition=siemens_test_ua&manufacturer_pid="
+  private _tiaStHookUrl = "https://localhost:44363/api/Configurator";
+  private _startImgPath = "assets/images/StartTiaSt.svg";
+  private _startTransparentImgPath = "assets/images/StartTiaStInvert.svg";
 
   constructor(private httpService: HttpInternalService) { }
 
   public getConfigurationResultById(productID: string): Observable<HttpResponse<RequestResult<TiaStProductsOrder>>> {
-    return this.httpService.getFullRequest<RequestResult<TiaStProductsOrder>>(`${this.routePrefix}/${productID}`);
+    return this.httpService.getFullRequest<RequestResult<TiaStProductsOrder>>(`${this._routePrefix}/${productID}`);
   }
+
+  public getLinkToTiaStConfigurator(): string{
+    return this._linlToTiaStConfigurator;
+  }
+
+  public getLinkToTiaStConfiguratorWithProductPID(productPID: string): string{
+    if(productPID){
+      return `${this._linlToTiaStConfiguratorWithProductPID}${productPID}`
+    }
+    return this._linlToTiaStConfiguratorWithProductPID;
+  }
+
+  public getTiaStHookUrl(): string{
+    return this._tiaStHookUrl;
+  }
+
+  public getStartImgPath(): string{
+    return this._startImgPath;
+  }
+
+  public getStartTransparentImgPath(): string{
+    return this._startTransparentImgPath;
+  }
+
 }
