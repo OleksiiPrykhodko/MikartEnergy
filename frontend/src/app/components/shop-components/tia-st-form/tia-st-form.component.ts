@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ConfiguratorService } from 'src/app/services/shop-service/configurator.service';
 
 @Component({
   selector: 'app-tia-st-form',
@@ -12,18 +13,20 @@ export class TiaStFormComponent {
   @Input() _transparent: boolean;
   @Input() _width: string;
 
-  constructor() {
+  constructor(private _configuratorService: ConfiguratorService) {
     
   }
 
-  public getHookurl(): string{
-    return "https://localhost:44363/api/Configurator";
+  public getHookUrl(): string{
+    return this._configuratorService.getTiaStHookUrl();
   }
+
   public getLinkToConfigurator(): string{
-   return this._productPid ? `https://mall.industry.siemens.com/tst/?edition=siemens_test_ua&manufacturer_pid=${this._productPid}` :  "https://mall.industry.siemens.com/tst/?edition=siemens_test_ua"; 
+   return this._productPid ? this._configuratorService.getLinkToTiaStConfiguratorWithProductPID(this._productPid) :  this._configuratorService.getLinkToTiaStConfigurator(); 
   }
+
   public getImg(): string{
-    return this._transparent ? "assets/images/StartTiaStInvert.svg" : "assets/images/StartTiaSt.svg";
+    return this._transparent ? this._configuratorService.getStartTransparentImgPath() : this._configuratorService.getStartImgPath();
   }
 
 }
