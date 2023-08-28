@@ -1,16 +1,13 @@
 ﻿using MikartEnergy.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MikartEnergy.DAL.Context.ETIM_files_reading
 {
     public class EtimFeaturesAndValuesXmlReader
     {
         private readonly string _pathToFile = string.Empty;
-        private IEnumerable<Product> _products;
+        private IEnumerable<EtimFeature> _features = new EtimFeature[0];
+        private IEnumerable<EtimValue> _values = new EtimValue[0];
         private int _featuresNumber;
         private int _valuesNumber;
 
@@ -19,7 +16,7 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
             _pathToFile = pathToFile;
         }
 
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<EtimFeature> GetFeatures()
         {
             if (_pathToFile is null)
             {
@@ -30,13 +27,35 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
                 throw new ArgumentOutOfRangeException($"{nameof(_pathToFile)} cann not be empty or white space.");
             }
 
-            if (_products is null)
+            if (_features.Count() == 0 || _values.Count() == 0)
             {
-                _products = GetProductsFromEtimXmlFile();
-                _productsNumber = _products.Count();
-                return _products;
+                GetFeaturesAndValuesFromXmlFile();
+                _featuresNumber = _features.Count();
+                _valuesNumber = _values.Count();
+                return _features;
             }
-            return _products;
+            return _features;
+        }
+
+        public IEnumerable<EtimValue> GetValues()
+        {
+            if (_pathToFile is null)
+            {
+                throw new NullReferenceException($"{nameof(_pathToFile)} cann not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(_pathToFile))
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(_pathToFile)} cann not be empty or white space.");
+            }
+
+            if (_values.Count() == 0 || _features.Count() == 0)
+            {
+                GetFeaturesAndValuesFromXmlFile();
+                _featuresNumber = _features.Count();
+                _valuesNumber = _values.Count();
+                return _values;
+            }
+            return _values;
         }
 
         public int CountFeatures()
@@ -48,6 +67,36 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
         {
             return _valuesNumber;
         }
+
+        private void GetFeaturesAndValuesFromXmlFile()
+        {
+            var xDocument = XDocument.Load(_pathToFile);
+            _features = xDocument.Descendants().Where(d => d.Name.LocalName == "Feature")
+                .Select(f =>
+                {
+                    var elements = f.Elements();
+                    return new EtimFeature()
+                    {
+                        Code = elements.First(e => e.Name.LocalName == "Code").Value,
+                        Type = elements.First(e => e.Name.LocalName == "Type").Value,
+                        Deprecated = bool.Parse(elements.First(e => e.Name.LocalName == "Deprecated").Value),
+                        Description = elements.First(e => e.Name.LocalName == "Description").Value
+                    };
+                });
+
+            var v = xDocument.Descendants().Where(d => d.Name.LocalName == "Value")
+                .Select(v =>
+                {
+                    var elements = v.Elements();
+                    return new EtimValue()
+                    {
+                        Code = elements.First(e => e.Name.LocalName == "Code").Value,
+                        Deprecated = bool.Parse(elements.First(e => e.Name.LocalName == "Deprecated").Value),
+                        Description = elements.First(e => e.Name.LocalName == "Description").Value
+                    };
+                });
+        }
+
 
     }
 }
