@@ -60,11 +60,19 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
 
         public int CountFeatures()
         {
+            if (_featuresNumber == 0)
+            {
+                GetFeaturesAndValuesFromXmlFile();
+            }
             return _featuresNumber;
         }
 
         public int CountValues()
         {
+            if (_valuesNumber == 0)
+            {
+                GetFeaturesAndValuesFromXmlFile();
+            }
             return _valuesNumber;
         }
 
@@ -84,7 +92,7 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
                     };
                 });
 
-            var v = xDocument.Descendants().Where(d => d.Name.LocalName == "Value")
+            _values = xDocument.Descendants().Where(d => d.Name.LocalName == "Value")
                 .Select(v =>
                 {
                     var elements = v.Elements();
