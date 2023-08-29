@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace MikartEnergy.DAL.Context.ETIM_files_reading
 {
-    public class EtimFeaturesAndValuesXmlReader
+    public class EtimFeaturesAndValuesXmlReader : IEtimFeaturesAndValuesXmlReader
     {
         private readonly string _pathToFile = string.Empty;
         private IEnumerable<EtimFeature> _features = new EtimFeature[0];
