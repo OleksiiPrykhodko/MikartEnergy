@@ -27,12 +27,11 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
                 throw new ArgumentOutOfRangeException($"{nameof(_pathToFile)} cann not be empty or white space.");
             }
 
-            if (_features.Count() == 0 || _values.Count() == 0)
+            if (_featuresNumber == 0 || _valuesNumber == 0)
             {
                 GetFeaturesAndValuesFromXmlFile();
                 _featuresNumber = _features.Count();
                 _valuesNumber = _values.Count();
-                return _features;
             }
             return _features;
         }
@@ -48,12 +47,11 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
                 throw new ArgumentOutOfRangeException($"{nameof(_pathToFile)} cann not be empty or white space.");
             }
 
-            if (_values.Count() == 0 || _features.Count() == 0)
+            if (_valuesNumber == 0 || _featuresNumber == 0)
             {
                 GetFeaturesAndValuesFromXmlFile();
                 _featuresNumber = _features.Count();
                 _valuesNumber = _values.Count();
-                return _values;
             }
             return _values;
         }
