@@ -20,13 +20,14 @@ namespace MikartEnergy.BLL.Services
 {
     public class ProductService : BaseService
     {
-        private readonly IEtimProductsFileReader _etimProductsFileReader;
         private List<Product> _productsList;
+        private readonly MikartContext _context;
 
-        public ProductService(IEtimProductsFileReader etimProductsFileReader): base()
+        public ProductService(IEtimProductsFileReader etimProductsFileReader, MikartContext context): base()
         {
-            _etimProductsFileReader = etimProductsFileReader;
-            _productsList = _etimProductsFileReader.GetProducts().ToList();
+            _productsList = etimProductsFileReader.GetProducts().ToList();
+
+            _context = context;
         }
 
         public async Task<ResultModel<PaginationResponseDTO<ProductDTO>>> GetAllProductsAsync(PaginationRequestDTO request)
