@@ -17,19 +17,19 @@ namespace MikartEnergy.WebAPI.Extensions
         /// <param name="services"></param>
         public static void RegisterCustomServices(this IServiceCollection services, WebApplicationBuilder builder)
         {
-            // ETIM file reading service registration.
+            // ETIM product file reading service registration.
             var etimFilePath = builder.Configuration["EtimXmlFilePath"];
             var pathToAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
             services.AddSingleton<IEtimProductsFileReader, EtimProductsXmlReader>(
                 x => new EtimProductsXmlReader(pathToAssembly + "\\" + etimFilePath));
 
             services.AddScoped<CallbackRequestService>();
-            services.AddSingleton<ProductService>();
+            services.AddScoped<ProductService>();
             services.AddSingleton<ConfiguratorResultService>();
         }
 
         /// <summary>
-        /// Extension method for registering FluentValidation.
+        /// Extension method for register FluentValidation.
         /// </summary>
         /// <param name="services"></param>
         public static void RegisterCustomValidators(this IServiceCollection services)
@@ -40,6 +40,20 @@ namespace MikartEnergy.WebAPI.Extensions
 
             // Pagination validator.
             services.AddScoped<IValidator<PaginationRequestDTO>, PaginationRequestDTOValidator>();
+        }
+
+        /// <summary>
+        /// Extension method for register file reader services.
+        /// </summary>
+        /// <param name="services"></param>
+        public static void RegisterCustomPermanentFilesReaders(this IServiceCollection services, WebApplicationBuilder builder)
+        {
+            // ETIM Features and Values file reading service registration.
+            var etimFeaturesAndValuesFilePath = builder.Configuration["EtimFeaturesAndValuesXmlFilePath"];
+            var pathToAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+
+            services.AddSingleton<IEtimFeaturesAndValuesXmlReader, EtimFeaturesAndValuesXmlReader>(
+                f => new EtimFeaturesAndValuesXmlReader(pathToAssembly + "\\" + etimFeaturesAndValuesFilePath));
         }
     }
 }
