@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,20 @@ namespace MikartEnergy.DAL.Context
     public class MikartContext : DbContext
     {
         public DbSet<CallbackRequest> CallbackRequests { get; private set; }
+        public DbSet<EtimFeature> EtimFeatures { get; private set; }
+        public DbSet<EtimValue> EtimValues { get; private set; }
 
-        public MikartContext(DbContextOptions<MikartContext> options): base(options) 
+        // For replacing the singleton product storage service with product storage in the memory db.
+        // public DdSet<EtimProductFeatureValues> EtimFeatureValues { get; private set; }
+        // public DbSet<Product> Products { get; private set; }
+
+        private readonly IEtimFeaturesAndValuesXmlReader _etimFeaturesAndValuesXmlReader;
+
+        public MikartContext(DbContextOptions<MikartContext> options, 
+            IEtimFeaturesAndValuesXmlReader etimFeaturesAndValuesXmlReader) : base(options) 
         {
+            _etimFeaturesAndValuesXmlReader = etimFeaturesAndValuesXmlReader;
+
             // Without this call, Entity Framework do not seed data into the InMemoryDB.
             Database.EnsureCreated();
         }
@@ -28,7 +40,7 @@ namespace MikartEnergy.DAL.Context
                 
                 // Seeding data using extension method.
                 // TODO: Is this method will be called every time after adding a new migration? 
-                modelBuilder.Seed();
+                modelBuilder.Seed(_etimFeaturesAndValuesXmlReader);
 
                 base.OnModelCreating(modelBuilder);
             }

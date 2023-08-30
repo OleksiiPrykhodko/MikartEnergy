@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,9 @@ namespace MikartEnergy.DAL.Context
         }
 
         // DB seeding.
-        public static void Seed(this ModelBuilder modelBuilder)
+        public static void Seed(this ModelBuilder modelBuilder, IEtimFeaturesAndValuesXmlReader etimFeaturesAndValuesXmlReader)
         {
+            // Adding of CallbackRequest entities to the base on app loading.
             modelBuilder.Entity<CallbackRequest>().HasData(
                 new CallbackRequest()
                 {
@@ -61,6 +63,26 @@ namespace MikartEnergy.DAL.Context
                     IsDeleted = true,
                     InWork = false
                 });
+
+            // Adding of EtimFeature entities to the base on app loading.
+            var _etimFeatures = etimFeaturesAndValuesXmlReader.GetFeatures().ToList();
+            _etimFeatures.ForEach(f => f.Id = Guid.NewGuid());
+
+            if (etimFeaturesAndValuesXmlReader.CountFeatures() == 0)
+            {
+                throw new Exception("Xml file with all Features and all Values can't be empty.");
+            }
+            modelBuilder.Entity<EtimFeature>().HasData(_etimFeatures);
+
+            // Adding of EtimValue entities to the base on app loading.
+            var _etimValues = etimFeaturesAndValuesXmlReader.GetValues().ToList();
+            _etimValues.ForEach(v => v.Id = Guid.NewGuid());
+
+            if (etimFeaturesAndValuesXmlReader.CountValues() == 0)
+            {
+                throw new Exception("Xml file with all Features and all Values can't be empty.");
+            }
+            modelBuilder.Entity<EtimValue>().HasData(_etimValues);
         }
 
 
