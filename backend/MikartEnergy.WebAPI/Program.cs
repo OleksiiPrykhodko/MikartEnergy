@@ -24,11 +24,15 @@ namespace MikartEnergy.WebAPI
             // Add CORS.
             builder.Services.AddCors();
 
+            // Add services for reading data from permanent files like xml.
+            builder.Services.RegisterCustomPermanentFilesReaders(builder);
+
             // Add DB Context.
             builder.Services.AddDbContext<MikartContext>(options => options.UseInMemoryDatabase("MikartInMemoryDB"));
             
             // Add business logic services.
             builder.Services.RegisterCustomServices(builder);
+
             // Add FluentValidation.
             builder.Services.RegisterCustomValidators();
 
