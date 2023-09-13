@@ -21,7 +21,7 @@ namespace MikartEnergy.DAL.Entities
         [MaxLength(512)]
         public string Message { get; set; }
         [MaxLength(255)]
-        public string IntrerestedIn { get; set; }
+        public string IntrerestedIn { get; set; } = string.Empty;
         public int Budget { get; set; }
         public bool InWork { get; set; }
     }
