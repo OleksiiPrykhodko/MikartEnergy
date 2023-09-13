@@ -18,7 +18,6 @@ export class WideProductMinimalsComponent {
         // If imageLowQualityURL is empty then set special img.
         if(!pair.key.imageLowQualityURL){
           pair.key.imageLowQualityURL = "assets/images/ImgNotFound.svg";
-          pair.value
         }
       });
   }
@@ -32,7 +31,7 @@ export class WideProductMinimalsComponent {
   }
 
   public checkLoaded(): boolean{
-    return this._products.length > 0;
+    return this._products.length > 0 || this._unknownProducts.length > 0;
   }
 
   public setLinkToProductPage(productId: string | null | undefined): string{
