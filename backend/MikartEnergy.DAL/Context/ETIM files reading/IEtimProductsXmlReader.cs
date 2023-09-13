@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.DAL.Context.ETIM_files_reading
 {
-    public interface IEtimProductsFileReader
+    public interface IEtimProductsXmlReader
     {
-        IEnumerable<Product> GetProducts();
+        IEnumerable<EtimProduct> GetProducts();
         int Count();
     }
 }
