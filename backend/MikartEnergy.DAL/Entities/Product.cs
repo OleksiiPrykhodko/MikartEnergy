@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,6 @@ namespace MikartEnergy.DAL.Entities
         public string ShortDescription { get; set; } = string.Empty;
         public string LongDescription { set; get; } = string.Empty;
 
-        // many to many?
-        public IEnumerable<KeyValuePair<string, IEnumerable<string>>> TechnicalData { get; set; }
-
         public string ImageLowQualityURL { get; set; } = string.Empty;
         public string ImageHighQualityURL { get; set; } = string.Empty;
         public string PdfWith3dURL { get; set; } = string.Empty;
@@ -31,15 +29,9 @@ namespace MikartEnergy.DAL.Entities
         public string LinkToProductPage { get; set; } = string.Empty;
         public string LinkToManuals { get; set; } = string.Empty;
         public string LinkToFAQ { get; set; } = string.Empty;
-        public string LinkToTechnicalData { get; set; } = string.Empty; 
+        public string LinkToTechnicalData { get; set; } = string.Empty;
         public string LinkToApplicationExample { get; set; } = string.Empty;
         public string LinkToVideo { get; set; } = string.Empty;
-
-        // many to many.
-        public IEnumerable<string> KeyWords { get; set; }
-
-        // many to many! Сам на себя. Вторая таблица пар ид на ид сам на себя. 
-        public IEnumerable<string> RelatedProductIDs { get; set; }
 
         public int MinimalOrderQuantity { get; set; } = 1;
         public int MaximalOrderQuantity { get; set; } = int.MaxValue;
@@ -48,5 +40,12 @@ namespace MikartEnergy.DAL.Entities
         public decimal Price { get; set; } = 0.00m;
         [MaxLength(10)]
         public string PriceCurrency { get; set; } = string.Empty;
+
+        // Related entities.
+        public List<Keyword> Keywords { get; set; } = new();
+        public List<TechnicalData> TechnicalData { get; set; } = new();
+        public List<ProductOrderQuantity> ProductOrderQuantitys { get; set; } = new();
+        public List<Product> RelatedProducts { get; set; } = new();
+
     }
 }
