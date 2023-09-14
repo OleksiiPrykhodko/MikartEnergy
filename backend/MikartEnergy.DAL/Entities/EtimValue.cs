@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.DAL.Entities
 {
-    public class EtimValue : BaseEntity
+    public class EtimValue
     {
         public string Code { get; set; } = string.Empty;
         public bool Deprecated { get; set; } = false;
