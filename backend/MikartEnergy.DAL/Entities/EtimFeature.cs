@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.DAL.Entities
 {
-    public class EtimFeature: BaseEntity
+    public class EtimFeature
     {
         public string Code { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
