@@ -13,22 +13,18 @@ namespace MikartEnergy.DAL.Context
     public class MikartContext : DbContext
     {
         public DbSet<CallbackRequest> CallbackRequests { get; private set; }
-        public DbSet<EtimFeature> EtimFeatures { get; private set; }
-        public DbSet<EtimValue> EtimValues { get; private set; }
+        public DbSet<TechnicalFeature> TechnicalFeatures { get; private set; }
+        public DbSet<TechnicalValue> TechnicalValues { get; private set; }
+        public DbSet<TechnicalData> TechnicalDatas { get; private set; }
+        public DbSet<Product> Products { get; private set; }
+        public DbSet<Keyword> Keywords { get; private set; }
+        public DbSet<ProductOrderQuantity> ProductOrderQuantitys { get; private set; }
+        public DbSet<TiaStConfiguratorResult> TiaStConfiguratorResults { get; private set; }
+        public DbSet<UnknownProduct> UnknownProducts { get; private set; }
 
-        // For replacing the singleton product storage service with product storage in the memory db.
-        // public DdSet<EtimProductFeatureValues> EtimFeatureValues { get; private set; }
-        // public DbSet<Product> Products { get; private set; }
-
-        private readonly IEtimFeaturesAndValuesXmlReader _etimFeaturesAndValuesXmlReader;
-
-        public MikartContext(DbContextOptions<MikartContext> options, 
-            IEtimFeaturesAndValuesXmlReader etimFeaturesAndValuesXmlReader) : base(options) 
+        public MikartContext(DbContextOptions<MikartContext> options) : base(options) 
         {
-            _etimFeaturesAndValuesXmlReader = etimFeaturesAndValuesXmlReader;
 
-            // Without this call, Entity Framework do not seed data into the InMemoryDB.
-            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,10 +35,7 @@ namespace MikartEnergy.DAL.Context
                 modelBuilder.Configure();
                 
                 // Seeding data using extension method.
-                // TODO: Is this method will be called every time after adding a new migration? 
-                modelBuilder.Seed(_etimFeaturesAndValuesXmlReader);
-
-                base.OnModelCreating(modelBuilder);
+                modelBuilder.Seed();
             }
             catch (System.Exception e)
             {
@@ -51,7 +44,6 @@ namespace MikartEnergy.DAL.Context
             }
         }
         
-
         // Overwriting methods to avoid removing entities from the database. 
         // Use extension method SetAuditProperties() implemented in ChangeTrackerExtensions for it.
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -74,5 +66,6 @@ namespace MikartEnergy.DAL.Context
             ChangeTracker.SetAuditProperties();
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
+        
     }
 }
