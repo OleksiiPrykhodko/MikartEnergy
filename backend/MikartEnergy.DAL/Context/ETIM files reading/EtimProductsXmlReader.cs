@@ -8,10 +8,10 @@ using System.Xml.Linq;
 
 namespace MikartEnergy.DAL.Context.ETIM_files_reading
 {
-    public class EtimProductsXmlReader : IEtimProductsFileReader
+    public class EtimProductsXmlReader : IEtimProductsXmlReader
     {
         private readonly string _pathToFile;
-        private IEnumerable<Product> _products;
+        private IEnumerable<EtimProduct> _products;
         private int _productsNumber;
 
         public EtimProductsXmlReader(string pathToFile)
@@ -19,7 +19,7 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
             _pathToFile = pathToFile;
         }
 
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<EtimProduct> GetProducts()
         {
             if (_pathToFile is null)
             {
@@ -44,13 +44,13 @@ namespace MikartEnergy.DAL.Context.ETIM_files_reading
             return _productsNumber;
         }
 
-        private IEnumerable<Product> GetProductsFromEtimXmlFile()
+        private IEnumerable<EtimProduct> GetProductsFromEtimXmlFile()
         {
             var xDocument = XDocument.Load(_pathToFile);
             return xDocument.Descendants().Where(d => d.Name.LocalName == "PRODUCT")
                 .Select(p => {
                     var elements = p.Elements();
-                    return new Product
+                    return new EtimProduct
                     {
                         SupplierPID = elements.First().Value,
                         ManufacturerName = GetXElementsByParent(elements, "PRODUCT_DETAILS").First(e => e.Name.LocalName == "MANUFACTURER_NAME").Value,
