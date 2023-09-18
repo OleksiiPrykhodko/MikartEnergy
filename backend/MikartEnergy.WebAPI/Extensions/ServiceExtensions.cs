@@ -20,12 +20,12 @@ namespace MikartEnergy.WebAPI.Extensions
             // ETIM product file reading service registration.
             var etimFilePath = builder.Configuration["EtimXmlFilePath"];
             var pathToAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
-            services.AddSingleton<IEtimProductsFileReader, EtimProductsXmlReader>(
+            services.AddSingleton<IEtimProductsXmlReader, EtimProductsXmlReader>(
                 x => new EtimProductsXmlReader(pathToAssembly + "\\" + etimFilePath));
 
             services.AddScoped<CallbackRequestService>();
             services.AddScoped<ProductService>();
-            services.AddSingleton<ConfiguratorResultService>();
+            services.AddScoped<ConfiguratorResultService>();
         }
 
         /// <summary>
@@ -54,6 +54,16 @@ namespace MikartEnergy.WebAPI.Extensions
 
             services.AddSingleton<IEtimFeaturesAndValuesXmlReader, EtimFeaturesAndValuesXmlReader>(
                 f => new EtimFeaturesAndValuesXmlReader(pathToAssembly + "\\" + etimFeaturesAndValuesFilePath));
+        }
+
+        /// <summary>
+        /// Extension method for register Data Base Seeder. 
+        /// Register it after DbContext.
+        /// </summary>
+        /// <param name="services"></param>
+        public static void RegisterCustomDataBaseSeeder(this IServiceCollection services)
+        {
+            services.AddScoped<DbSeederService>();
         }
     }
 }
