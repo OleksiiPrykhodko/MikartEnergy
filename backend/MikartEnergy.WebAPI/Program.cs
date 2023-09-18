@@ -29,15 +29,16 @@ namespace MikartEnergy.WebAPI
 
             // Add DB Context.
             builder.Services.AddDbContext<MikartContext>(options => options.UseInMemoryDatabase("MikartInMemoryDB"));
-            
+
             // Add business logic services.
             builder.Services.RegisterCustomServices(builder);
 
             // Add FluentValidation.
             builder.Services.RegisterCustomValidators();
 
-            var app = builder.Build();
+            builder.Services.RegisterCustomDataBaseSeeder();
 
+            var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
             {
@@ -47,6 +48,13 @@ namespace MikartEnergy.WebAPI
 
                 // Allow any origin in dev mode.
                 app.UseCors(option => option.AllowAnyOrigin());
+
+                // Call DbSeederService method Seed() for DB seeding on app start. 
+                using (var scope = app.Services.CreateScope())
+                {
+                    var seederService = scope.ServiceProvider.GetService<DbSeederService>();
+                    seederService!.Seed();
+                }
             }
             if (app.Environment.IsProduction())
             {
