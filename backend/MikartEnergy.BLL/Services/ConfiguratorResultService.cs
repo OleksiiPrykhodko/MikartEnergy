@@ -1,9 +1,12 @@
-﻿using MikartEnergy.BLL.Mapping;
+﻿using Microsoft.EntityFrameworkCore;
+using MikartEnergy.BLL.Mapping;
+using MikartEnergy.BLL.Services.Abstract;
 using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.Common.DTO.Configurator;
 using MikartEnergy.Common.DTO.Product;
 using MikartEnergy.Common.Enums;
 using MikartEnergy.Common.Models.Result;
+using MikartEnergy.DAL.Context;
 using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.DAL.Entities;
 using System;
@@ -14,59 +17,63 @@ using System.Threading.Tasks;
 
 namespace MikartEnergy.BLL.Services
 {
-    public class ConfiguratorResultService
+    public class ConfiguratorResultService : BaseService
     {
-        private readonly List<TiaStConfiguratorResult> _configuratorResults = new List<TiaStConfiguratorResult>();
-        private readonly IEtimProductsFileReader _etimProductsFileReader;
-        private readonly List<Product> _productsList;
+        private readonly MikartContext _context;
 
-        public ConfiguratorResultService(IEtimProductsFileReader etimProductsFileReader) 
+        public ConfiguratorResultService(MikartContext context) : base()
         {
-            _etimProductsFileReader = etimProductsFileReader;
-            _productsList = _etimProductsFileReader.GetProducts().ToList();
+            _context = context;
         }
 
-        public Guid CreateConfiguratorResult(TiaStResultDTO[] tiaStResult)
+        public async Task<Guid> CreateConfiguratorResultAsync(TiaStResultDTO[] tiaStResults)
         {
-            var createdResult = new TiaStConfiguratorResult();
+            var createdResult = new TiaStConfiguratorResult() 
+            { 
+                Id = Guid.NewGuid()
+            };
 
-            var existingProducts = new List<KeyValuePair<string, int>>();
-            var notExistingProducts = new List<KeyValuePair<KeyValuePair<string, string>, int>>();
-            foreach (var result in tiaStResult)
+            foreach(var tiaStResult in tiaStResults)
             {
-                
-                if (_productsList.Any(p => p.OrderNumber.ToUpper() == result.MANUFACTURER_PID.ToUpper()))
+                var product = await _context.Products.FirstOrDefaultAsync(p => p.OrderNumber.ToUpper() == tiaStResult.MANUFACTURER_PID.ToUpper());
+
+                if (product is not null)
                 {
-                    var pair = new KeyValuePair<string, int>(result.MANUFACTURER_PID, int.Parse(result.QUANTITY));
-                    existingProducts.Add(pair);
+                    var productOrderQuantity = new ProductOrderQuantity()
+                    {
+                        Id = Guid.NewGuid(),
+                        Product = product,
+                        Quantity = int.Parse(tiaStResult.QUANTITY)
+                    };
+                    createdResult.ProductOrderQuantitys.Add(productOrderQuantity);
                 }
                 else
                 {
-                    var pair = new KeyValuePair<KeyValuePair<string, string>, int>(new KeyValuePair<string, string>(result.MANUFACTURER_PID, result.MANUFACTURER_TYPE_DESCR), int.Parse(result.QUANTITY));
-                    notExistingProducts.Add(pair);
+                    var unknownProduct = new UnknownProduct()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = tiaStResult.MANUFACTURER_PID,
+                        Description = tiaStResult.MANUFACTURER_TYPE_DESCR,
+                        Quantity = int.Parse(tiaStResult.QUANTITY)
+                    };
+                    createdResult.UnknownProducts.Add(unknownProduct);
                 }
             }
 
-            // Create unique Id with check.
-            var resultGuid = Guid.NewGuid();
-            while (_configuratorResults.Any(r => r.Id.Equals(resultGuid)))
-            {
-                resultGuid = Guid.NewGuid();
-            }
-            
-            createdResult.Id = resultGuid;
-            createdResult.ExistingInDbProducts = existingProducts;
-            createdResult.NotExistingInDbProducts = notExistingProducts;
-
-            _configuratorResults.Add(createdResult);
+            await _context.TiaStConfiguratorResults.AddAsync(createdResult);
+            await _context.SaveChangesAsync();
 
             return createdResult.Id;
         }
 
-        public ResultModel<TiaStProductsOrderDTO> GetConfiguratorResultByID(Guid id)
+        public async Task<ResultModel<TiaStProductsOrderDTO>> GetConfiguratorResultByIdAsync(Guid id)
         {
-            var configuratorResult = _configuratorResults.FirstOrDefault(r => r.Id == id);
-            
+            var configuratorResult = await _context.TiaStConfiguratorResults
+                .Include(tia => tia.ProductOrderQuantitys)
+                .ThenInclude(poq => poq.Product)
+                .Include(tia => tia.UnknownProducts)
+                .FirstOrDefaultAsync(result => result.Id == id);
+
             if (configuratorResult is null)
             {
                 var emptyResult = new TiaStProductsOrderDTO() { Id = id };
@@ -75,12 +82,9 @@ namespace MikartEnergy.BLL.Services
                 return resultWithError;
             }
 
-            var order = new TiaStProductsOrderDTO() { Id = id };
-            order.ExistingInDbProducts = configuratorResult.ExistingInDbProducts
-                .Select(p => new KeyValuePair<ProductMinimalDTO, int>(_productsList.First(product => product.OrderNumber.ToUpper() == p.Key.ToUpper()).ToProductMinimalDTO(), p.Value));
-            order.NotExistingInDbProducts = configuratorResult.NotExistingInDbProducts;
-
-            return new ResultModel<TiaStProductsOrderDTO>(order);
+            var configuratorResultDTO = configuratorResult.ToTiaStProductsOrderDTO();
+            var resultModel = new ResultModel<TiaStProductsOrderDTO>(configuratorResultDTO);
+            return resultModel;
         }
 
     }
