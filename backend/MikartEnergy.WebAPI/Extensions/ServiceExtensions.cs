@@ -17,12 +17,6 @@ namespace MikartEnergy.WebAPI.Extensions
         /// <param name="services"></param>
         public static void RegisterCustomServices(this IServiceCollection services, WebApplicationBuilder builder)
         {
-            // ETIM product file reading service registration.
-            var etimFilePath = builder.Configuration["EtimXmlFilePath"];
-            var pathToAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
-            services.AddSingleton<IEtimProductsXmlReader, EtimProductsXmlReader>(
-                x => new EtimProductsXmlReader(pathToAssembly + "\\" + etimFilePath));
-
             services.AddScoped<CallbackRequestService>();
             services.AddScoped<ProductService>();
             services.AddScoped<ConfiguratorResultService>();
@@ -48,11 +42,16 @@ namespace MikartEnergy.WebAPI.Extensions
         /// <param name="services"></param>
         public static void RegisterCustomPermanentFilesReaders(this IServiceCollection services, WebApplicationBuilder builder)
         {
-            // ETIM Features and Values file reading service registration.
-            var etimFeaturesAndValuesFilePath = builder.Configuration["EtimFeaturesAndValuesXmlFilePath"];
             var pathToAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
 
-            services.AddSingleton<IEtimFeaturesAndValuesXmlReader, EtimFeaturesAndValuesXmlReader>(
+            // ETIM Products file reading service registration.
+            var etimFilePath = builder.Configuration["EtimXmlFilePath"];
+            services.AddScoped<IEtimProductsXmlReader, EtimProductsXmlReader>(
+                x => new EtimProductsXmlReader(pathToAssembly + "\\" + etimFilePath));
+
+            // ETIM Features and Values file reading service registration.
+            var etimFeaturesAndValuesFilePath = builder.Configuration["EtimFeaturesAndValuesXmlFilePath"];
+            services.AddScoped<IEtimFeaturesAndValuesXmlReader, EtimFeaturesAndValuesXmlReader>(
                 f => new EtimFeaturesAndValuesXmlReader(pathToAssembly + "\\" + etimFeaturesAndValuesFilePath));
         }
 
