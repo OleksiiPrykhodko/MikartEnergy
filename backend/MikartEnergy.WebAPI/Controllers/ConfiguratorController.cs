@@ -21,11 +21,10 @@ namespace MikartEnergy.WebAPI.Controllers
 
         // POST api/<ConfiguratorController>
         [HttpPost]
-        [Consumes("multipart/form-data")] // Do we need this ? 
         [AllowAnonymous]
-        public IActionResult Post([ModelBinder(typeof(TiaStOrderModelBinder))] TiaStResultDTO[] result)
+        public async Task<IActionResult> Post([ModelBinder(typeof(TiaStOrderModelBinder))] TiaStResultDTO[] result)
         {
-            var id = _configuratorService.CreateConfiguratorResult(result);
+            var id = await _configuratorService.CreateConfiguratorResultAsync(result);
 
             var redirect = new RedirectResult($"http://localhost:4200/shop/configurator/{id}", true); // Add ID 
             return redirect;
@@ -34,9 +33,9 @@ namespace MikartEnergy.WebAPI.Controllers
         // GET api/<ConfiguratorController>/id
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public ActionResult<ResultModel<TiaStProductsOrderDTO>> Get(Guid id)
+        public async Task<ActionResult<ResultModel<TiaStProductsOrderDTO>>> Get(Guid id)
         {
-            var result = _configuratorService.GetConfiguratorResultByID(id);
+            var result = await _configuratorService.GetConfiguratorResultByIdAsync(id);
             return Ok(result);
         }
     }
