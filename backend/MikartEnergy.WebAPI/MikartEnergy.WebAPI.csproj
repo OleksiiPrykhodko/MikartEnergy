@@ -24,4 +24,10 @@
     <ProjectReference Include="..\MikartEnergy.BLL\MikartEnergy.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Files\ETIM8_UA.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
