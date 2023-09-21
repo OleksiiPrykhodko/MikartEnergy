@@ -1,15 +1,6 @@
-﻿using MikartEnergy.Common.DTO.Abstract;
-using MikartEnergy.Common.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MikartEnergy.Common.DTO.CallbackRequest
+﻿namespace MikartEnergy.Common.DTO.CallbackRequest
 {
-    public class CallbackRequestDTO : ResponseStatusDTO
+    public class CallbackRequestDTO
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -17,12 +8,12 @@ namespace MikartEnergy.Common.DTO.CallbackRequest
         public bool InWork { get; set; }
         public bool IsDeleted { get; set; }
 
-        public string AuthorFirstName { get; set; }
-        public string AuthorLastName { get; set; }
-        public string AuthorEmail { get; set; }
-        public string AuthorPhone { get; set; }
-        public string Message { get; set; }
-        public string IntrerestedIn { get; set; }
+        public string AuthorFirstName { get; set; } = string.Empty;
+        public string AuthorLastName { get; set; } = string.Empty;
+        public string AuthorEmail { get; set; } = string.Empty;
+        public string AuthorPhone { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+        public string IntrerestedIn { get; set; } = string.Empty;
         public int Budget { get; set; }
     }
 }

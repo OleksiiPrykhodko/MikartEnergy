@@ -1,30 +1,29 @@
-﻿using MikartEnergy.Common.DTO.Abstract;
-using MikartEnergy.Common.DTO.CallbackRequest;
+﻿using MikartEnergy.Common.DTO.Pagination;
+using MikartEnergy.Common.Models.Result;
 using MikartEnergy.DAL.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MikartEnergy.BLL.Services.Abstract
 {
     public abstract class BaseService
     {
-        private protected readonly MikartContext _context;
-
-        public BaseService(MikartContext context)
+        public async Task<ResultModel<T>> CreateBadRequestResultAsync<T>(T dto, IEnumerable<KeyValuePair<string, string>> messages) where T : class
         {
-            _context = context;
+            return await Task.Run<ResultModel<T>>(() =>
+            {
+                var result = new ResultModel<T>(dto);
+                result.AddErrorToDTO(messages);
+                return result;
+            });
         }
 
-        public async Task<T> CreateBadRequestResponseAsync<T>(T dto, IEnumerable<KeyValuePair<string, string>> messages) where T : IResponseStatusDTO
+        public int GetSkipAmount(PaginationRequestDTO request)
         {
-            return await Task.Run<T>(() =>
+            if (request is null)
             {
-                dto.AddErrorToDTO(messages);
-                return dto;
-            });
+                throw new ArgumentNullException(nameof(request), "PaginationRequestDTO can't be null.");
+            }
+
+            return (request.PageIndex - 1) * request.PageSize;
         }
     }
 }

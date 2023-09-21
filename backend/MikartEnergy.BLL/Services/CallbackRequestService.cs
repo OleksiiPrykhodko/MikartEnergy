@@ -3,6 +3,7 @@ using MikartEnergy.BLL.Mapping;
 using MikartEnergy.BLL.Services.Abstract;
 using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.Common.Enums;
+using MikartEnergy.Common.Models.Result;
 using MikartEnergy.DAL.Context;
 using MikartEnergy.DAL.Entities;
 using System;
@@ -17,14 +18,14 @@ namespace MikartEnergy.BLL.Services
 {
     public class CallbackRequestService : BaseService
     {
-        public CallbackRequestService(MikartContext context) : base(context)
+        private readonly MikartContext _context;
+        public CallbackRequestService(MikartContext context)
         {
-
+            _context = context;
         }
 
-        public async Task<CallbackRequestDTO> CreateCallbackRequestAsync(NewCallbackRequestDTO dto)
+        public async Task<ResultModel<CallbackRequestDTO>> CreateCallbackRequestAsync(NewCallbackRequestDTO dto)
         {
-
             var callbackRequest = dto.ToCallbackRequest();
 
             _context.CallbackRequests.Add(callbackRequest);
@@ -32,18 +33,26 @@ namespace MikartEnergy.BLL.Services
 
             var createdRequest = await _context.CallbackRequests
                                         .FirstAsync(r => r.Id == callbackRequest.Id);
-
-            CallbackRequestDTO responseDTO = createdRequest.ToCallbackRequestDTO();
-
-            return responseDTO;
-
+            var responseDTO = createdRequest.ToCallbackRequestDTO();
+            return new ResultModel<CallbackRequestDTO>(responseDTO);
         }
 
-        public async Task<IEnumerable<CallbackRequestDTO>> GetAllCallbackRequestsAsync(bool getDeleted)
+        public async Task<ResultModel<IEnumerable<CallbackRequestDTO>>> GetAllCallbackRequestsAsync(bool getDeleted)
         {
-            var requests = getDeleted ? await _context.CallbackRequests.ToListAsync()
-                                                : await _context.CallbackRequests.Where(r => !r.IsDeleted).ToListAsync();
-            return requests.Select(e => e.ToCallbackRequestDTO());
+            IEnumerable<CallbackRequestDTO> callbackRequests;
+
+            if (getDeleted)
+            {
+                callbackRequests = await Task.Run(
+                    () => _context.CallbackRequests.Select(e => e.ToCallbackRequestDTO()));
+            }
+            else
+            {
+                callbackRequests = await Task.Run(
+                    () => _context.CallbackRequests.Where(r => !r.IsDeleted).Select(e => e.ToCallbackRequestDTO()));
+            }
+
+            return new ResultModel<IEnumerable<CallbackRequestDTO>>(callbackRequests);
         }
 
         public async Task<bool> DeleteCallbackRequestAsync(Guid id)
@@ -60,7 +69,7 @@ namespace MikartEnergy.BLL.Services
             return false;
         }
 
-        public async Task<CallbackRequestDTO> UpdateCallbackRequestAsync(CallbackRequestDTO dto)
+        public async Task<ResultModel<CallbackRequestDTO>> UpdateCallbackRequestAsync(CallbackRequestDTO dto)
         {
             if (await _context.CallbackRequests.AnyAsync(c => c.Id == dto.Id))
             {
@@ -68,11 +77,12 @@ namespace MikartEnergy.BLL.Services
                 entity.UpdatedAt = DateTime.Now;
                 _context.Update(entity);
                 await _context.SaveChangesAsync();
-                return entity.ToCallbackRequestDTO();
+                return new ResultModel<CallbackRequestDTO>(entity.ToCallbackRequestDTO());
             }
 
-            dto.AddErrorToDTO(ResponseError.NotFound.ToString(), "Callback request was not found.");
-            return dto;
+            var result = new ResultModel<CallbackRequestDTO>(dto);
+            result.AddErrorToDTO(ResponseError.NotFound.ToString(), "Callback request was not found.");
+            return result;
         }
 
     }

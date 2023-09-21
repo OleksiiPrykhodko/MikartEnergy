@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class ContactsPageComponent {
 
+  private _audioFile = new Audio();
+
+  ngAfterViewInit(): void {
+    this.playSound();
+  }
+  
+  private playSound(): void {
+    this._audioFile.src = "../../../assets/audio/RadioUA.mp3";
+    this._audioFile.volume = 0.05;
+    this._audioFile.load();
+    this._audioFile.play();
+  }
+
+
 }

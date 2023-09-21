@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,18 @@ namespace MikartEnergy.DAL.Context
     public class MikartContext : DbContext
     {
         public DbSet<CallbackRequest> CallbackRequests { get; private set; }
+        public DbSet<TechnicalFeature> TechnicalFeatures { get; private set; }
+        public DbSet<TechnicalValue> TechnicalValues { get; private set; }
+        public DbSet<TechnicalData> TechnicalDatas { get; private set; }
+        public DbSet<Product> Products { get; private set; }
+        public DbSet<Keyword> Keywords { get; private set; }
+        public DbSet<ProductOrderQuantity> ProductOrderQuantitys { get; private set; }
+        public DbSet<TiaStConfiguratorResult> TiaStConfiguratorResults { get; private set; }
+        public DbSet<UnknownProduct> UnknownProducts { get; private set; }
 
-        public MikartContext(DbContextOptions<MikartContext> options): base(options) 
+        public MikartContext(DbContextOptions<MikartContext> options) : base(options) 
         {
-            // Without this call, Entity Framework do not seed data into the InMemoryDB.
-            Database.EnsureCreated();
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,10 +35,7 @@ namespace MikartEnergy.DAL.Context
                 modelBuilder.Configure();
                 
                 // Seeding data using extension method.
-                // TODO: Is this method will be called every time after adding a new migration? 
                 modelBuilder.Seed();
-
-                base.OnModelCreating(modelBuilder);
             }
             catch (System.Exception e)
             {
@@ -39,7 +44,6 @@ namespace MikartEnergy.DAL.Context
             }
         }
         
-
         // Overwriting methods to avoid removing entities from the database. 
         // Use extension method SetAuditProperties() implemented in ChangeTrackerExtensions for it.
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -62,5 +66,6 @@ namespace MikartEnergy.DAL.Context
             ChangeTracker.SetAuditProperties();
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
+        
     }
 }

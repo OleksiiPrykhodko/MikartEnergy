@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MikartEnergy.BLL.Services;
 using MikartEnergy.Common.DTO.CallbackRequest;
+using MikartEnergy.Common.Models.Result;
 using MikartEnergy.DAL.Context;
 using MikartEnergy.DAL.Entities;
 using MikartEnergy.WebAPI.Validators;
@@ -33,21 +34,21 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<CallbackRequestDTO>>> Get()
+        public async Task<ActionResult<ResultModel<IEnumerable<CallbackRequestDTO>>>> Get()
         {
             return Ok(await _callbackRequestService.GetAllCallbackRequestsAsync(false));
         }
 
         [HttpGet("all")]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<CallbackRequestDTO>>> GetAll()
+        public async Task<ActionResult<ResultModel<IEnumerable<CallbackRequestDTO>>>> GetAll()
         {
             return Ok(await _callbackRequestService.GetAllCallbackRequestsAsync(true));
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult<CallbackRequestDTO>> Post([FromBody] NewCallbackRequestDTO dto)
+        public async Task<ActionResult<ResultModel<CallbackRequestDTO>>>Post([FromBody] NewCallbackRequestDTO dto)
         {
             var validationResult = await _newCallbackRequestValidator.ValidateAsync(dto);
 
@@ -57,13 +58,13 @@ namespace MikartEnergy.WebAPI.Controllers
             }
 
             var errorsMessages = validationResult.Errors
-                .Select(e => new KeyValuePair<string, string>(e.PropertyName, e.ErrorMessage));
-            return BadRequest( await _callbackRequestService.CreateBadRequestResponseAsync(dto, errorsMessages) );
+                .Select(err => new KeyValuePair<string, string>(err.PropertyName, err.ErrorMessage));
+            return BadRequest( await _callbackRequestService.CreateBadRequestResultAsync(dto, errorsMessages) );
         }
 
         [HttpPut]
         [AllowAnonymous]
-        public async Task<ActionResult<bool>> Put([FromBody] CallbackRequestDTO dto)
+        public async Task<ActionResult<ResultModel<CallbackRequestDTO>>> Put([FromBody] CallbackRequestDTO dto)
         {
             var validationResult = await _callbackRequestValidator.ValidateAsync(dto);
 
@@ -74,8 +75,7 @@ namespace MikartEnergy.WebAPI.Controllers
 
             var errorsMessages = validationResult.Errors
                 .Select(e => new KeyValuePair<string, string>(e.PropertyName, e.ErrorMessage));
-            return BadRequest(await _callbackRequestService.CreateBadRequestResponseAsync(dto, errorsMessages));
-           
+            return BadRequest(await _callbackRequestService.CreateBadRequestResultAsync(dto, errorsMessages)); 
         }
 
         [HttpDelete("{id}")]
