@@ -20,6 +20,7 @@ In my project this is used to select equipment from the Siemens catalogue. And a
 
 ### Backend:
   - [.NET 7](https://dotnet.microsoft.com/download)
+  - [ASP.NET Core Web API](https://dotnet.microsoft.com/en-us/apps/aspnet/apis)
   - [EF Core](https://docs.microsoft.com/ef/core)
   - [FluentValidation](https://github.com/JeremySkinner/FluentValidation)
   - [ELBRIDGE Interface](https://www.itek.de/en/beratung/standardisierung/elbridge/)
