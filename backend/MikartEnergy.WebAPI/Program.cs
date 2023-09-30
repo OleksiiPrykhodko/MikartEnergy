@@ -67,6 +67,8 @@ namespace MikartEnergy.WebAPI
 
             app.UseAuthorization();
 
+            // Call extension method for adding custom GlobalExceptionHandlingMiddleware.
+            app.UseGlobalExceptionHandler();
 
             app.MapControllers();
 
