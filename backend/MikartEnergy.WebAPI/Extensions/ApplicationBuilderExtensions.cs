@@ -4,7 +4,7 @@ namespace MikartEnergy.WebAPI.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder AddGlobalErrorHandler(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<GlobalExceptionHandlingMiddleware>();
         }
