@@ -13,7 +13,7 @@ namespace MikartEnergy.WebAPI.Middlewares
             _requestDelegate = requestDelegate;
         }
 
-        public async Task InvokeAsynk(HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
             try
             {
