@@ -49,13 +49,7 @@ namespace MikartEnergy.WebAPI
                 // Allow any origin in dev mode.
                 app.UseCors(option => option.AllowAnyOrigin());
 
-                // Call DbSeederService method Seed() for DB seeding on app start. 
-                //using (var scope = app.Services.CreateScope())
-                //{
-                //    var seederService = scope.ServiceProvider.GetService<DbSeederService>();
-                //    seederService!.Seed();
-                //}
-
+                // Calling of DbSeederService method Seed() for DB seeding in extension method. 
                 app.UseCustomDbSeederService();
             }
             if (app.Environment.IsProduction())
