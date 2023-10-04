@@ -1,10 +1,7 @@
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using MikartEnergy.BLL.Services;
 using MikartEnergy.DAL.Context;
-using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.WebAPI.Extensions;
-using System.Reflection;
+using Serilog;
 
 namespace MikartEnergy.WebAPI
 {
@@ -38,6 +35,12 @@ namespace MikartEnergy.WebAPI
 
             builder.Services.RegisterCustomDataBaseSeeder();
 
+            // Add Serilog. This call will redirect all log events through Serilog pipeline.
+            builder.Host.UseSerilog((context, configuration) =>
+            {
+                configuration.ReadFrom.Configuration(context.Configuration);
+            });
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -51,20 +54,23 @@ namespace MikartEnergy.WebAPI
 
                 // Calling of DbSeederService method Seed() for DB seeding in extension method. 
                 app.UseCustomDbSeederService();
+
+                //Logging of all http/s requests in Development mode if it needed.
+                //app.UseSerilogRequestLogging();
             }
             if (app.Environment.IsProduction())
             {
                 // Allow only frontend origin in prodaction mode.
                 // TODO: specifie here frontend URL on production mode for CORS
                 app.UseCors(option => option.WithOrigins(""));
+
+                // Call extension method for adding custom GlobalExceptionHandlingMiddleware.
+                app.UseGlobalExceptionHandler();
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
-            // Call extension method for adding custom GlobalExceptionHandlingMiddleware.
-            app.UseGlobalExceptionHandler();
 
             app.MapControllers();
 
