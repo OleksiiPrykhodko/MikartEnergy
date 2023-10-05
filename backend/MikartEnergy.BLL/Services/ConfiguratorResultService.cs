@@ -14,16 +14,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace MikartEnergy.BLL.Services
 {
     public class ConfiguratorResultService : BaseService
     {
         private readonly MikartContext _context;
+        private readonly IConfiguration _configuration;
 
-        public ConfiguratorResultService(MikartContext context) : base()
+        public ConfiguratorResultService(MikartContext context, IConfiguration configuration) : base()
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public async Task<Guid> CreateConfiguratorResultAsync(TiaStResultDTO[] tiaStResults)
@@ -85,6 +88,14 @@ namespace MikartEnergy.BLL.Services
             var configuratorResultDTO = configuratorResult.ToTiaStProductsOrderDTO();
             var resultModel = new ResultModel<TiaStProductsOrderDTO>(configuratorResultDTO);
             return resultModel;
+        }
+
+        public string GetRedirectionUrlWithId(Guid id)
+        {
+            string frontendAppUrl = _configuration["FrontendAppUrl"] ?? "null";
+            string pathToTiaStConfigurationResultPage = 
+                _configuration["FrontendAppTiaStConfigResultPagePath"] ?? "null";
+            return $"{frontendAppUrl}{pathToTiaStConfigurationResultPage}/{id}";
         }
 
     }
