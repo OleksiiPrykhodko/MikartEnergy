@@ -44,15 +44,25 @@ namespace MikartEnergy.WebAPI.Extensions
         {
             var pathToAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
 
+            var etimFilesFolderName = builder.Configuration["EtimFilesFolderName"];
+
             // ETIM Products file reading service registration.
-            var etimFilePath = builder.Configuration["EtimXmlFilePath"];
+            var etimFilePath = builder.Configuration["EtimProductsXmlFile"];
+            var fullPathToProductFile = Path.Combine(
+                pathToAssembly ?? "null string", 
+                etimFilesFolderName ?? "null string", 
+                etimFilePath ?? "null string");
             services.AddScoped<IEtimProductsXmlReader, EtimProductsXmlReader>(
-                x => new EtimProductsXmlReader(pathToAssembly + "\\" + etimFilePath));
+                x => new EtimProductsXmlReader(fullPathToProductFile));
 
             // ETIM Features and Values file reading service registration.
-            var etimFeaturesAndValuesFilePath = builder.Configuration["EtimFeaturesAndValuesXmlFilePath"];
+            var etimFeaturesAndValuesFilePath = builder.Configuration["EtimFeaturesAndValuesXmlFile"];
+            var fullPathToFeaturesAndValuesFile = Path.Combine(
+                pathToAssembly ?? "null string",
+                etimFilesFolderName ?? "null string",
+                etimFeaturesAndValuesFilePath ?? "null string");
             services.AddScoped<IEtimFeaturesAndValuesXmlReader, EtimFeaturesAndValuesXmlReader>(
-                f => new EtimFeaturesAndValuesXmlReader(pathToAssembly + "\\" + etimFeaturesAndValuesFilePath));
+                f => new EtimFeaturesAndValuesXmlReader(fullPathToFeaturesAndValuesFile));
         }
 
         /// <summary>
