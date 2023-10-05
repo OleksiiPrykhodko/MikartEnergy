@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MikartEnergy.DAL.Context;
 using MikartEnergy.WebAPI.Extensions;
 using Serilog;
@@ -20,6 +21,9 @@ namespace MikartEnergy.WebAPI
 
             // Add CORS.
             builder.Services.AddCors();
+
+            // Add configuration for receiving it in services. 
+            builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
             // Add services for reading data from permanent files like xml.
             builder.Services.RegisterCustomPermanentFilesReaders(builder);
@@ -60,21 +64,35 @@ namespace MikartEnergy.WebAPI
             }
             if (app.Environment.IsProduction())
             {
+                app.UseCustomDbSeederService();
                 // Allow only frontend origin in prodaction mode.
                 // TODO: specifie here frontend URL on production mode for CORS
-                app.UseCors(option => option.WithOrigins(""));
+                //app.UseCors(option => option.WithOrigins(""));
+                app.UseCors(option => option.AllowAnyOrigin());
 
                 // Call extension method for adding custom GlobalExceptionHandlingMiddleware.
                 app.UseGlobalExceptionHandler();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
             app.MapControllers();
 
-            app.Run();
+            try
+            {
+                app.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "App failed to start correctly.");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+
         }
     }
 }
