@@ -74,7 +74,7 @@ namespace MikartEnergy.WebAPI
                 app.UseGlobalExceptionHandler();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
