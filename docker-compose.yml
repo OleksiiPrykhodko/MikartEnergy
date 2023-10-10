@@ -1,11 +1,11 @@
 version: '3.5'
 
 services:
-  mikartbackend:
+  webapi:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: server
+    container_name: backend
     ports:
       - 5000:80
       - 44363:443
@@ -16,3 +16,10 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     volumes:
       - ~/.aspnet/https:/https:ro
+  angular:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - 4200:4200
