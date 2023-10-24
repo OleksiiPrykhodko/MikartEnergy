@@ -25,8 +25,8 @@ namespace MikartEnergy.WebAPI.Controllers
         public async Task<IActionResult> Post([ModelBinder(typeof(TiaStOrderModelBinder))] TiaStResultDTO[] result)
         {
             var id = await _configuratorService.CreateConfiguratorResultAsync(result);
-
-            var redirect = new RedirectResult($"http://localhost:4200/shop/configurator/{id}", true); // Add ID 
+            var redirectionUrl = _configuratorService.GetRedirectionUrlWithId(id);
+            var redirect = new RedirectResult(redirectionUrl, true); // Add ID 
             return redirect;
         }
 

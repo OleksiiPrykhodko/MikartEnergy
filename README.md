@@ -21,8 +21,9 @@ In my project this is used to select equipment from the Siemens catalogue. And a
 ### Backend:
   - [.NET 7](https://dotnet.microsoft.com/download)
   - [ASP.NET Core Web API](https://dotnet.microsoft.com/en-us/apps/aspnet/apis)
-  - [EF Core](https://docs.microsoft.com/ef/core)
+  - [Entity Framework Core](https://docs.microsoft.com/ef/core)
   - [FluentValidation](https://github.com/JeremySkinner/FluentValidation)
+  - [Serilog](https://serilog.net/)
   - [ELBRIDGE Interface](https://www.itek.de/en/beratung/standardisierung/elbridge/)
   - [ETIM](https://etimapi.etim-international.com/)
 

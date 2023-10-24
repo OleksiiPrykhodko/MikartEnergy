@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  webapi:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - 5000:80
+      - 44363:443
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44363
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mikartenergy
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+  angular:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - 4200:4200

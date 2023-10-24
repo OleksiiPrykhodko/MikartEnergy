@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { RequestResult } from 'src/app/models/common/request-result';
 import { TiaStProductsOrder } from 'src/app/models/configurator/tiast-products-order';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ConfiguratorService {
   public _routePrefix = '/api/configurator';
   private _linlToTiaStConfigurator = "https://mall.industry.siemens.com/tst/?edition=siemens_test_ua";
   private _linlToTiaStConfiguratorWithProductPID = "https://mall.industry.siemens.com/tst/?edition=siemens_test_ua&manufacturer_pid="
-  private _tiaStHookUrl = "https://localhost:44363/api/Configurator";
+  private _tiaStHookUrl = `${environment.apiUrl}${this._routePrefix}`;
   private _startImgPath = "assets/images/StartTiaSt.svg";
   private _startTransparentImgPath = "assets/images/StartTiaStInvert.svg";
 

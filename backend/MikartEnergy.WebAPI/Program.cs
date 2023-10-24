@@ -1,10 +1,8 @@
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using MikartEnergy.BLL.Services;
+using Microsoft.Extensions.Configuration;
 using MikartEnergy.DAL.Context;
-using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.WebAPI.Extensions;
-using System.Reflection;
+using Serilog;
 
 namespace MikartEnergy.WebAPI
 {
@@ -24,6 +22,9 @@ namespace MikartEnergy.WebAPI
             // Add CORS.
             builder.Services.AddCors();
 
+            // Add configuration for receiving it in services. 
+            builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
             // Add services for reading data from permanent files like xml.
             builder.Services.RegisterCustomPermanentFilesReaders(builder);
 
@@ -38,6 +39,12 @@ namespace MikartEnergy.WebAPI
 
             builder.Services.RegisterCustomDataBaseSeeder();
 
+            // Add Serilog. This call will redirect all log events through Serilog pipeline.
+            builder.Host.UseSerilog((context, configuration) =>
+            {
+                configuration.ReadFrom.Configuration(context.Configuration);
+            });
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -49,28 +56,43 @@ namespace MikartEnergy.WebAPI
                 // Allow any origin in dev mode.
                 app.UseCors(option => option.AllowAnyOrigin());
 
-                // Call DbSeederService method Seed() for DB seeding on app start. 
-                using (var scope = app.Services.CreateScope())
-                {
-                    var seederService = scope.ServiceProvider.GetService<DbSeederService>();
-                    seederService!.Seed();
-                }
+                // Calling of DbSeederService method Seed() for DB seeding in extension method. 
+                app.UseCustomDbSeederService();
+
+                //Logging of all http/s requests in Development mode if it needed.
+                //app.UseSerilogRequestLogging();
             }
             if (app.Environment.IsProduction())
             {
+                app.UseCustomDbSeederService();
                 // Allow only frontend origin in prodaction mode.
                 // TODO: specifie here frontend URL on production mode for CORS
-                app.UseCors(option => option.WithOrigins(""));
+                //app.UseCors(option => option.WithOrigins(""));
+                app.UseCors(option => option.AllowAnyOrigin());
+
+                // Call extension method for adding custom GlobalExceptionHandlingMiddleware.
+                app.UseGlobalExceptionHandler();
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
-            app.Run();
+            try
+            {
+                app.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "App failed to start correctly.");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+
         }
     }
 }
