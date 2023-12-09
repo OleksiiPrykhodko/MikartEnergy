@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MikartEnergy.BLL.Services;
 using MikartEnergy.DAL.Context;
 using MikartEnergy.DAL.Entities;
 using System;
@@ -16,12 +17,8 @@ namespace MikartEnergy.UnitTests.Systems.Services
         {
             //Arrange
 
-
-            //Act
-
-
             //Assert
-
+            
         }
     }
 }
