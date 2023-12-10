@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using MikartEnergy.BLL.Services;
+using MikartEnergy.Common.DTO.CallbackRequest;
+using MikartEnergy.Common.Models.Result;
 using MikartEnergy.DAL.Context;
 using MikartEnergy.DAL.Entities;
 using System;
@@ -14,10 +16,25 @@ namespace MikartEnergy.UnitTests.Systems.Services
     public class TestCallbackRequestService
     {
         [Fact]
+        public async void GetAllCallbackRequestsAsync_GetCallbackRequests_ReturnNotNullAndRightType()
+        {
+            //Arrange
+            var databaseContext = CreateDbContext();
+            var callbackRequestService = new CallbackRequestService(databaseContext);
+
+            //Act
+            var resultTask = await callbackRequestService.GetAllCallbackRequestsAsync(true);
+
+            //Assert
+            resultTask.Should().NotBeNull();
+            resultTask.Should().BeOfType<ResultModel<IEnumerable<CallbackRequestDTO>>>();
+        }
+
+        [Fact]
         public async void GetAllCallbackRequestsAsync_GetNotDeletedCallbackRequests_ReturnOnlyNotDeleted()
         {
             //Arrange
-            var databaseContext = CreateContext();
+            var databaseContext = CreateDbContext();
 
             databaseContext.CallbackRequests.AddRange(
                 new CallbackRequest()
@@ -136,7 +153,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 }
             };
 
-            var databaseContext = CreateContext();
+            var databaseContext = CreateDbContext();
             databaseContext.CallbackRequests.AddRange(testCallbackRequests);
             databaseContext.SaveChanges();
 
@@ -149,7 +166,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
             allCallbackRequests.DTO.Should().HaveSameCount(testCallbackRequests);
         }
 
-        private MikartContext CreateContext()
+        private MikartContext CreateDbContext()
         {
             var contextOptions = new DbContextOptionsBuilder<MikartContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
