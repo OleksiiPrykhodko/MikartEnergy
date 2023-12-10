@@ -80,7 +80,74 @@ namespace MikartEnergy.UnitTests.Systems.Services
             onlyNotDeleted.DTO.Should().OnlyContain(c => !c.IsDeleted);
         }
 
+        [Fact]
+        public async void GetAllCallbackRequestsAsync_GetAllCallbackRequests_ReturnAllWithDeleted()
+        {
+            //Arrange
+            var testCallbackRequests = new CallbackRequest[]
+            {
+                new CallbackRequest()
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    IsDeleted = true,
 
+                    AuthorEmail = "DeletedEmail@email.com",
+                    AuthorFirstName = "Test",
+                    AuthorLastName = "Test",
+                    AuthorPhone = "Test",
+                    Budget = 100,
+                    Message = "I like tests!",
+                    IntrerestedIn = "Work",
+                    InWork = true,
+                },
+                new CallbackRequest()
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    IsDeleted = false,
+
+                    AuthorEmail = "NotDeletedEmail@email.com",
+                    AuthorFirstName = "Test",
+                    AuthorLastName = "Test",
+                    AuthorPhone = "Test",
+                    Budget = 10000,
+                    Message = "I like tests!",
+                    IntrerestedIn = "Big project",
+                    InWork = true,
+                },
+                new CallbackRequest()
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    IsDeleted = false,
+
+                    AuthorEmail = "NotDeletedEmail@email.com",
+                    AuthorFirstName = "Test",
+                    AuthorLastName = "Test",
+                    AuthorPhone = "Test",
+                    Budget = 10000,
+                    Message = "I like tests!",
+                    IntrerestedIn = "Big project",
+                    InWork = true,
+                }
+            };
+
+            var databaseContext = CreateContext();
+            databaseContext.CallbackRequests.AddRange(testCallbackRequests);
+            databaseContext.SaveChanges();
+
+            var callbackRequestService = new CallbackRequestService(databaseContext);
+
+            //Act
+            var allCallbackRequests = await callbackRequestService.GetAllCallbackRequestsAsync(true);
+
+            //Assert
+            allCallbackRequests.DTO.Should().HaveSameCount(testCallbackRequests);
+        }
 
         private MikartContext CreateContext()
         {
