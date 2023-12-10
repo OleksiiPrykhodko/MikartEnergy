@@ -16,6 +16,32 @@ namespace MikartEnergy.UnitTests.Systems.Services
     public class TestCallbackRequestService
     {
         [Fact]
+        public async void CreateCallbackRequestAsync_PutNewCallbackRequests_ReturnResultModelWithDtoTypeCallbackRequestDTO()
+        {
+            //Arrange
+            var newCallbackRequestDTO = new NewCallbackRequestDTO()
+            {
+                AuthorEmail = "AuthorEmail@mail.com",
+                AuthorFirstName = "Test",
+                AuthorLastName = "Test",
+                AuthorPhone = "88005553535",
+                Budget = 10000,
+                IntrerestedIn = "Test",
+                Message = "Test"
+            };
+
+            var databaseContext = CreateDbContext();
+            var callbackRequestService = new CallbackRequestService(databaseContext);
+
+            //Act
+            var result = await callbackRequestService.CreateCallbackRequestAsync(newCallbackRequestDTO);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<ResultModel<CallbackRequestDTO>>();
+        }
+
+        [Fact]
         public async void GetAllCallbackRequestsAsync_GetCallbackRequests_ReturnNotNullAndRightType()
         {
             //Arrange
