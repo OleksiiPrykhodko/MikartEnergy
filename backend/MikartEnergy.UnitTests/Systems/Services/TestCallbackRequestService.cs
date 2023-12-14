@@ -16,7 +16,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
     public class TestCallbackRequestService
     {
         [Fact]
-        public async void CreateCallbackRequestAsync_PutNewCallbackRequests_ReturnResultModelWithDtoTypeCallbackRequestDTO()
+        public async void CreateCallbackRequestAsync_PostNewCallbackRequests_ReturnResultModelWithDtoTypeCallbackRequestDTO()
         {
             //Arrange
             var newCallbackRequestDTO = new NewCallbackRequestDTO()
