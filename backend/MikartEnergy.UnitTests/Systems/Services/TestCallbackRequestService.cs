@@ -211,10 +211,10 @@ namespace MikartEnergy.UnitTests.Systems.Services
         }
 
         [Fact]
-        public async void DeleteCallbackRequestAsync_OnCallWithIdContanedInDataBase_ReturnTrue()
+        public async void DeleteCallbackRequestAsync_CallWithIdContanedInDataBase_ReturnTrue()
         {
             //Arrange
-            var callbackRequest = new CallbackRequest() 
+            var callbackRequest = new CallbackRequest()
             {
                 Id = Guid.NewGuid(),
                 IsDeleted = false,
@@ -239,6 +239,52 @@ namespace MikartEnergy.UnitTests.Systems.Services
 
             //Assert
             result.Should().BeTrue();
+        }
+
+        [Fact]
+        public async void DeleteCallbackRequestAsync_CallWithUnknownId_ReturnFalse()
+        {
+            //Arrange
+            var databaseContext = CreateDbContext();
+            var callbackRequestService = new CallbackRequestService(databaseContext);
+            var fakeGuid = Guid.NewGuid();
+
+            //Act
+            var result = await callbackRequestService.DeleteCallbackRequestAsync(fakeGuid);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public async void DeleteCallbackRequestAsync_CallWithIdOfDeletedCallbackRequest_ReturnFalse()
+        {
+            //Arrange
+            var callbackRequest = new CallbackRequest()
+            {
+                Id = Guid.NewGuid(),
+                IsDeleted = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                AuthorEmail = "NotDeletedEmail@email.com",
+                AuthorFirstName = "Test",
+                AuthorLastName = "Test",
+                AuthorPhone = "Test",
+                Budget = 10000,
+                Message = "I like tests!",
+                IntrerestedIn = "Big project",
+                InWork = true,
+            };
+            var databaseContext = CreateDbContext();
+            databaseContext.CallbackRequests.Add(callbackRequest);
+            databaseContext.SaveChanges();
+            var callbackRequestService = new CallbackRequestService(databaseContext);
+
+            //Act
+            var result = await callbackRequestService.DeleteCallbackRequestAsync(callbackRequest.Id);
+
+            //Assert
+            result.Should().BeFalse();
         }
 
         private MikartContext CreateDbContext()
