@@ -87,15 +87,13 @@ namespace MikartEnergy.UnitTests.Systems.Services
         {
             //Arrange
             var databaseContext = CreateDbContext();
-
             databaseContext.CallbackRequests.AddRange(
                 new CallbackRequest()
                 {
                     Id = Guid.NewGuid(),
+                    IsDeleted = true,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    IsDeleted = true,
-
                     AuthorEmail = "DeletedEmail@email.com",
                     AuthorFirstName = "Test",
                     AuthorLastName = "Test",
@@ -108,10 +106,9 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 new CallbackRequest()
                 {
                     Id = Guid.NewGuid(),
+                    IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    IsDeleted = false,
-
                     AuthorEmail = "NotDeletedEmail@email.com",
                     AuthorFirstName = "Test",
                     AuthorLastName = "Test",
@@ -124,10 +121,9 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 new CallbackRequest()
                 {
                     Id = Guid.NewGuid(),
+                    IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    IsDeleted = false,
-
                     AuthorEmail = "NotDeletedEmail@email.com",
                     AuthorFirstName = "Test",
                     AuthorLastName = "Test",
@@ -158,10 +154,9 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 new CallbackRequest()
                 {
                     Id = Guid.NewGuid(),
+                    IsDeleted = true,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    IsDeleted = true,
-
                     AuthorEmail = "DeletedEmail@email.com",
                     AuthorFirstName = "Test",
                     AuthorLastName = "Test",
@@ -174,10 +169,9 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 new CallbackRequest()
                 {
                     Id = Guid.NewGuid(),
+                    IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    IsDeleted = false,
-
                     AuthorEmail = "NotDeletedEmail@email.com",
                     AuthorFirstName = "Test",
                     AuthorLastName = "Test",
@@ -190,10 +184,9 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 new CallbackRequest()
                 {
                     Id = Guid.NewGuid(),
+                    IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    IsDeleted = false,
-
                     AuthorEmail = "NotDeletedEmail@email.com",
                     AuthorFirstName = "Test",
                     AuthorLastName = "Test",
@@ -208,7 +201,6 @@ namespace MikartEnergy.UnitTests.Systems.Services
             var databaseContext = CreateDbContext();
             databaseContext.CallbackRequests.AddRange(testCallbackRequests);
             databaseContext.SaveChanges();
-
             var callbackRequestService = new CallbackRequestService(databaseContext);
 
             //Act
@@ -216,6 +208,37 @@ namespace MikartEnergy.UnitTests.Systems.Services
 
             //Assert
             allCallbackRequests.DTO.Should().HaveSameCount(testCallbackRequests);
+        }
+
+        [Fact]
+        public async void DeleteCallbackRequestAsync_OnCallWithIdContanedInDataBase_ReturnTrue()
+        {
+            //Arrange
+            var callbackRequest = new CallbackRequest() 
+            {
+                Id = Guid.NewGuid(),
+                IsDeleted = false,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                AuthorEmail = "NotDeletedEmail@email.com",
+                AuthorFirstName = "Test",
+                AuthorLastName = "Test",
+                AuthorPhone = "Test",
+                Budget = 10000,
+                Message = "I like tests!",
+                IntrerestedIn = "Big project",
+                InWork = true,
+            };
+            var databaseContext = CreateDbContext();
+            databaseContext.CallbackRequests.Add(callbackRequest);
+            databaseContext.SaveChanges();
+            var callbackRequestService = new CallbackRequestService(databaseContext);
+
+            //Act
+            var result = await callbackRequestService.DeleteCallbackRequestAsync(callbackRequest.Id);
+
+            //Assert
+            result.Should().BeTrue();
         }
 
         private MikartContext CreateDbContext()
