@@ -326,7 +326,43 @@ namespace MikartEnergy.UnitTests.Systems.Services
             result.Errors.Should().BeEmpty();
         }
 
-        
+        [Fact]
+        public async void UpdateCallbackRequestAsync_CallWithUnknownID_ReturnResultModelWithSameDtoAndUnsuccessWithErrorMessages()
+        {
+            //Arrange
+            var callbackRequest = new CallbackRequest()
+            {
+                Id = Guid.NewGuid(),
+                IsDeleted = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                AuthorEmail = "Test@email.com",
+                AuthorFirstName = "Test",
+                AuthorLastName = "Test",
+                AuthorPhone = "Test",
+                Budget = 10000,
+                Message = "I like tests!",
+                IntrerestedIn = "Big project",
+                InWork = true,
+            };
+            var databaseContext = CreateDbContext();
+            databaseContext.CallbackRequests.Add(callbackRequest);
+            databaseContext.SaveChanges();
+            var callbackRequestService = new CallbackRequestService(databaseContext);
+
+            var updated = callbackRequest.ToCallbackRequestDTO();
+            updated.Id = Guid.NewGuid();
+            updated.AuthorEmail = "SomeNew@updated.mail";
+
+            //Act
+            var result = await callbackRequestService.UpdateCallbackRequestAsync(updated);
+
+            //Assert
+            result.DTO.Should().BeEquivalentTo(updated);
+            result.Successful.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().ContainKey(ResponseError.NotFound.ToString());
+        }
 
         private MikartContext CreateDbContext()
         {
