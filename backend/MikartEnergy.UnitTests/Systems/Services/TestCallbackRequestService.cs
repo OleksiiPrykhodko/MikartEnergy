@@ -25,13 +25,13 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 AuthorFirstName = "Test",
                 AuthorLastName = "Test",
                 AuthorPhone = "88005553535",
-                Budget = 300,
+                Budget = 3000,
                 IntrerestedIn = "Test",
                 Message = "Test"
             };
 
-            var databaseContext = CreateDbContext();
-            var callbackRequestService = new CallbackRequestService(databaseContext);
+            var dataBaseContext = CreateDbContext();
+            var callbackRequestService = new CallbackRequestService(dataBaseContext);
 
             //Act
             var result = await callbackRequestService.CreateCallbackRequestAsync(newCallbackRequestDTO);
@@ -44,7 +44,26 @@ namespace MikartEnergy.UnitTests.Systems.Services
         [Fact]
         public async void CreateCallbackRequestAsync_AfterPostNewCallbackRequest_DataBaseContainesNewCallbackRequest()
         {
+            //Arrange
+            var newCallbackRequestDTO = new NewCallbackRequestDTO()
+            {
+                AuthorEmail = "AuthorEmail@mail.com",
+                AuthorFirstName = "Test",
+                AuthorLastName = "Test",
+                AuthorPhone = "88005553535",
+                Budget = 3000,
+                IntrerestedIn = "Test",
+                Message = "Test"
+            };
 
+            var dataBaseContext = CreateDbContext();
+            var callbackRequestService = new CallbackRequestService(dataBaseContext);
+
+            //Act
+            await callbackRequestService.CreateCallbackRequestAsync(newCallbackRequestDTO);
+
+            //Assert
+            dataBaseContext.CallbackRequests.ToArray().Should().NotBeEmpty();
         }
 
         [Fact]
@@ -55,11 +74,11 @@ namespace MikartEnergy.UnitTests.Systems.Services
             var callbackRequestService = new CallbackRequestService(databaseContext);
 
             //Act
-            var resultTask = await callbackRequestService.GetAllCallbackRequestsAsync(true);
+            var result = await callbackRequestService.GetAllCallbackRequestsAsync(true);
 
             //Assert
-            resultTask.Should().NotBeNull();
-            resultTask.Should().BeOfType<ResultModel<IEnumerable<CallbackRequestDTO>>>();
+            result.Should().NotBeNull();
+            result.Should().BeOfType<ResultModel<IEnumerable<CallbackRequestDTO>>>();
         }
 
 
