@@ -16,7 +16,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
     public class TestCallbackRequestService
     {
         [Fact]
-        public async void CreateCallbackRequestAsync_PostNewCallbackRequests_ReturnResultModelWithDtoTypeCallbackRequestDTO()
+        public async void CreateCallbackRequestAsync_PostNewCallbackRequest_ReturnResultModelWithDtoTypeCallbackRequestDTO()
         {
             //Arrange
             var newCallbackRequestDTO = new NewCallbackRequestDTO()
@@ -25,7 +25,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 AuthorFirstName = "Test",
                 AuthorLastName = "Test",
                 AuthorPhone = "88005553535",
-                Budget = 10000,
+                Budget = 300,
                 IntrerestedIn = "Test",
                 Message = "Test"
             };
@@ -42,6 +42,12 @@ namespace MikartEnergy.UnitTests.Systems.Services
         }
 
         [Fact]
+        public async void CreateCallbackRequestAsync_AfterPostNewCallbackRequest_DataBaseContainesNewCallbackRequest()
+        {
+
+        }
+
+        [Fact]
         public async void GetAllCallbackRequestsAsync_GetCallbackRequests_ReturnNotNullAndRightType()
         {
             //Arrange
@@ -55,6 +61,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
             resultTask.Should().NotBeNull();
             resultTask.Should().BeOfType<ResultModel<IEnumerable<CallbackRequestDTO>>>();
         }
+
 
         [Fact]
         public async void GetAllCallbackRequestsAsync_GetNotDeletedCallbackRequests_ReturnOnlyNotDeleted()
