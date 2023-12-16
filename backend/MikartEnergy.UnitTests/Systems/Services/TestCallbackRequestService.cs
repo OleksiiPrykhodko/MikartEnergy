@@ -1,7 +1,9 @@
 ﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using MikartEnergy.BLL.Mapping;
 using MikartEnergy.BLL.Services;
 using MikartEnergy.Common.DTO.CallbackRequest;
+using MikartEnergy.Common.Enums;
 using MikartEnergy.Common.Models.Result;
 using MikartEnergy.DAL.Context;
 using MikartEnergy.DAL.Entities;
@@ -220,7 +222,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 IsDeleted = false,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                AuthorEmail = "NotDeletedEmail@email.com",
+                AuthorEmail = "Test@email.com",
                 AuthorFirstName = "Test",
                 AuthorLastName = "Test",
                 AuthorPhone = "Test",
@@ -266,7 +268,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
                 IsDeleted = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                AuthorEmail = "NotDeletedEmail@email.com",
+                AuthorEmail = "Test@email.com",
                 AuthorFirstName = "Test",
                 AuthorLastName = "Test",
                 AuthorPhone = "Test",
@@ -286,6 +288,45 @@ namespace MikartEnergy.UnitTests.Systems.Services
             //Assert
             result.Should().BeFalse();
         }
+
+        [Fact]
+        public async void UpdateCallbackRequestAsync_CallWithCorrectData_ReturnUpdatedCallbackRequestWithSuccessFlagAndWithoutErrors()
+        {
+            //Arrange
+            var callbackRequest = new CallbackRequest()
+            {
+                Id = Guid.NewGuid(),
+                IsDeleted = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                AuthorEmail = "Test@email.com",
+                AuthorFirstName = "Test",
+                AuthorLastName = "Test",
+                AuthorPhone = "Test",
+                Budget = 10000,
+                Message = "I like tests!",
+                IntrerestedIn = "Big project",
+                InWork = true,
+            };
+            var databaseContext = CreateDbContext();
+            databaseContext.CallbackRequests.Add(callbackRequest);
+            databaseContext.SaveChanges();
+            var callbackRequestService = new CallbackRequestService(databaseContext);
+
+            var updated = callbackRequest.ToCallbackRequestDTO();
+            updated.AuthorEmail = "SomeNew@new.com";
+            databaseContext.Entry(callbackRequest).State = EntityState.Detached;
+
+            //Act
+            var result = await callbackRequestService.UpdateCallbackRequestAsync(updated);
+
+            //Assert
+            result.DTO.AuthorEmail.Should().BeEquivalentTo(updated.AuthorEmail);
+            result.Successful.Should().BeTrue();
+            result.Errors.Should().BeEmpty();
+        }
+
+        
 
         private MikartContext CreateDbContext()
         {
