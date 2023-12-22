@@ -7,6 +7,7 @@ using MikartEnergy.Common.Enums;
 using MikartEnergy.Common.Models.Result;
 using MikartEnergy.DAL.Context;
 using MikartEnergy.DAL.Entities;
+using MikartEnergy.UnitTests.Fixtures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,17 +22,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
         public async void CreateCallbackRequestAsync_PostNewCallbackRequest_ReturnResultModelWithDtoTypeCallbackRequestDTO()
         {
             //Arrange
-            var newCallbackRequestDTO = new NewCallbackRequestDTO()
-            {
-                AuthorEmail = "AuthorEmail@mail.com",
-                AuthorFirstName = "Test",
-                AuthorLastName = "Test",
-                AuthorPhone = "88005553535",
-                Budget = 3000,
-                IntrerestedIn = "Test",
-                Message = "Test"
-            };
-
+            var newCallbackRequestDTO = CallbackRequestsFixtures.GetNewCallbackRequestDTO();
             var dataBaseContext = CreateDbContext();
             var callbackRequestService = new CallbackRequestService(dataBaseContext);
 
@@ -47,17 +38,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
         public async void CreateCallbackRequestAsync_AfterPostNewCallbackRequest_DataBaseContainesNewCallbackRequest()
         {
             //Arrange
-            var newCallbackRequestDTO = new NewCallbackRequestDTO()
-            {
-                AuthorEmail = "AuthorEmail@mail.com",
-                AuthorFirstName = "Test",
-                AuthorLastName = "Test",
-                AuthorPhone = "88005553535",
-                Budget = 3000,
-                IntrerestedIn = "Test",
-                Message = "Test"
-            };
-
+            var newCallbackRequestDTO = CallbackRequestsFixtures.GetNewCallbackRequestDTO();
             var dataBaseContext = CreateDbContext();
             var callbackRequestService = new CallbackRequestService(dataBaseContext);
 
@@ -89,55 +70,8 @@ namespace MikartEnergy.UnitTests.Systems.Services
         {
             //Arrange
             var databaseContext = CreateDbContext();
-            databaseContext.CallbackRequests.AddRange(
-                new CallbackRequest()
-                {
-                    Id = Guid.NewGuid(),
-                    IsDeleted = true,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                    AuthorEmail = "DeletedEmail@email.com",
-                    AuthorFirstName = "Test",
-                    AuthorLastName = "Test",
-                    AuthorPhone = "Test",
-                    Budget = 100,
-                    Message = "I like tests!",
-                    IntrerestedIn = "Work",
-                    InWork = true,
-                },
-                new CallbackRequest()
-                {
-                    Id = Guid.NewGuid(),
-                    IsDeleted = false,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                    AuthorEmail = "NotDeletedEmail@email.com",
-                    AuthorFirstName = "Test",
-                    AuthorLastName = "Test",
-                    AuthorPhone = "Test",
-                    Budget = 10000,
-                    Message = "I like tests!",
-                    IntrerestedIn = "Big project",
-                    InWork = true,
-                },
-                new CallbackRequest()
-                {
-                    Id = Guid.NewGuid(),
-                    IsDeleted = false,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                    AuthorEmail = "NotDeletedEmail@email.com",
-                    AuthorFirstName = "Test",
-                    AuthorLastName = "Test",
-                    AuthorPhone = "Test",
-                    Budget = 10000,
-                    Message = "I like tests!",
-                    IntrerestedIn = "Big project",
-                    InWork = true,
-                });
-
+            databaseContext.CallbackRequests.AddRange(CallbackRequestsFixtures.GetCallbackRequests());
             databaseContext.SaveChanges();
-
             var callbackRequestService = new CallbackRequestService(databaseContext);
 
             //Act
@@ -151,57 +85,9 @@ namespace MikartEnergy.UnitTests.Systems.Services
         public async void GetAllCallbackRequestsAsync_GetAllCallbackRequests_ReturnAllWithDeleted()
         {
             //Arrange
-            var testCallbackRequests = new CallbackRequest[]
-            {
-                new CallbackRequest()
-                {
-                    Id = Guid.NewGuid(),
-                    IsDeleted = true,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                    AuthorEmail = "DeletedEmail@email.com",
-                    AuthorFirstName = "Test",
-                    AuthorLastName = "Test",
-                    AuthorPhone = "Test",
-                    Budget = 100,
-                    Message = "I like tests!",
-                    IntrerestedIn = "Work",
-                    InWork = true,
-                },
-                new CallbackRequest()
-                {
-                    Id = Guid.NewGuid(),
-                    IsDeleted = false,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                    AuthorEmail = "NotDeletedEmail@email.com",
-                    AuthorFirstName = "Test",
-                    AuthorLastName = "Test",
-                    AuthorPhone = "Test",
-                    Budget = 10000,
-                    Message = "I like tests!",
-                    IntrerestedIn = "Big project",
-                    InWork = true,
-                },
-                new CallbackRequest()
-                {
-                    Id = Guid.NewGuid(),
-                    IsDeleted = false,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                    AuthorEmail = "NotDeletedEmail@email.com",
-                    AuthorFirstName = "Test",
-                    AuthorLastName = "Test",
-                    AuthorPhone = "Test",
-                    Budget = 10000,
-                    Message = "I like tests!",
-                    IntrerestedIn = "Big project",
-                    InWork = true,
-                }
-            };
-
+            var callbackRequests = CallbackRequestsFixtures.GetCallbackRequests();
             var databaseContext = CreateDbContext();
-            databaseContext.CallbackRequests.AddRange(testCallbackRequests);
+            databaseContext.CallbackRequests.AddRange(callbackRequests);
             databaseContext.SaveChanges();
             var callbackRequestService = new CallbackRequestService(databaseContext);
 
@@ -209,28 +95,14 @@ namespace MikartEnergy.UnitTests.Systems.Services
             var allCallbackRequests = await callbackRequestService.GetAllCallbackRequestsAsync(true);
 
             //Assert
-            allCallbackRequests.DTO.Should().HaveSameCount(testCallbackRequests);
+            allCallbackRequests.DTO.Should().HaveSameCount(callbackRequests);
         }
 
         [Fact]
         public async void DeleteCallbackRequestAsync_CallWithIdContanedInDataBase_ReturnTrue()
         {
             //Arrange
-            var callbackRequest = new CallbackRequest()
-            {
-                Id = Guid.NewGuid(),
-                IsDeleted = false,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                AuthorEmail = "Test@email.com",
-                AuthorFirstName = "Test",
-                AuthorLastName = "Test",
-                AuthorPhone = "Test",
-                Budget = 10000,
-                Message = "I like tests!",
-                IntrerestedIn = "Big project",
-                InWork = true,
-            };
+            var callbackRequest = CallbackRequestsFixtures.GetCallbackRequest();
             var databaseContext = CreateDbContext();
             databaseContext.CallbackRequests.Add(callbackRequest);
             databaseContext.SaveChanges();
@@ -262,21 +134,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
         public async void DeleteCallbackRequestAsync_CallWithIdOfDeletedCallbackRequest_ReturnFalse()
         {
             //Arrange
-            var callbackRequest = new CallbackRequest()
-            {
-                Id = Guid.NewGuid(),
-                IsDeleted = true,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                AuthorEmail = "Test@email.com",
-                AuthorFirstName = "Test",
-                AuthorLastName = "Test",
-                AuthorPhone = "Test",
-                Budget = 10000,
-                Message = "I like tests!",
-                IntrerestedIn = "Big project",
-                InWork = true,
-            };
+            var callbackRequest = CallbackRequestsFixtures.GetCallbackRequest(isDeleted: true);
             var databaseContext = CreateDbContext();
             databaseContext.CallbackRequests.Add(callbackRequest);
             databaseContext.SaveChanges();
@@ -293,28 +151,14 @@ namespace MikartEnergy.UnitTests.Systems.Services
         public async void UpdateCallbackRequestAsync_CallWithCorrectData_ReturnUpdatedCallbackRequestWithSuccessFlagAndWithoutErrors()
         {
             //Arrange
-            var callbackRequest = new CallbackRequest()
-            {
-                Id = Guid.NewGuid(),
-                IsDeleted = true,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                AuthorEmail = "Test@email.com",
-                AuthorFirstName = "Test",
-                AuthorLastName = "Test",
-                AuthorPhone = "Test",
-                Budget = 10000,
-                Message = "I like tests!",
-                IntrerestedIn = "Big project",
-                InWork = true,
-            };
+            var callbackRequest = CallbackRequestsFixtures.GetCallbackRequest();
             var databaseContext = CreateDbContext();
             databaseContext.CallbackRequests.Add(callbackRequest);
             databaseContext.SaveChanges();
             var callbackRequestService = new CallbackRequestService(databaseContext);
 
             var updated = callbackRequest.ToCallbackRequestDTO();
-            updated.AuthorEmail = "SomeNew@new.com";
+            updated.AuthorEmail = "SomeNew@mail.com";
             databaseContext.Entry(callbackRequest).State = EntityState.Detached;
 
             //Act
@@ -330,21 +174,7 @@ namespace MikartEnergy.UnitTests.Systems.Services
         public async void UpdateCallbackRequestAsync_CallWithUnknownID_ReturnResultModelWithSameDtoAndUnsuccessWithErrorMessages()
         {
             //Arrange
-            var callbackRequest = new CallbackRequest()
-            {
-                Id = Guid.NewGuid(),
-                IsDeleted = true,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                AuthorEmail = "Test@email.com",
-                AuthorFirstName = "Test",
-                AuthorLastName = "Test",
-                AuthorPhone = "Test",
-                Budget = 10000,
-                Message = "I like tests!",
-                IntrerestedIn = "Big project",
-                InWork = true,
-            };
+            var callbackRequest = CallbackRequestsFixtures.GetCallbackRequest();
             var databaseContext = CreateDbContext();
             databaseContext.CallbackRequests.Add(callbackRequest);
             databaseContext.SaveChanges();
