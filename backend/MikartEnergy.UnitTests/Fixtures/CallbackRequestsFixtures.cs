@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -105,6 +106,27 @@ namespace MikartEnergy.UnitTests.Fixtures
             };
 
             return callbackRequests;
+        }
+
+        public static NewCallbackRequestDTO GetNewCallbackRequestDTO(
+            string authorEmail = "AuthorEmail@email.com",
+            string authorFirstName = "Test",
+            string authorLastName = "Test",
+            string authorPhone = "+380123456789",
+            int budget = 5000,
+            string intrerestedIn = "Test",
+            string message = "Test")
+        {
+            return new NewCallbackRequestDTO()
+            {
+                AuthorEmail = authorEmail,
+                AuthorFirstName = authorFirstName,
+                AuthorLastName = authorLastName,
+                AuthorPhone = authorPhone,
+                Budget = budget,
+                IntrerestedIn = intrerestedIn,
+                Message = message
+            };
         }
 
     }
