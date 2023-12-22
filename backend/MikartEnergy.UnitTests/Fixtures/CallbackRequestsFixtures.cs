@@ -10,6 +10,34 @@ namespace MikartEnergy.UnitTests.Fixtures
 {
     public class CallbackRequestsFixtures
     {
+        public static CallbackRequest GetCallbackRequest(
+            bool isDeleted = false,
+            string authorEmail = "test@email.com",
+            string authorFirstName = "Test",
+            string authorLastName = "Test",
+            string authorPhone = "+380123456789",
+            int budget = 10000,
+            string message = "It is test callback request.",
+            string intrerestedIn = "Big project.",
+            bool inWork = true)
+        {
+            return new CallbackRequest
+            {
+                Id = Guid.NewGuid(),
+                IsDeleted = isDeleted,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                AuthorEmail = authorEmail,
+                AuthorFirstName = authorFirstName,
+                AuthorLastName = authorLastName,
+                AuthorPhone = authorPhone,
+                Budget = budget,
+                Message = message,
+                IntrerestedIn = intrerestedIn,
+                InWork = inWork,
+            };
+        }
+
         public static List<CallbackRequest> GetCallbackRequests()
         {
             var callbackRequests = new List<CallbackRequest>()
@@ -32,6 +60,21 @@ namespace MikartEnergy.UnitTests.Fixtures
                 new CallbackRequest()
                 {
                     Id = Guid.NewGuid(),
+                    IsDeleted = true,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    AuthorEmail = "DeletedEmail@email.com",
+                    AuthorFirstName = "Test",
+                    AuthorLastName = "Test",
+                    AuthorPhone = "Test",
+                    Budget = 20000,
+                    Message = "I like tests!",
+                    IntrerestedIn = "Work",
+                    InWork = true,
+                },
+                new CallbackRequest()
+                {
+                    Id = Guid.NewGuid(),
                     IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
@@ -39,7 +82,7 @@ namespace MikartEnergy.UnitTests.Fixtures
                     AuthorFirstName = "Test",
                     AuthorLastName = "Test",
                     AuthorPhone = "Test",
-                    Budget = 10000,
+                    Budget = 5000,
                     Message = "I like tests!",
                     IntrerestedIn = "Big project",
                     InWork = true,
@@ -54,7 +97,7 @@ namespace MikartEnergy.UnitTests.Fixtures
                     AuthorFirstName = "Test",
                     AuthorLastName = "Test",
                     AuthorPhone = "Test",
-                    Budget = 10000,
+                    Budget = 20000,
                     Message = "I like tests!",
                     IntrerestedIn = "Big project",
                     InWork = true,
@@ -63,5 +106,6 @@ namespace MikartEnergy.UnitTests.Fixtures
 
             return callbackRequests;
         }
+
     }
 }
