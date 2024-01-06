@@ -1,3 +1,7 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
 //----------------------------Redefining bootstrap variables--------------------//
 
 // MY THEME COLORS
@@ -147,7 +151,6 @@ a.text-gradient-danger {
     -webkit-text-fill-color: transparent;
   }
 }
-
 
 
 // MAIN BACKGROUND COLOR
@@ -357,9 +360,6 @@ a.text-gradient-danger {
 }
 
 
-
-
-
-// DO NOT DELETE
-/* You can add global styles to this file, and also import other style files */
+// DO NOT DELETE - it is imports of other style files
 @import "node_modules/bootstrap/scss/bootstrap";
+
