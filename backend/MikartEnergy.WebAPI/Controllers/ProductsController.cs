@@ -40,9 +40,9 @@ namespace MikartEnergy.WebAPI.Controllers
             return BadRequest(await _productsService.CreateBadRequestResultAsync(request, errorsMessages));
         }
 
-        [HttpGet("{supplierPID}")]
+        [HttpGet("productBySupplierPID/{supplierPID}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<ProductDTO>>> Get(string supplierPID)
+        public async Task<ActionResult<ResultModel<ProductDTO>>> GetProductBySupplierPID(string supplierPID)
         {
             return Ok(await _productsService.GetProductBySupplierPidAsync(supplierPID));
         }
@@ -63,9 +63,9 @@ namespace MikartEnergy.WebAPI.Controllers
             return BadRequest(await _productsService.CreateBadRequestResultAsync(request, errorsMessages));
         }
 
-        [HttpGet("minimal/{supplierPID}")]
+        [HttpGet("productMinimalBySupplierPID/{supplierPID}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<ProductMinimalDTO>>> GetProductMinamal(string supplierPID)
+        public async Task<ActionResult<ResultModel<ProductMinimalDTO>>> GetProductMinamalBySupplierPID(string supplierPID)
         {
             return Ok(await _productsService.GetProductMinamalBySupplierPidAsync(supplierPID));
         }
