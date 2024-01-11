@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MikartEnergy.BLL.Mapping;
 using MikartEnergy.BLL.Services.Abstract;
 using MikartEnergy.Common.DTO.CallbackRequest;
@@ -100,6 +101,26 @@ namespace MikartEnergy.BLL.Services
             var productErrorDTO = new ProductMinimalDTO() { SupplierPID = idUppercase };
             var result = new ResultModel<ProductMinimalDTO>(productErrorDTO);
             result.AddErrorToDTO(ResponseError.NotFound.ToString(), "Product was not found by ID.");
+            return result;
+        }
+
+        public async Task<ResultModel<string[]>> GetOrderNumbersOfProductsByFirstChars(string startOfOrderNumber)
+        {
+            if (string.IsNullOrWhiteSpace(startOfOrderNumber))
+            {
+                var badResult = new ResultModel<string[]>(new string[0]);
+                badResult.AddErrorToDTO(ResponseError.StringIsNullOrEmptyOrWhiteSpace.ToString(), 
+                    "Start chars of order number can't be null, empty or white space.");
+                return badResult;
+            }
+
+            var matchedOrderNumbers = _context.Products
+                .Where(product => product.OrderNumber.StartsWith(startOfOrderNumber))
+                .Select(product => product.OrderNumber);
+
+            var resultOrderNumbers = await matchedOrderNumbers.ToArrayAsync();
+
+            var result = new ResultModel<string[]>(resultOrderNumbers);
             return result;
         }
 
