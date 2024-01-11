@@ -114,10 +114,10 @@ namespace MikartEnergy.BLL.Services
                 return badResult;
             }
 
-            var startOfOrderNumberInLoweCose = startOfOrderNumber.ToUpper();
+            var startOfOrderNumberInUpperCose = startOfOrderNumber.ToUpper();
             var matchedOrderNumbers = await _context.Products
                 .Select(product => product.OrderNumber.ToUpper())
-                .Where(orderNumber => orderNumber.StartsWith(startOfOrderNumberInLoweCose))
+                .Where(orderNumber => orderNumber.StartsWith(startOfOrderNumberInUpperCose))
                 .ToArrayAsync();
 
             var result = new ResultModel<string[]>(matchedOrderNumbers);
