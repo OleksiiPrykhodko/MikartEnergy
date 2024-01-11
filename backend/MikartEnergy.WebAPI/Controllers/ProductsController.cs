@@ -42,7 +42,7 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<IEnumerable<ProductDTO>>>> Get(string id)
+        public async Task<ActionResult<ResultModel<ProductDTO>>> Get(string id)
         {
             return Ok(await _productsService.GetProductByIdAsync(id));
         }
@@ -65,7 +65,7 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet("minimal/{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<IEnumerable<ProductMinimalDTO>>>> GetProductMinamal(string id)
+        public async Task<ActionResult<ResultModel<ProductMinimalDTO>>> GetProductMinamal(string id)
         {
             return Ok(await _productsService.GetProductMinamalByIdAsync(id));
         }

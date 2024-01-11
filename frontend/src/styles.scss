@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/themes/bootstrap4-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
 //----------------------------Redefining bootstrap variables--------------------//
+// Bootstrup variables path - node_modules/bootstrap/scss/_variables.scss
 
 // MY THEME COLORS
 $purple-dark: #180f3d; // logo color #393E46
@@ -94,8 +95,20 @@ table {
 $spinner-animation-speed: 1s;
 
 
-//----------------------------End of Redefining bootstrap variables--------------------//
+//----------------------------End of Redefining bootstrap variables---------------//
 
+//----------------------------PrimeNG components styling classes------------------//
+
+.autoCompletePanelStyle{
+  ol, ul, dl{
+    padding-left: 0rem;
+    margin-bottom: 0rem;
+  }
+}
+
+//----------------------------End of PrimeNG components styling classes------------------//
+
+//----------------------------Start of own custom classes--------------------//
 
 // GRADIENTS
 .background-gragient-info {
