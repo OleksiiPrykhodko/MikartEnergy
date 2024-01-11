@@ -16,7 +16,7 @@ export class ProductService {
 
   constructor(private httpService: HttpInternalService) { }
 
-  public getProductById(productID: string): Observable<HttpResponse<RequestResult<Product>>> {
+  public getProductBySupplierPID(productID: string): Observable<HttpResponse<RequestResult<Product>>> {
     return this.httpService.getFullRequest<RequestResult<Product>>(`${this.routePrefix}/${productID}`);
   }
 

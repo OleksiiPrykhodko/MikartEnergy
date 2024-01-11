@@ -32,7 +32,7 @@ export class ProductPageComponent {
   }
 
   ngOnInit() {
-    this._productSubscription = this._productService.getProductById(this._productIdFromRoute)
+    this._productSubscription = this._productService.getProductBySupplierPID(this._productIdFromRoute)
     .subscribe(result =>
       {
         if(result.url !== null && result.body !== null && result.ok){
