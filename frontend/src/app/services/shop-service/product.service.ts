@@ -12,16 +12,17 @@ import { HttpResponse } from '@angular/common/http';
 export class ProductService {
 
   public routePrefix = '/api/products';
-  public routeMinimalPrefix = '/api/products/minimal';
+  public routeForGetingProductBySupplierPID = `${this.routePrefix}/productBySupplierPID`;
+  public routeForGettingProductMinimalBySupplierPID = `${this.routePrefix}/productMinimalBySupplierPID`;
 
   constructor(private httpService: HttpInternalService) { }
 
   public getProductBySupplierPID(productID: string): Observable<HttpResponse<RequestResult<Product>>> {
-    return this.httpService.getFullRequest<RequestResult<Product>>(`${this.routePrefix}/${productID}`);
+    return this.httpService.getFullRequest<RequestResult<Product>>(`${this.routeForGetingProductBySupplierPID}/${productID}`);
   }
 
   public getProductMinimalBySupplierPID(productID: string): Observable<HttpResponse<RequestResult<ProductMinimal>>> {
-    return this.httpService.getFullRequest<RequestResult<ProductMinimal>>(`${this.routeMinimalPrefix}/${productID}`);
+    return this.httpService.getFullRequest<RequestResult<ProductMinimal>>(`${this.routeForGettingProductMinimalBySupplierPID}/${productID}`);
   }
 
 }
