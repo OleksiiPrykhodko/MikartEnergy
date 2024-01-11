@@ -40,6 +40,15 @@ namespace MikartEnergy.WebAPI.Controllers
             return BadRequest(await _productsService.CreateBadRequestResultAsync(request, errorsMessages));
         }
 
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ResultModel<ProductDTO>>> Get(Guid id)
+        {
+            //TODO: Create needed method in ProductsService
+            //return Ok(await _productsService.GetProductById(id));
+            throw new Exception();
+        }
+
         [HttpGet("productBySupplierPID/{supplierPID}")]
         [AllowAnonymous]
         public async Task<ActionResult<ResultModel<ProductDTO>>> GetProductBySupplierPID(string supplierPID)
@@ -47,9 +56,9 @@ namespace MikartEnergy.WebAPI.Controllers
             return Ok(await _productsService.GetProductBySupplierPidAsync(supplierPID));
         }
 
-        [HttpGet("minimal")]
+        [HttpGet("minimals")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductMinimalDTO>>>> GetProductsMinamal([FromQuery] PaginationRequestDTO request)
+        public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductMinimalDTO>>>> GetProductsMinamals([FromQuery] PaginationRequestDTO request)
         {
             var validationResult = await _paginationValidator.ValidateAsync(request);
 
@@ -61,6 +70,15 @@ namespace MikartEnergy.WebAPI.Controllers
             var errorsMessages = validationResult.Errors
                 .Select(err => new KeyValuePair<string, string>(err.PropertyName, err.ErrorMessage));
             return BadRequest(await _productsService.CreateBadRequestResultAsync(request, errorsMessages));
+        }
+
+        [HttpGet("minimal/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ResultModel<ProductMinimalDTO>>> GetProductMinamalById(Guid id)
+        {
+            //TODO: Create needed method in ProductsService
+            //return Ok(await _productsService.GetProductMinamalById(id));
+            throw new Exception();
         }
 
         [HttpGet("productMinimalBySupplierPID/{supplierPID}")]
