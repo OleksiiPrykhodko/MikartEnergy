@@ -114,14 +114,13 @@ namespace MikartEnergy.BLL.Services
                 return badResult;
             }
 
-            var startOfOrderNumberInLoweCose = startOfOrderNumber.ToLower();
-            var matchedOrderNumbers = _context.Products
-                .Select(product => product.OrderNumber.ToLower())
-                .Where(orderNumber => orderNumber.StartsWith(startOfOrderNumberInLoweCose));
+            var startOfOrderNumberInLoweCose = startOfOrderNumber.ToUpper();
+            var matchedOrderNumbers = await _context.Products
+                .Select(product => product.OrderNumber.ToUpper())
+                .Where(orderNumber => orderNumber.StartsWith(startOfOrderNumberInLoweCose))
+                .ToArrayAsync();
 
-            var resultOrderNumbers = await matchedOrderNumbers.ToArrayAsync();
-
-            var result = new ResultModel<string[]>(resultOrderNumbers);
+            var result = new ResultModel<string[]>(matchedOrderNumbers);
             return result;
         }
 
