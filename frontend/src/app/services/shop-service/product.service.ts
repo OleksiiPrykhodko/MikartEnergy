@@ -20,7 +20,7 @@ export class ProductService {
     return this.httpService.getFullRequest<RequestResult<Product>>(`${this.routePrefix}/${productID}`);
   }
 
-  public getProductMinimalById(productID: string): Observable<HttpResponse<RequestResult<ProductMinimal>>> {
+  public getProductMinimalBySupplierPID(productID: string): Observable<HttpResponse<RequestResult<ProductMinimal>>> {
     return this.httpService.getFullRequest<RequestResult<ProductMinimal>>(`${this.routeMinimalPrefix}/${productID}`);
   }
 
