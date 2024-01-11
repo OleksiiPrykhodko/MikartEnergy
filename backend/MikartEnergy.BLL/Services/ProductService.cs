@@ -49,9 +49,9 @@ namespace MikartEnergy.BLL.Services
             return resultModel;
         }
 
-        public async Task<ResultModel<ProductDTO>> GetProductByIdAsync(string id)
+        public async Task<ResultModel<ProductDTO>> GetProductByIdAsync(string supplierPID)
         {
-            var idUppercase = id.ToUpper();
+            var supplierPIDinUppercase = supplierPID.ToUpper();
             var product = await _context.Products
                 .Include(p => p.Keywords)
                 .Include(p => p.RelatedProducts)
@@ -59,7 +59,7 @@ namespace MikartEnergy.BLL.Services
                 .ThenInclude(td => td.TechnicalFeature)
                 .Include(p => p.TechnicalData)
                 .ThenInclude(td => td.TechnicalValues)
-                .FirstOrDefaultAsync(p => p.SupplierPID == idUppercase);
+                .FirstOrDefaultAsync(p => p.SupplierPID == supplierPIDinUppercase);
 
             if (product is not null)
             {
@@ -68,7 +68,7 @@ namespace MikartEnergy.BLL.Services
                 return resultModel;
             }
 
-            var productErrorDTO = new ProductDTO() { SupplierPID = idUppercase };
+            var productErrorDTO = new ProductDTO() { SupplierPID = supplierPIDinUppercase };
             var result = new ResultModel<ProductDTO>(productErrorDTO);
             result.AddErrorToDTO(ResponseError.NotFound.ToString(), "Product was not found by ID.");
             return result;
@@ -86,10 +86,10 @@ namespace MikartEnergy.BLL.Services
             return resultModel;
         }
 
-        public async Task<ResultModel<ProductMinimalDTO>> GetProductMinamalByIdAsync(string id)
+        public async Task<ResultModel<ProductMinimalDTO>> GetProductMinamalByIdAsync(string supplierPID)
         {
-            var idUppercase = id.ToUpper();
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.SupplierPID == idUppercase);
+            var supplierPIDinUppercase = supplierPID.ToUpper();
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.SupplierPID == supplierPIDinUppercase);
 
             if (product is not null)
             {
@@ -98,7 +98,7 @@ namespace MikartEnergy.BLL.Services
                 return resultModel;
             }
 
-            var productErrorDTO = new ProductMinimalDTO() { SupplierPID = idUppercase };
+            var productErrorDTO = new ProductMinimalDTO() { SupplierPID = supplierPIDinUppercase };
             var result = new ResultModel<ProductMinimalDTO>(productErrorDTO);
             result.AddErrorToDTO(ResponseError.NotFound.ToString(), "Product was not found by ID.");
             return result;
