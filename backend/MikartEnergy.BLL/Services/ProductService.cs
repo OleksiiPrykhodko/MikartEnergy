@@ -49,7 +49,7 @@ namespace MikartEnergy.BLL.Services
             return resultModel;
         }
 
-        public async Task<ResultModel<ProductDTO>> GetProductByIdAsync(string supplierPID)
+        public async Task<ResultModel<ProductDTO>> GetProductBySupplierPidAsync(string supplierPID)
         {
             var supplierPIDinUppercase = supplierPID.ToUpper();
             var product = await _context.Products
