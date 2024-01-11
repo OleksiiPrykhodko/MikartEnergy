@@ -67,7 +67,7 @@ namespace MikartEnergy.WebAPI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<ResultModel<ProductMinimalDTO>>> GetProductMinamal(string supplierPID)
         {
-            return Ok(await _productsService.GetProductMinamalByIdAsync(supplierPID));
+            return Ok(await _productsService.GetProductMinamalBySupplierPidAsync(supplierPID));
         }
 
         [HttpGet("searchOrderNumbersByFirstChars/{firstCharsOfOrderNumber}")]

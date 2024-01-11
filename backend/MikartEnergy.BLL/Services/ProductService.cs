@@ -86,7 +86,7 @@ namespace MikartEnergy.BLL.Services
             return resultModel;
         }
 
-        public async Task<ResultModel<ProductMinimalDTO>> GetProductMinamalByIdAsync(string supplierPID)
+        public async Task<ResultModel<ProductMinimalDTO>> GetProductMinamalBySupplierPidAsync(string supplierPID)
         {
             var supplierPIDinUppercase = supplierPID.ToUpper();
             var product = await _context.Products.FirstOrDefaultAsync(p => p.SupplierPID == supplierPIDinUppercase);
