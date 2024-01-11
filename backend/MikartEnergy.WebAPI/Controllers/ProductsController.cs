@@ -70,6 +70,13 @@ namespace MikartEnergy.WebAPI.Controllers
             return Ok(await _productsService.GetProductMinamalByIdAsync(id));
         }
 
+        [HttpGet("searchOrderNumbersByFirstChars/{firstCharsOfOrderNumber}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ResultModel<string>>> SearchOrderNumbersByFirstChars(string firstCharsOfOrderNumber)
+        {
+            return Ok(await _productsService.GetOrderNumbersOfProductsByFirstChars(firstCharsOfOrderNumber));
+        }
+
     }
 
 }
