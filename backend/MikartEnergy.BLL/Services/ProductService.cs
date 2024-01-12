@@ -104,7 +104,7 @@ namespace MikartEnergy.BLL.Services
             return result;
         }
 
-        public async Task<ResultModel<string[]>> GetOrderNumbersOfProductsByFirstChars(string startOfOrderNumber)
+        public async Task<ResultModel<string[]>> GetOrderNumbersByFirstCharsAsync(string startOfOrderNumber)
         {
             if (string.IsNullOrWhiteSpace(startOfOrderNumber))
             {
