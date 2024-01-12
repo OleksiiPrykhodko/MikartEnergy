@@ -129,6 +129,7 @@ $spinner-animation-speed: 1s;
   color: $danger;
   background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -136,6 +137,7 @@ $spinner-animation-speed: 1s;
   color: $primary;
   background: linear-gradient(94.88deg, $primary 5.12%, $danger 93.99%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -143,6 +145,7 @@ $spinner-animation-speed: 1s;
   color: $secondary;
   background: linear-gradient(296.77deg, #DD4C52 11.36%, #921E8D 53.07%, $secondary 78.7%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -150,17 +153,20 @@ $spinner-animation-speed: 1s;
   color: $info;
   background: linear-gradient(296.77deg, $info 11.36%, rgba(13, 68, 208, 0.77) 20%, $primary 78.7%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 a.text-gradient-danger {
   background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 
   &:hover {
     background: linear-gradient(94.88deg, $danger 5.12%, $primary 93.99%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 }
