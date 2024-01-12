@@ -88,11 +88,11 @@ namespace MikartEnergy.WebAPI.Controllers
             return Ok(await _productsService.GetProductMinamalBySupplierPidAsync(supplierPID));
         }
 
-        [HttpGet("searchOrderNumbersByFirstChars/{firstCharsOfOrderNumber}")]
+        [HttpGet("orderNumbersByFirstChars/{firstCharsOfOrderNumber}")]
         [AllowAnonymous]
         public async Task<ActionResult<ResultModel<string>>> SearchOrderNumbersByFirstChars(string firstCharsOfOrderNumber)
         {
-            return Ok(await _productsService.GetOrderNumbersOfProductsByFirstChars(firstCharsOfOrderNumber));
+            return Ok(await _productsService.GetOrderNumbersByFirstCharsAsync(firstCharsOfOrderNumber));
         }
 
     }
