@@ -116,8 +116,8 @@ namespace MikartEnergy.BLL.Services
 
             var startOfOrderNumberInUpperCose = startOfOrderNumber.ToUpper();
             var matchedOrderNumbers = await _context.Products
-                .Select(product => product.OrderNumber.ToUpper())
-                .Where(orderNumber => orderNumber.StartsWith(startOfOrderNumberInUpperCose))
+                .Where(product => product.SupplierPID.StartsWith(startOfOrderNumberInUpperCose))
+                .Select(product => product.SupplierPID)
                 .ToArrayAsync();
 
             var result = new ResultModel<string[]>(matchedOrderNumbers);
