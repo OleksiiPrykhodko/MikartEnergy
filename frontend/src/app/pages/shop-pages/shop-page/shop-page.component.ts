@@ -26,7 +26,7 @@ export class ShopPageComponent {
 
   public searchOrderNumber(event: AutoCompleteCompleteEvent) {
     if (event.query.length >= this._minQueryLength) {
-      var queryUpperCase = event.query.toUpperCase();
+      var queryUpperCase = event.query.replace(" ","").toUpperCase();
       var startOfJastEnteredValue = queryUpperCase.substring(0, this._minQueryLength);
       
       if (startOfJastEnteredValue != this._startOfRequestedOrderNumer) {
