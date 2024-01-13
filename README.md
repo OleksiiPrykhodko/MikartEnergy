@@ -30,6 +30,8 @@ In my project this is used to select equipment from the Siemens catalogue. And a
 ### Frontend:
 - [Angular](https://angular.io/docs)
 - [Bootstrap 5.2](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
+- [PrimeNG 17.3](https://primeng.org/installation)
+- [Font Awesome](https://fontawesome.com/)
 - [TIA Selection Tool - Siemens embedded configurator](https://www.siemens.com/global/en/products/automation/topic-areas/tia/tia-selection-tool.html)
 
 ### DerOps:
