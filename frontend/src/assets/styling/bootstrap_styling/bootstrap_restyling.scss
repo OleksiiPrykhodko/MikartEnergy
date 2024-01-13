@@ -80,13 +80,11 @@ $link-decoration: none;
 $link-hover-color: transparentize($primary, .2);
 
 
-// CARD
-$card-cap-bg: $white;
-
 // TABLE 
 table {
   margin: auto !important;
 }
+
 
 // SPINNER
 $spinner-animation-speed: 1s;
