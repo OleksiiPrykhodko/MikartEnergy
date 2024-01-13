@@ -1,0 +1,270 @@
+
+//---------------------------- Start of own custom classes --------------------//
+
+// GRADIENTS
+.background-gragient-info {
+    background: linear-gradient(45deg, $info 0%, rgba(13, 68, 208, 0.77) 40%, $primary 95%);
+}
+
+.background-gragient-danger {
+    background: linear-gradient(320deg, $danger 30%, $warning 90%);
+}
+
+.background-gragient-secondary {
+    background: linear-gradient(296.77deg, #DD4C52 11.36%, #921E8D 53.07%, $secondary 78.7%);
+}
+
+
+// TEXT GRADIENTS
+.text-gradient-danger {
+    color: $danger;
+    background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-primary {
+    color: $primary;
+    background: linear-gradient(94.88deg, $primary 5.12%, $danger 93.99%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-secondary {
+    color: $secondary;
+    background: linear-gradient(296.77deg, #DD4C52 11.36%, #921E8D 53.07%, $secondary 78.7%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-info {
+    color: $info;
+    background: linear-gradient(296.77deg, $info 11.36%, rgba(13, 68, 208, 0.77) 20%, $primary 78.7%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+a.text-gradient-danger {
+    background: linear-gradient(94.88deg, $danger 5.12%, $warning 93.99%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    &:hover {
+        background: linear-gradient(94.88deg, $danger 5.12%, $primary 93.99%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+
+// MAIN BACKGROUND COLOR
+.bg-main-colore {
+    background-color: $light-cloud;
+}
+
+
+// OPACITY
+.bg-opacity-95 {
+    opacity: 0.90;
+}
+
+
+// HEIGHT
+.v {
+    &h-20 {
+        height: 20vh;
+    }
+
+    &h-50 {
+        height: 50vh;
+    }
+
+    &h-75 {
+        height: 75vh;
+    }
+
+    &h-90 {
+        height: 90vh;
+    }
+}
+
+
+// PADDING
+.p {
+
+    // 6 = 4.5 rem
+    &-6 {
+        padding: 4.5rem !important;
+    }
+
+    &x-6 {
+        padding-left: 4.5rem !important;
+        padding-right: 4.5rem !important;
+    }
+
+    &y-6 {
+        padding-top: 4.5rem !important;
+        padding-bottom: 4.5rem !important;
+    }
+
+    &s-6 {
+        padding-left: 4.5rem !important;
+    }
+
+    &e-6 {
+        padding-right: 4.5rem !important;
+    }
+
+    &t-6 {
+        padding-top: 4.5rem !important;
+    }
+
+    &b-6 {
+        padding-bottom: 4.5rem !important;
+    }
+
+    // 7 = 6 rem
+    &-7 {
+        padding: 6rem !important;
+    }
+
+    &x-7 {
+        padding-left: 6rem !important;
+        padding-right: 6rem !important;
+    }
+
+    &y-7 {
+        padding-top: 6rem !important;
+        padding-bottom: 6rem !important;
+    }
+
+    &s-7 {
+        padding-left: 6rem !important;
+    }
+
+    &e-7 {
+        padding-right: 6rem !important;
+    }
+
+    &t-7 {
+        padding-top: 6rem !important;
+    }
+
+    &b-7 {
+        padding-bottom: 6rem !important;
+    }
+}
+
+
+// AFTER TEXT ELEMENT
+.arrow-right {
+    &::after {
+        content: '>>>';
+        margin-left: 0.1rem;
+        margin-right: 1.3rem;
+        transition: ease-in-out .5s;
+    }
+
+    &:hover::after {
+        margin-left: 1.3rem;
+        margin-right: 0.1rem;
+        transition: ease-in-out .5s;
+    }
+}
+
+// POSTER with activity type
+.poster {
+    overflow: hidden;
+    position: relative;
+
+    img {
+        opacity: 0.3;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &-text {
+        position: absolute;
+        top: 40%;
+        left: 10%;
+        width: 75%;
+    }
+}
+
+
+// IMG ZOOMING
+.zoomed-img {
+    img {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transition: 1s ease-in-out;
+        transition: 1s ease-in-out;
+        // blur
+        //-webkit-filter: blur(1px);
+        //filter: blur(1px);
+    }
+
+    &:hover {
+        img {
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+            // blur
+            //-webkit-filter: blur(0);
+            //filter: blur(0);
+        }
+    }
+}
+
+.zoomed-img-4 {
+    img {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transition: 1s ease-in-out;
+        transition: 1s ease-in-out;
+    }
+
+    &:hover {
+        img {
+            -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+        }
+    }
+}
+
+// AVATAR
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+// SHADOW
+.hover-shadow {
+    transition: box-shadow .5s;
+    box-shadow: 0 .125rem .25rem rgba($danger, .075);
+
+    &:hover {
+        box-shadow: 0 1rem 3rem rgba($primary, .175);
+    }
+}
+
+//IMAGE BOX
+.img-box {
+    overflow: hidden;
+    height: 28vh;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
