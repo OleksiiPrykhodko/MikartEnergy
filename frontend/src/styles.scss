@@ -1,24 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 
-//---------------------------- Redefining bootstrap variables -------------------//
-@import "assets/styling/bootstrap_restyling/bootstrap_restyling.scss";
+//----------------------- Redefining Bootstrap variables -------------------//
+@import "assets/styling/bootstrap_styling/bootstrap_restyling.scss";
 
-//---------------------------- Own custom classes -------------------------------//
+//----------------------- Redefining PrimeNG variables styled to Bootstrap--//
+@import "assets/styling/primeng_styling/themes/bootstrap4/bootstrap4-light/blue/theme.scss";
+@import "primeng/resources/primeng.min.css";
+
+//----------------------- Own custom classes -------------------------------//
 @import "assets/styling/custom_classes.scss";
 
 
-@import "primeng/resources/themes/bootstrap4-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-
-
-//---------------------------- PrimeNG components styling classes ---------------//
+//----------------------- PrimeNG components styling classes ---------------//
 .autoCompletePanelStyle{
   ol, ul, dl{
     padding-left: 0rem;
     margin-bottom: 0rem;
   }
 }
-//----------------------------End of PrimeNG components styling classes------------------//
+//----------------------- End of PrimeNG components styling classes --------//
 
 
 
