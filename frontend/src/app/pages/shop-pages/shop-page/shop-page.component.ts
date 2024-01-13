@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { Subscription, finalize, timeout } from 'rxjs';
+import { ProductService } from 'src/app/services/shop-service/product.service';
 
 @Component({
   selector: 'app-shop-page',
@@ -8,40 +10,71 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 })
 export class ShopPageComponent {
 
-  public minQueryLength: number = 5;
-  public receivedOrderNumbers: string[];
-  private startOfRequestedOrderNumer: string = "";
+  public _minQueryLength: number = 5;
+  public _receivedOrderNumbers: string[] = [];
+  public _suggestions: string[] = [];
+  public _selectedOrderNumber: string;
 
-  selectedItem: string;
+  private _orderNumbersSubscription: Subscription;
+  private _startOfRequestedOrderNumer: string = "";
 
-  suggestions: string[];
+  constructor(private productService: ProductService) { }
 
-  search(event: AutoCompleteCompleteEvent) {
-    this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
+  ngOnDestroy() {
+    this._orderNumbersSubscription.unsubscribe();
   }
 
-  searchOrderNumber(event: AutoCompleteCompleteEvent) {
-    if (event.query.length >= this.minQueryLength) {
-      var StartOfJastEnteredValue = event.query.substring(0, this.minQueryLength).toLowerCase();
-      if (StartOfJastEnteredValue != this.startOfRequestedOrderNumer) {
-       this.startOfRequestedOrderNumer = StartOfJastEnteredValue;
-        //this.receivedOrderNumbers = 
-        //  service.searchOrderNumberByFirstChars(this.startOfEnteredOrderNumer)
-        //  .map(orderNumber => orderNumber.toLowerCase()) ;
-      };
-
-      var filtered: string[] = [];
-      var query = event.query.toLowerCase();
-
-      for (let i = 0; i < this.receivedOrderNumbers.length; i++) {
-          var oderNumber = this.receivedOrderNumbers[i];
-          if (oderNumber.indexOf(query) == 0) {
-              filtered.push(oderNumber);
-          }
+  public searchOrderNumber(event: AutoCompleteCompleteEvent) {
+    if (event.query.length >= this._minQueryLength) {
+      var queryUpperCase = event.query.toUpperCase();
+      var startOfJastEnteredValue = queryUpperCase.substring(0, this._minQueryLength);
+      
+      if (startOfJastEnteredValue != this._startOfRequestedOrderNumer) {
+        this._orderNumbersSubscription = 
+        this.productService.getOrderNumbersByFirstChars(startOfJastEnteredValue)
+          .subscribe(result => 
+            {
+              if(result.url !== null && result.body !== null && result.ok){
+                if(result.body.successful){
+                  // All OK
+                  this._receivedOrderNumbers = result.body.dto.sort();
+                  this._startOfRequestedOrderNumer = startOfJastEnteredValue;
+                  this._suggestions = this.filterOrderNumbers(this._receivedOrderNumbers, queryUpperCase);
+                }
+                else{
+                  // Result model with successful = false
+                  // Show all errors 
+                    result.body.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
+                }
+              }
+              else{
+                if(result.url == null){
+                  console.log(`The server is not available.`);
+                }
+                else{
+                  if(result.body == null){
+                    console.log(`Server response error. No required response body.`);
+                  }
+                  console.log(`Something go wrong. HTTP response code: ${result.status}`);
+                }
+              }  
+            });  
       }
-
-      this.suggestions = filtered;
+      else{
+        this._suggestions = this.filterOrderNumbers(this._receivedOrderNumbers, queryUpperCase);
+      };
     }
+  }
+
+  private filterOrderNumbers(orderNumbers: string[], beginningOfOrderNumber: string): string[]{
+    var filtered: string[] = [];
+    for (let i = 0; i < orderNumbers.length; i++) {
+      var oderNumber = orderNumbers[i];
+      if (oderNumber.indexOf(beginningOfOrderNumber) == 0) {
+        filtered.push(oderNumber);
+      }
+    }
+    return filtered;
   }
 
 }
