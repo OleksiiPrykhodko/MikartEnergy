@@ -1,10 +1,11 @@
 <div class="container position-relative pt-6 vh-100 w-100">
     
     <div class="m-5">
-        <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" [minLength]=minQueryLength panelStyleClass="autoCompletePanelStyle"></p-autoComplete>
+        <p-autoComplete [(ngModel)]="_selectedOrderNumber" [suggestions]="_suggestions" (completeMethod)="searchOrderNumber($event)" [minLength]=_minQueryLength placeholder="Enter order number or in first chars: 6es75" class="p-inputtext-lg" panelStyleClass="autoCompletePanelStyle"></p-autoComplete>
+        <p-button label="SEARCH" icon="pi pi-check" size="large"></p-button>
     </div>
 
-    <hr class="border border-primary">
+    <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example">
 
     <div class="row">
         <div class="col-5">
