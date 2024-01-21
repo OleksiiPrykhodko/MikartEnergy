@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 
 import { ButtonModule } from 'primeng/button';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { DesignPageComponent } from './pages/design-page/design-page.component';
@@ -56,7 +58,9 @@ import { TiaStFormComponent } from './components/shop-components/tia-st-form/tia
     FormsModule,
 
     ButtonModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    InputGroupModule,
+    InputGroupAddonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
