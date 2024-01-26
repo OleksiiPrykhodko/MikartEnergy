@@ -29,6 +29,7 @@ import { WideProductMinimalsComponent } from './components/shop-components/wide-
 import { TruncatePipe } from './pipes/truncate/truncate.pipe';
 import { TiaStFormComponent } from './components/shop-components/tia-st-form/tia-st-form.component';
 import { SearchProductsPageComponent } from './pages/shop-pages/search-products-page/search-products-page.component';
+import { ConfiguratorResultListComponent } from './components/shop-components/configurator-result-list/configurator-result-list.component';
 
 
 @NgModule({
@@ -45,8 +46,9 @@ import { SearchProductsPageComponent } from './pages/shop-pages/search-products-
     SafeUrlPipe,
     NotFoundPageComponent,
     SlimProductMinimalsComponent,
-    ConfiguratorResultPageComponent,
     WideProductMinimalsComponent,
+    ConfiguratorResultPageComponent,
+    ConfiguratorResultListComponent,
     TruncatePipe,
     TiaStFormComponent,
     SearchProductsPageComponent
