@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-configurator-result-list',
-  standalone: true,
-  imports: [],
   templateUrl: './configurator-result-list.component.html',
   styleUrl: './configurator-result-list.component.scss'
 })
