@@ -28,9 +28,9 @@ export class SlimProductMinimalsComponent {
     return this._products.length > 0;
   }
 
-  public setLinkToProductPage(productId: string | null | undefined): string{
-    if(productId){
-      return `shop/products/${productId}`;
+  public setLinkToProductPage(productSupplierPID: string | null | undefined): string{
+    if(productSupplierPID){
+      return `shop/products/${productSupplierPID}`;
     }
     return "404";
   }
