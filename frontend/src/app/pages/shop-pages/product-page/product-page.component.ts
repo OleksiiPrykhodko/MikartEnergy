@@ -16,7 +16,7 @@ import { keyValuePair } from 'src/app/models/common/keyValuePair';
 export class ProductPageComponent {
 
   private _infoIsLoading: boolean = true;
-  private _productIdFromRoute: string = "";
+  private _productSupplierPID: string = "";
   private _subscriptionToRoutParamChange: Subscription;
   private _product: Product;
   private _productSubscription: Subscription;
@@ -28,11 +28,11 @@ export class ProductPageComponent {
     private _router: Router) 
   {
     this._subscriptionToRoutParamChange =
-      _activateRoute.params.subscribe(params => this._productIdFromRoute = params["productID"]);
+      _activateRoute.params.subscribe(params => this._productSupplierPID = params["productSupplierPID"]);
   }
 
   ngOnInit() {
-    this._productSubscription = this._productService.getProductBySupplierPID(this._productIdFromRoute)
+    this._productSubscription = this._productService.getProductBySupplierPID(this._productSupplierPID)
     .subscribe(result =>
       {
         if(result.url !== null && result.body !== null && result.ok){
