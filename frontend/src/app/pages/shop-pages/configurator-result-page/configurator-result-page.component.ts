@@ -64,8 +64,8 @@ export class ConfiguratorResultPageComponent {
   }
 
   ngOnDestroy() {
-    this._subscriptionToRoutParamChange.unsubscribe();
-    this._configuratorSubscription.unsubscribe();
+    this._subscriptionToRoutParamChange?.unsubscribe();
+    this._configuratorSubscription?.unsubscribe();
   }
 
   public getExistingProducts(): keyValuePair<ProductMinimal, number>[]{

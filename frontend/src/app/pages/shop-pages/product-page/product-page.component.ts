@@ -68,8 +68,8 @@ export class ProductPageComponent {
   }
 
   ngOnDestroy() {
-    this._subscriptionToRoutParamChange.unsubscribe();
-    this._productSubscription.unsubscribe();
+    this._subscriptionToRoutParamChange?.unsubscribe();
+    this._productSubscription?.unsubscribe();
   }
 
 
