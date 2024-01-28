@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
-import { Subscription, finalize, timeout } from 'rxjs';
+import { Subscription} from 'rxjs';
 import { ProductService } from 'src/app/services/shop-service/product.service';
 
 @Component({
@@ -17,21 +19,26 @@ export class ShopPageComponent {
 
   private _orderNumbersSubscription: Subscription;
   private _startOfRequestedOrderNumer: string = "";
+  public _formGroup: FormGroup = new FormGroup({
+    autoCompleteControl: new FormControl("")
+  });
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private _productService: ProductService,
+    private _router: Router) { }
 
   ngOnDestroy() {
-    this._orderNumbersSubscription.unsubscribe();
+    this._orderNumbersSubscription?.unsubscribe();
   }
 
-  public searchOrderNumber(event: AutoCompleteCompleteEvent) {
+  public searchOrderNumber(event: AutoCompleteCompleteEvent): void {
     if (event.query.length >= this._minQueryLength) {
       var queryUpperCase = event.query.replace(" ","").toUpperCase();
       var startOfJastEnteredValue = queryUpperCase.substring(0, this._minQueryLength);
       
       if (startOfJastEnteredValue != this._startOfRequestedOrderNumer) {
         this._orderNumbersSubscription = 
-        this.productService.getOrderNumbersByFirstChars(startOfJastEnteredValue)
+        this._productService.getOrderNumbersByFirstChars(startOfJastEnteredValue)
           .subscribe(result => 
             {
               if(result.url !== null && result.body !== null && result.ok){
@@ -75,6 +82,13 @@ export class ShopPageComponent {
       }
     }
     return filtered;
+  }
+
+  public submitForm(): void{
+    var autoCompleteValue = this._formGroup.value.autoCompleteControl;
+    if(autoCompleteValue?.length > 0){
+      this._router.navigate(['/shop/search'], {queryParams: {orderNumber : autoCompleteValue}});
+    }
   }
 
 }
