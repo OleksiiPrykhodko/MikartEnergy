@@ -8,8 +8,8 @@ import { ProductMinimal } from 'src/app/models/product/prodact-minimal';
   styleUrls: ['./wide-product-minimals.component.scss']
 })
 export class WideProductMinimalsComponent {
-  @Input() _products: ProductMinimal[];
-  @Input() _title: string;
+  @Input() _products: ProductMinimal[] = [];
+  @Input() _title: string = "";
 
   ngOnChanges(){
     this._products.forEach(p => 

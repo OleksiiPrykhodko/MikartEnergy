@@ -7,8 +7,8 @@ import { ProductMinimal } from 'src/app/models/product/prodact-minimal';
   styleUrls: ['./slim-product-minimals.component.scss']
 })
 export class SlimProductMinimalsComponent {
-  @Input() _products: ProductMinimal[];
-  @Input() _title: string;
+  @Input() _products: ProductMinimal[] = [];
+  @Input() _title: string = "";
 
   ngOnChanges(){
     this._products.forEach(p => 
