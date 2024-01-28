@@ -13,15 +13,15 @@ import { ConfiguratorResultPageComponent } from './pages/shop-pages/configurator
 import { SearchProductsPageComponent } from './pages/shop-pages/search-products-page/search-products-page.component';
 
 const routes: Routes = [
-  { path: "", component: HomePageComponent },
+  { path: "", component: HomePageComponent, pathMatch: 'full' },
   { path: "about", component: AboutPageComponent },
   { path: "development", component: DevelopmentPageComponent },
   { path: "contacts", component: ContactsPageComponent },
   { path: "shop", component: ShopPageComponent},
   { path: "shop/configurator/:resultID", component: ConfiguratorResultPageComponent },
   { path: "shop/products", component: ProductsPageComponent },
-  { path: "shop/products/:productID", component: ProductPageComponent },
-  { path: "shop/search/:searchedOrderNumberPart", component: SearchProductsPageComponent},
+  { path: "shop/products/:productSupplierPID", component: ProductPageComponent },
+  { path: "shop/search", component: SearchProductsPageComponent},
   { path: "design", component: DesignPageComponent },
   { path: "404", component: NotFoundPageComponent},
   { path: "**", redirectTo: "404"} //  { path: "**", component: NotFoundPageComponent}
