@@ -1,10 +1,28 @@
 <div class="container position-relative pt-6 vh-100 w-100">
-
-    <div class="w-100 h-50 pt-6 d-flex justify-content-center">
-        <p-autoComplete [(ngModel)]="_selectedOrderNumber" [suggestions]="_suggestions" (completeMethod)="searchOrderNumber($event)" [minLength]=_minQueryLength placeholder="Enter order number" [autofocus]="true" inputStyleClass="p-inputtext-lg h2" panelStyleClass="autoCompletePanelStyle fs-5" scrollHeight="400px" [size]="17"></p-autoComplete>
-        <p-button label="Search" styleClass="h2" size="large"></p-button>
+    <div class="w-100 h-50 pt-6 ">
+        <form [formGroup]="_formGroup" (submit)="submitForm()">
+            <div class="d-flex justify-content-center">
+                <p-autoComplete 
+                    formControlName="autoCompleteControl" 
+                    [suggestions]="_suggestions" 
+                    (completeMethod)="searchOrderNumber($event)" 
+                    [minLength]="_minQueryLength" 
+                    placeholder="Enter: 6ES75..." 
+                    [autofocus]="true" 
+                    inputStyleClass="p-inputtext-lg h2" 
+                    panelStyleClass="autoCompletePanelStyle fs-5" 
+                    scrollHeight="400px" 
+                    [size]="17">
+                </p-autoComplete>
+                <p-button 
+                    type="submit" 
+                    label="Search" 
+                    styleClass="h2" 
+                    size="large">
+                </p-button>
+            </div>
+        </form>
     </div>
-
     <div class="row position-absolute w-100 top-50">
         <div class="col-5">
             <hr class="border border-primary">
@@ -16,11 +34,9 @@
             <hr class="border border-primary">
         </div>
     </div>
-
     <div class="position-relative  w-100 h-50 d-flex justify-content-center">
         <div class="position-absolute top-50 start-50 translate-middle">
             <app-tia-st-form [_shadow]="true" [_width]="'25rem'"></app-tia-st-form>
         </div>
     </div>
-
 </div>
