@@ -86,7 +86,7 @@ export class ShopPageComponent {
 
   public submitForm(): void{
     var autoCompleteValue = this._formGroup.value.autoCompleteControl;
-    if(autoCompleteValue?.length > 0){
+    if(autoCompleteValue?.length > 1){
       this._router.navigate(['/shop/search'], {queryParams: {orderNumber : autoCompleteValue}});
     }
   }
