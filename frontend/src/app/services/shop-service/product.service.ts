@@ -11,10 +11,11 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class ProductService {
 
-  public routePrefix = '/api/products';
-  public routeToGetProductBySupplierPID = `${this.routePrefix}/productBySupplierPID`;
-  public routeToGetProductMinimalBySupplierPID = `${this.routePrefix}/productMinimalBySupplierPID`;
-  public routeToGetOrderNumbersByFirstChars = `${this.routePrefix}/orderNumbersByFirstChars`;
+  private routePrefix: string = '/api/products';
+  private routeToGetProductBySupplierPID: string = `${this.routePrefix}/productBySupplierPID`;
+  private routeToGetProductMinimalBySupplierPID: string = `${this.routePrefix}/productMinimalBySupplierPID`;
+  private routeToGetOrderNumbersByFirstChars: string = `${this.routePrefix}/orderNumbersByFirstChars`;
+  private routeToGetProductMinamalsByPartOfOrderNumber: string = `${this.routePrefix}/productMinamalsByPartOfProductOrderNumber`;
 
   constructor(private httpService: HttpInternalService) { }
 
@@ -28,6 +29,10 @@ export class ProductService {
 
   public getOrderNumbersByFirstChars(firstCharsOfOrderNumber: string): Observable<HttpResponse<RequestResult<string[]>>> {
     return this.httpService.getFullRequest<RequestResult<string[]>>(`${this.routeToGetOrderNumbersByFirstChars}/${firstCharsOfOrderNumber}`);
+  }
+
+  public getProductMinamalsByPartOfOrderNumber(partOfProductOrderNumber: string): Observable<HttpResponse<RequestResult<ProductMinimal[]>>>{
+    return this.httpService.getFullRequest<RequestResult<ProductMinimal[]>>(`${this.routeToGetProductMinamalsByPartOfOrderNumber}/${partOfProductOrderNumber}`);
   }
 
 }
