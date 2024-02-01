@@ -32,19 +32,22 @@ export class AppComponent {
 
   private HandleNavigationEndEvent(navigationEndEvent : any){
     var currentRoute = navigationEndEvent.url.substring(1);
-      if(currentRoute.length > 0){
-        currentRoute = currentRoute.split("/", 3);
-        var routeNamePathPair: [string, string][] = [];
-        for (let index = 0; index < currentRoute.length; index++) {
-          if(index === 0){
-            routeNamePathPair.push([currentRoute[index], "/"+currentRoute[index]])
-          }
-          else{
-            routeNamePathPair.push([currentRoute[index], `${currentRoute[index - 1]}/${currentRoute[index]}`]);
-          }
+    //Delete query string from route.
+    currentRoute = currentRoute.split("?")[0];
+    //Route spliting.
+    if(currentRoute.length > 0){
+      currentRoute = currentRoute.split("/", 3);
+      var routeNamePathPair: [string, string][] = [];
+      for (let index = 0; index < currentRoute.length; index++) {
+        if(index === 0){
+          routeNamePathPair.push([currentRoute[index], "/" + currentRoute[index]])
         }
-        this._routeNamePathPair = routeNamePathPair;
+        else{
+          routeNamePathPair.push([currentRoute[index], `${currentRoute[index - 1]}/${currentRoute[index]}`]);
+        }
       }
+      this._routeNamePathPair = routeNamePathPair;
+    }
   }
 
 }
