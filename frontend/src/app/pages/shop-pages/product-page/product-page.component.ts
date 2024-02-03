@@ -15,7 +15,7 @@ import { keyValuePair } from 'src/app/models/common/keyValuePair';
 
 export class ProductPageComponent {
 
-  private _infoIsLoading: boolean = true;
+  private _infoIsLoaded: boolean = true;
   private _productSupplierPID: string = "";
   private _subscriptionToRoutParamChange: Subscription;
   private _product: Product;
@@ -40,7 +40,7 @@ export class ProductPageComponent {
             // All OK
             this._product = result.body?.dto;
             this._relatedProducts = this._product.relatedProducts;
-            this._infoIsLoading = false;
+            this._infoIsLoaded = false;
           }
           else{
             // Result model with successful = false
@@ -74,7 +74,7 @@ export class ProductPageComponent {
 
 
   public checkLoading(): boolean {
-    return this._infoIsLoading;
+    return this._infoIsLoaded;
   }
 
   public checkProductPageLink(): boolean {
