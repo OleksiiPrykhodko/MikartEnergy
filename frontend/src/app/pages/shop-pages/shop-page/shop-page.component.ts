@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -39,32 +40,37 @@ export class ShopPageComponent {
       if (startOfJastEnteredValue != this._startOfRequestedOrderNumer) {
         this._orderNumbersSubscription = 
         this._productService.getOrderNumbersByFirstChars(startOfJastEnteredValue)
-          .subscribe(result => 
-            {
-              if(result.url !== null && result.body !== null && result.ok){
+          .subscribe(
+            result => {
+              // Check HttpResponse body on Null
+              if(result.body){
                 if(result.body.successful){
                   // All OK
-                  this._receivedOrderNumbers = result.body.dto.sort();
+                  this._receivedOrderNumbers = result.body.dto.sort() || [];
                   this._startOfRequestedOrderNumer = startOfJastEnteredValue;
                   this._suggestions = this.filterOrderNumbers(this._receivedOrderNumbers, queryUpperCase);
                 }
                 else{
                   // Result model with successful = false
                   // Show all errors 
-                    result.body.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
+                  result.body.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
                 }
               }
               else{
-                if(result.url == null){
-                  console.log(`The server is not available.`);
+                console.error("HttpResponse body can't be NULL.");
+              }
+            },
+            error => {
+              if(error instanceof HttpErrorResponse){
+                if(error.status === 0){
+                  console.error("Client-side or network error occurred.");
                 }
                 else{
-                  if(result.body == null){
-                    console.log(`Server response error. No required response body.`);
-                  }
-                  console.log(`Something go wrong. HTTP response code: ${result.status}`);
+                  console.error(`Server error: ${error.status}.`);
                 }
-              }  
+              }else{
+                console.error("Unexpected Error.")
+              }
             });  
       }
       else{
