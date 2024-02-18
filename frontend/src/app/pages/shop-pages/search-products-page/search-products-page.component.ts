@@ -37,10 +37,10 @@ export class SearchProductsPageComponent {
             error => {
               if(error instanceof HttpErrorResponse){
                 if(error.status === 0){
-                  console.error("Client-side or network error occurred");
+                  console.error("Client-side or network error occurred.");
                 }
                 else{
-                  console.error(`Server error: ${error.status}`);
+                  console.error(`Server error: ${error.status}.`);
                 }
               }else{
                 console.error("Unexpected Error.")
