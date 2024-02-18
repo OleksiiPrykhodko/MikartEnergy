@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -30,10 +31,11 @@ export class ConfiguratorResultPageComponent {
 
   ngOnInit(){
     this._configuratorSubscription = this._configuratorService.getConfigurationResultById(this._configurationResultIdFromRoute)
-    .subscribe(result =>
-      {
-        if(result.url !== null && result.body !== null && result.ok){
-          if(result.body?.successful){
+    .subscribe(
+      result => {
+        // Check HttpResponse body on Null
+        if(result.body){
+          if(result.body.successful){
             // All OK
             this._tiaStProductsOrder = result.body?.dto;
             this._infoIsLoading = false;
@@ -41,26 +43,31 @@ export class ConfiguratorResultPageComponent {
           else{
             // Result model with successful = false
             // If the error is Id not found (key = "NotFound"), redirect to page "page not found".
-            if(result.body?.errors.some(e => e.key === "NotFound")){
+            if(result.body.errors.some(e => e.key === "NotFound")){
               this._router.navigate(['404']);
             }
             else{
-              result.body?.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
+              // Show all errors 
+              result.body.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
             }
           }
         }
         else{
-          if(result.url == null){
-            console.log(`The server is not available.`);
+          console.error("HttpResponse body can't be NULL.");
+        }
+      },
+      error => {
+        if(error instanceof HttpErrorResponse){
+          if(error.status === 0){
+            console.error("Client-side or network error occurred.");
           }
           else{
-            if(result.body == null){
-              console.log(`Server response error. No required response body.`);
-            }
-            console.log(`Something go wrong. HTTP response code: ${result.status}`);
+            console.error(`Server error: ${error.status}.`);
           }
+        }else{
+          console.error("Unexpected Error.")
         }
-      })
+      });  
   }
 
   ngOnDestroy() {
