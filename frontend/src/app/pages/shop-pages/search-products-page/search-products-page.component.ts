@@ -32,8 +32,13 @@ export class SearchProductsPageComponent {
           .getProductMinamalsByPartOfOrderNumber(this._searchedOrderNumberPart)
           .subscribe(
             result => { 
-              this._retrievedProducts = result?.body?.dto || [];
-              this._infoIsLoaded = false },
+              // Check HttpResponse body on Null
+              if(result.body){
+                this._retrievedProducts = result.body.dto || [];
+                this._infoIsLoaded = false
+              }else{
+                console.error("HttpResponse body can't be NULL.");
+              }},
             error => {
               if(error instanceof HttpErrorResponse){
                 if(error.status === 0){
