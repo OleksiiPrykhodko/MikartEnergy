@@ -1,24 +1,26 @@
 <div class="container min-vh-100 py-6">
     <div class="pt-6 pb-5">
-        <div class="d-flex justify-content-center">
-            <p-autoComplete 
-                
-                
-                 
-                
-                placeholder="Enter: 6ES75..." 
-                inputStyleClass="p-inputtext-lg h2" 
-                panelStyleClass="autoCompletePanelStyle fs-5" 
-                scrollHeight="400px" 
-                [size]="15">
-            </p-autoComplete>
-            <p-button 
-                type="submit" 
-                label="Search" 
-                styleClass="h2" 
-                size="large">
-            </p-button>
-        </div>
+        <form [formGroup]="_formGroup" (submit)="submitForm()">
+            <div class="d-flex justify-content-center">
+                <p-autoComplete 
+                    formControlName="autoCompleteControl" 
+                    [suggestions]="_suggestions" 
+                    (completeMethod)="searchOrderNumber($event)" 
+                    [minLength]="_minQueryLength" 
+                    placeholder="Enter: 6ES75..." 
+                    inputStyleClass="p-inputtext-lg h2" 
+                    panelStyleClass="autoCompletePanelStyle fs-5" 
+                    scrollHeight="400px" 
+                    [size]="15">
+                </p-autoComplete>
+                <p-button 
+                    type="submit" 
+                    label="Search" 
+                    styleClass="h2" 
+                    size="large">
+                </p-button>
+            </div>
+        </form>
     </div>
     <div [hidden]="!checkLoading()">
         <div class="d-flex justify-content-center align-items-center vh-50">
