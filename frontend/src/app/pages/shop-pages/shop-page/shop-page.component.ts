@@ -18,7 +18,7 @@ export class ShopPageComponent {
   public _suggestions: string[] = [];
   public _selectedOrderNumber: string;
 
-  private _orderNumbersSubscription: Subscription;
+  private _subscriptionToOrderNumbers: Subscription;
   private _startOfRequestedOrderNumer: string = "";
   public _formGroup: FormGroup = new FormGroup({
     autoCompleteControl: new FormControl("")
@@ -29,7 +29,7 @@ export class ShopPageComponent {
     private _router: Router) { }
 
   ngOnDestroy() {
-    this._orderNumbersSubscription?.unsubscribe();
+    this._subscriptionToOrderNumbers?.unsubscribe();
   }
 
   public searchOrderNumber(event: AutoCompleteCompleteEvent): void {
@@ -38,7 +38,7 @@ export class ShopPageComponent {
       var startOfJastEnteredValue = queryUpperCase.substring(0, this._minQueryLength);
       
       if (startOfJastEnteredValue != this._startOfRequestedOrderNumer) {
-        this._orderNumbersSubscription = 
+        this._subscriptionToOrderNumbers = 
         this._productService.getOrderNumbersByFirstChars(startOfJastEnteredValue)
           .subscribe(
             result => {
