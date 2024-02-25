@@ -42,14 +42,23 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<IEnumerable<ProductDTO>>>> Get(string id)
+        public async Task<ActionResult<ResultModel<ProductDTO>>> Get(Guid id)
         {
-            return Ok(await _productsService.GetProductByIdAsync(id));
+            //TODO: Create needed method in ProductsService
+            //return Ok(await _productsService.GetProductById(id));
+            throw new Exception();
         }
 
-        [HttpGet("minimal")]
+        [HttpGet("productBySupplierPID/{supplierPID}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductMinimalDTO>>>> GetProductsMinamal([FromQuery] PaginationRequestDTO request)
+        public async Task<ActionResult<ResultModel<ProductDTO>>> GetProductBySupplierPID(string supplierPID)
+        {
+            return Ok(await _productsService.GetProductBySupplierPidAsync(supplierPID));
+        }
+
+        [HttpGet("minimals")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductMinimalDTO>>>> GetProductsMinamals([FromQuery] PaginationRequestDTO request)
         {
             var validationResult = await _paginationValidator.ValidateAsync(request);
 
@@ -65,9 +74,32 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet("minimal/{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<IEnumerable<ProductMinimalDTO>>>> GetProductMinamal(string id)
+        public async Task<ActionResult<ResultModel<ProductMinimalDTO>>> GetProductMinamalById(Guid id)
         {
-            return Ok(await _productsService.GetProductMinamalByIdAsync(id));
+            //TODO: Create needed method in ProductsService
+            //return Ok(await _productsService.GetProductMinamalById(id));
+            throw new Exception();
+        }
+
+        [HttpGet("productMinimalBySupplierPID/{supplierPID}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ResultModel<ProductMinimalDTO>>> GetProductMinamalBySupplierPID(string supplierPID)
+        {
+            return Ok(await _productsService.GetProductMinamalBySupplierPidAsync(supplierPID));
+        }
+
+        [HttpGet("orderNumbersByFirstChars/{firstCharsOfOrderNumber}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ResultModel<string>>> SearchOrderNumbersByFirstChars(string firstCharsOfOrderNumber)
+        {
+            return Ok(await _productsService.GetOrderNumbersByFirstCharsAsync(firstCharsOfOrderNumber));
+        }
+
+        [HttpGet("productMinamalsByPartOfProductOrderNumber/{partOfProductOrderNumber}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ResultModel<ProductMinimalDTO[]>>> SearchProductMinamalsByPartOfProductOrderNumber(string partOfProductOrderNumber)
+        {
+            return Ok(await _productsService.GetProductMinamalsByPartOfProductOrderNumber(partOfProductOrderNumber));
         }
 
     }

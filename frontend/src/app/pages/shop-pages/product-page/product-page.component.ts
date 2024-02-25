@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product/product';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ProductMinimal } from 'src/app/models/product/prodact-minimal';
 import { ProductService } from 'src/app/services/shop-service/product.service';
 import { keyValuePair } from 'src/app/models/common/keyValuePair';
@@ -15,8 +15,8 @@ import { keyValuePair } from 'src/app/models/common/keyValuePair';
 
 export class ProductPageComponent {
 
-  private _infoIsLoading: boolean = true;
-  private _productIdFromRoute: string = "";
+  private _infoIsLoaded: boolean = true;
+  private _productSupplierPID: string = "";
   private _subscriptionToRoutParamChange: Subscription;
   private _product: Product;
   private _productSubscription: Subscription;
@@ -28,53 +28,58 @@ export class ProductPageComponent {
     private _router: Router) 
   {
     this._subscriptionToRoutParamChange =
-      _activateRoute.params.subscribe(params => this._productIdFromRoute = params["productID"]);
+      _activateRoute.params.subscribe(params => this._productSupplierPID = params["productSupplierPID"]);
   }
 
   ngOnInit() {
-    this._productSubscription = this._productService.getProductById(this._productIdFromRoute)
-    .subscribe(result =>
-      {
-        if(result.url !== null && result.body !== null && result.ok){
-          if(result.body?.successful){
+    this._productSubscription = this._productService.getProductBySupplierPID(this._productSupplierPID)
+    .subscribe(
+      result => {
+        // Check HttpResponse body on Null
+        if(result.body){
+          if(result.body.successful){
             // All OK
-            this._product = result.body?.dto;
+            this._product = result.body.dto;
             this._relatedProducts = this._product.relatedProducts;
-            this._infoIsLoading = false;
+            this._infoIsLoaded = false;
           }
           else{
             // Result model with successful = false
             // If the error is Id not found (key = "NotFound"), redirect to page "page not found".
-            if(result.body?.errors.some(e => e.key === "NotFound")){
+            if(result.body.errors.some(e => e.key === "NotFound")){
               this._router.navigate(['404']);
             }
             else{
-              result.body?.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
+              result.body.errors.forEach(error => console.log(`Error: ${error.key}. Description: ${error.key}.`));
             }
           }
         }
         else{
-          if(result.url == null){
-            console.log(`The server is not available.`);
+          console.error("HttpResponse body can't be NULL.");
+        }
+      },
+      error => {
+        if(error instanceof HttpErrorResponse){
+          if(error.status === 0){
+            console.error("Client-side or network error occurred.");
           }
           else{
-            if(result.body == null){
-              console.log(`Server response error. No required response body.`);
-            }
-            console.log(`Something go wrong. HTTP response code: ${result.status}`);
+            console.error(`Server error: ${error.status}.`);
           }
+        }else{
+          console.error("Unexpected Error.")
         }
-      })
+      });  
   }
 
   ngOnDestroy() {
-    this._subscriptionToRoutParamChange.unsubscribe();
-    this._productSubscription.unsubscribe();
+    this._subscriptionToRoutParamChange?.unsubscribe();
+    this._productSubscription?.unsubscribe();
   }
 
 
   public checkLoading(): boolean {
-    return this._infoIsLoading;
+    return this._infoIsLoaded;
   }
 
   public checkProductPageLink(): boolean {

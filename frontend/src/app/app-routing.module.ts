@@ -10,16 +10,18 @@ import { ProductsPageComponent } from './pages/shop-pages/products-page/products
 import { ProductPageComponent } from './pages/shop-pages/product-page/product-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { ConfiguratorResultPageComponent } from './pages/shop-pages/configurator-result-page/configurator-result-page.component';
+import { SearchProductsPageComponent } from './pages/shop-pages/search-products-page/search-products-page.component';
 
 const routes: Routes = [
-  { path: "", component: HomePageComponent },
+  { path: "", component: HomePageComponent, pathMatch: 'full' },
   { path: "about", component: AboutPageComponent },
   { path: "development", component: DevelopmentPageComponent },
   { path: "contacts", component: ContactsPageComponent },
   { path: "shop", component: ShopPageComponent},
   { path: "shop/configurator/:resultID", component: ConfiguratorResultPageComponent },
   { path: "shop/products", component: ProductsPageComponent },
-  { path: "shop/products/:productID", component: ProductPageComponent },
+  { path: "shop/products/:productSupplierPID", component: ProductPageComponent },
+  { path: "shop/search", component: SearchProductsPageComponent},
   { path: "design", component: DesignPageComponent },
   { path: "404", component: NotFoundPageComponent},
   { path: "**", redirectTo: "404"} //  { path: "**", component: NotFoundPageComponent}

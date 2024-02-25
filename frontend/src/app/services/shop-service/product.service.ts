@@ -11,17 +11,28 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class ProductService {
 
-  public routePrefix = '/api/products';
-  public routeMinimalPrefix = '/api/products/minimal';
+  private routePrefix: string = '/api/products';
+  private routeToGetProductBySupplierPID: string = `${this.routePrefix}/productBySupplierPID`;
+  private routeToGetProductMinimalBySupplierPID: string = `${this.routePrefix}/productMinimalBySupplierPID`;
+  private routeToGetOrderNumbersByFirstChars: string = `${this.routePrefix}/orderNumbersByFirstChars`;
+  private routeToGetProductMinamalsByPartOfOrderNumber: string = `${this.routePrefix}/productMinamalsByPartOfProductOrderNumber`;
 
   constructor(private httpService: HttpInternalService) { }
 
-  public getProductById(productID: string): Observable<HttpResponse<RequestResult<Product>>> {
-    return this.httpService.getFullRequest<RequestResult<Product>>(`${this.routePrefix}/${productID}`);
+  public getProductBySupplierPID(supplierPID: string): Observable<HttpResponse<RequestResult<Product>>> {
+    return this.httpService.getFullRequest<RequestResult<Product>>(`${this.routeToGetProductBySupplierPID}/${supplierPID}`);
   }
 
-  public getProductMinimalById(productID: string): Observable<HttpResponse<RequestResult<ProductMinimal>>> {
-    return this.httpService.getFullRequest<RequestResult<ProductMinimal>>(`${this.routeMinimalPrefix}/${productID}`);
+  public getProductMinimalBySupplierPID(supplierPID: string): Observable<HttpResponse<RequestResult<ProductMinimal>>> {
+    return this.httpService.getFullRequest<RequestResult<ProductMinimal>>(`${this.routeToGetProductMinimalBySupplierPID}/${supplierPID}`);
+  }
+
+  public getOrderNumbersByFirstChars(firstCharsOfOrderNumber: string): Observable<HttpResponse<RequestResult<string[]>>> {
+    return this.httpService.getFullRequest<RequestResult<string[]>>(`${this.routeToGetOrderNumbersByFirstChars}/${firstCharsOfOrderNumber}`);
+  }
+
+  public getProductMinamalsByPartOfOrderNumber(partOfProductOrderNumber: string): Observable<HttpResponse<RequestResult<ProductMinimal[]>>>{
+    return this.httpService.getFullRequest<RequestResult<ProductMinimal[]>>(`${this.routeToGetProductMinamalsByPartOfOrderNumber}/${partOfProductOrderNumber}`);
   }
 
 }

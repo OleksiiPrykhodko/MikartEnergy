@@ -7,8 +7,8 @@ import { ProductMinimal } from 'src/app/models/product/prodact-minimal';
   styleUrls: ['./slim-product-minimals.component.scss']
 })
 export class SlimProductMinimalsComponent {
-  @Input() _products: ProductMinimal[];
-  @Input() _title: string;
+  @Input() _products: ProductMinimal[] = [];
+  @Input() _title: string = "";
 
   ngOnChanges(){
     this._products.forEach(p => 
@@ -28,9 +28,9 @@ export class SlimProductMinimalsComponent {
     return this._products.length > 0;
   }
 
-  public setLinkToProductPage(productId: string | null | undefined): string{
-    if(productId){
-      return `shop/products/${productId}`;
+  public setLinkToProductPage(productSupplierPID: string | null | undefined): string{
+    if(productSupplierPID){
+      return `shop/products/${productSupplierPID}`;
     }
     return "404";
   }

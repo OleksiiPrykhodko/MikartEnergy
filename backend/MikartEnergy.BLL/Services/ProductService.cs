@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MikartEnergy.BLL.Mapping;
 using MikartEnergy.BLL.Services.Abstract;
 using MikartEnergy.Common.DTO.CallbackRequest;
@@ -48,9 +49,9 @@ namespace MikartEnergy.BLL.Services
             return resultModel;
         }
 
-        public async Task<ResultModel<ProductDTO>> GetProductByIdAsync(string id)
+        public async Task<ResultModel<ProductDTO>> GetProductBySupplierPidAsync(string supplierPID)
         {
-            var idUppercase = id.ToUpper();
+            var supplierPIDinUppercase = supplierPID.ToUpper();
             var product = await _context.Products
                 .Include(p => p.Keywords)
                 .Include(p => p.RelatedProducts)
@@ -58,7 +59,7 @@ namespace MikartEnergy.BLL.Services
                 .ThenInclude(td => td.TechnicalFeature)
                 .Include(p => p.TechnicalData)
                 .ThenInclude(td => td.TechnicalValues)
-                .FirstOrDefaultAsync(p => p.SupplierPID == idUppercase);
+                .FirstOrDefaultAsync(p => p.SupplierPID == supplierPIDinUppercase);
 
             if (product is not null)
             {
@@ -67,7 +68,7 @@ namespace MikartEnergy.BLL.Services
                 return resultModel;
             }
 
-            var productErrorDTO = new ProductDTO() { SupplierPID = idUppercase };
+            var productErrorDTO = new ProductDTO() { SupplierPID = supplierPIDinUppercase };
             var result = new ResultModel<ProductDTO>(productErrorDTO);
             result.AddErrorToDTO(ResponseError.NotFound.ToString(), "Product was not found by ID.");
             return result;
@@ -85,10 +86,10 @@ namespace MikartEnergy.BLL.Services
             return resultModel;
         }
 
-        public async Task<ResultModel<ProductMinimalDTO>> GetProductMinamalByIdAsync(string id)
+        public async Task<ResultModel<ProductMinimalDTO>> GetProductMinamalBySupplierPidAsync(string supplierPID)
         {
-            var idUppercase = id.ToUpper();
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.SupplierPID == idUppercase);
+            var supplierPIDinUppercase = supplierPID.ToUpper();
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.SupplierPID == supplierPIDinUppercase);
 
             if (product is not null)
             {
@@ -97,9 +98,49 @@ namespace MikartEnergy.BLL.Services
                 return resultModel;
             }
 
-            var productErrorDTO = new ProductMinimalDTO() { SupplierPID = idUppercase };
+            var productErrorDTO = new ProductMinimalDTO() { SupplierPID = supplierPIDinUppercase };
             var result = new ResultModel<ProductMinimalDTO>(productErrorDTO);
             result.AddErrorToDTO(ResponseError.NotFound.ToString(), "Product was not found by ID.");
+            return result;
+        }
+
+        public async Task<ResultModel<string[]>> GetOrderNumbersByFirstCharsAsync(string startOfOrderNumber)
+        {
+            if (string.IsNullOrWhiteSpace(startOfOrderNumber))
+            {
+                var badResult = new ResultModel<string[]>(new string[0]);
+                badResult.AddErrorToDTO(ResponseError.StringIsNullOrEmptyOrWhiteSpace.ToString(), 
+                    "Start chars of order number can't be null, empty or white space.");
+                return badResult;
+            }
+
+            var startOfOrderNumberInUpperCose = startOfOrderNumber.ToUpper();
+            var matchedOrderNumbers = await _context.Products
+                .Where(product => product.OrderNumber.StartsWith(startOfOrderNumberInUpperCose))
+                .Select(product => product.OrderNumber)
+                .ToArrayAsync();
+
+            var result = new ResultModel<string[]>(matchedOrderNumbers);
+            return result;
+        }
+
+        public async Task<ResultModel<ProductMinimalDTO[]>> GetProductMinamalsByPartOfProductOrderNumber(string partOfProductOrderNumber)
+        {
+            if (string.IsNullOrWhiteSpace(partOfProductOrderNumber))
+            {
+                var badResult = new ResultModel<ProductMinimalDTO[]>(new ProductMinimalDTO[0]);
+                badResult.AddErrorToDTO(ResponseError.StringIsNullOrEmptyOrWhiteSpace.ToString(),
+                    "Start chars of order number can't be null, empty or white space.");
+                return badResult;
+            }
+
+            var partOfOrderNumberInUpperCose = partOfProductOrderNumber.ToUpper();
+            var matchedOrderNumbers = await _context.Products
+                .Where(product => product.OrderNumber.Contains(partOfOrderNumberInUpperCose))
+                .Select(product => product.ToProductMinimalDTO())
+                .ToArrayAsync();
+
+            var result = new ResultModel<ProductMinimalDTO[]>(matchedOrderNumbers);
             return result;
         }
 

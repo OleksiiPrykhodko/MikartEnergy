@@ -10,6 +10,7 @@ namespace MikartEnergy.Common.Enums
     {
         InvalidModelState = 1, 
         NotFound,
-        InvalidDtoFieldValue
+        InvalidDtoFieldValue,
+        StringIsNullOrEmptyOrWhiteSpace
     }
 }

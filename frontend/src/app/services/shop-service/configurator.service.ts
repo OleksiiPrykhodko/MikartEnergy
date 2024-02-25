@@ -20,8 +20,8 @@ export class ConfiguratorService {
 
   constructor(private httpService: HttpInternalService) { }
 
-  public getConfigurationResultById(productID: string): Observable<HttpResponse<RequestResult<TiaStProductsOrder>>> {
-    return this.httpService.getFullRequest<RequestResult<TiaStProductsOrder>>(`${this._routePrefix}/${productID}`);
+  public getConfigurationResultById(resultID: string): Observable<HttpResponse<RequestResult<TiaStProductsOrder>>> {
+    return this.httpService.getFullRequest<RequestResult<TiaStProductsOrder>>(`${this._routePrefix}/${resultID}`);
   }
 
   public getLinkToTiaStConfigurator(): string{

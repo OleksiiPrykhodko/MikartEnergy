@@ -1,0 +1,34 @@
+<div class="container min-vh-100 py-6">
+    <div class="pt-6 pb-5">
+        <form [formGroup]="_formGroup" (submit)="submitForm()">
+            <div class="d-flex justify-content-center">
+                <p-autoComplete 
+                    formControlName="autoCompleteControl" 
+                    [suggestions]="_suggestions" 
+                    (completeMethod)="searchOrderNumber($event)" 
+                    [minLength]="_minQueryLength" 
+                    placeholder="Enter: 6ES75..." 
+                    inputStyleClass="p-inputtext-lg h2" 
+                    panelStyleClass="autoCompletePanelStyle fs-5" 
+                    scrollHeight="400px" 
+                    [size]="14">
+                </p-autoComplete>
+                <p-button 
+                    type="submit" 
+                    label="Search" 
+                    styleClass="h2" 
+                    size="large">
+                </p-button>
+            </div>
+        </form>
+    </div>
+    <div [hidden]="!checkLoading()">
+        <div class="d-flex justify-content-center align-items-center vh-50">
+            <div class="spinner-border h1 text-primary" style="width: 6rem; height: 6rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <app-wide-product-minimals [hidden]="checkLoading()" [_products]="getProducts()"></app-wide-product-minimals>
+</div>
+

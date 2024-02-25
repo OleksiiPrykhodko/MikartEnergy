@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MikartEnergy.WebAPI", "Mika
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MikartEnergy.DAL", "MikartEnergy.DAL\MikartEnergy.DAL.csproj", "{D11ABFBB-074A-4DEF-B656-EF669165C810}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MikartEnergy.BLL", "MikartEnergy.BLL\MikartEnergy.BLL.csproj", "{1B9631E5-AB09-4DC2-B202-4DCF2F5F3F86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MikartEnergy.BLL", "MikartEnergy.BLL\MikartEnergy.BLL.csproj", "{1B9631E5-AB09-4DC2-B202-4DCF2F5F3F86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MikartEnergy.Common", "MikartEnergy.Common\MikartEnergy.Common.csproj", "{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MikartEnergy.Common", "MikartEnergy.Common\MikartEnergy.Common.csproj", "{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MikartEnergy.UnitTests", "MikartEnergy.UnitTests\MikartEnergy.UnitTests.csproj", "{D17374E8-6F24-4FCA-BD59-AADFA7AB15D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AA6F289-1C86-4B05-8987-E16AA6FDD16D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D17374E8-6F24-4FCA-BD59-AADFA7AB15D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D17374E8-6F24-4FCA-BD59-AADFA7AB15D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D17374E8-6F24-4FCA-BD59-AADFA7AB15D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D17374E8-6F24-4FCA-BD59-AADFA7AB15D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,8 @@
+// My file with custom restyling (owerriding PrimeNG variables in Bootsrap style) 
+// wich are defined in _variabls and _variables_light files. 
+@import "../../../../primeng_restyling.scss";
+
+// PrimeNG defoult imports (do not delete !)
+@import './variables';
+@import './_fonts';
+@import '../../../../theme-base/_components';
