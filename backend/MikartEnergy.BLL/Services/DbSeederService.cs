@@ -37,7 +37,10 @@ namespace MikartEnergy.BLL.Services
         /// </summary>
         public void Seed()
         {
-            // Skip seeding if DB contains any entity
+            // Creates a database if it does not exist.
+            _context.Database.EnsureCreated();
+
+            // Skip seeding if DB contains any entity.
             if (_context.Products.Any() ||
                 _context.Keywords.Any() ||
                 _context.TechnicalFeatures.Any() ||
