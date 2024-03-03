@@ -29,15 +29,21 @@ namespace MikartEnergy.WebAPI
             builder.Services.RegisterCustomPermanentFilesReaders(builder);
 
             // Add DB Context.
-            builder.Services.AddDbContext<MikartContext>(options => options.UseInMemoryDatabase("MikartInMemoryDB"));
+            // Context for development and testing.
+            //builder.Services.AddDbContext<MikartContext>(options => 
+            //    options.UseInMemoryDatabase("MikartInMemoryDB"));
+
+            // Context for Production.
+            builder.Services.AddDbContext<MikartContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MikartEnergyDatabase")));
+
+            builder.Services.RegisterCustomDataBaseSeeder();
 
             // Add business logic services.
             builder.Services.RegisterCustomServices(builder);
 
             // Add FluentValidation.
             builder.Services.RegisterCustomValidators();
-
-            builder.Services.RegisterCustomDataBaseSeeder();
 
             // Add Serilog. This call will redirect all log events through Serilog pipeline.
             builder.Host.UseSerilog((context, configuration) =>
