@@ -38,7 +38,7 @@ In my project this is used to select equipment from the Siemens catalogue. And a
 - [Docker](https://www.docker.com/)
 
 ## Startup docker with YAML file
-Start up your Docker and run command `docker-compose up` in main directory of App (with docker-compose.yml file). 
+Start up your Docker and run command `docker-compose -p mikartenergy up` in main directory of App (with docker-compose.yml file). 
 
 ### Frontend Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
