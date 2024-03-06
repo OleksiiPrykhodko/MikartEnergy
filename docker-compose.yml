@@ -14,7 +14,7 @@ services:
       - 1433:1433
     healthcheck: 
       test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "MikartEnergy!69" -Q "SELECT 1" -b -o /dev/null
-      interval: 10s
+      interval: 5s
       timeout: 3s
       retries: 10
       start_period: 10s
