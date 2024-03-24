@@ -22,8 +22,8 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=MikartEnergy!69
       - MSSQL_PID=Express
-#    volumes:
-#      - C:/DockerVolumes/MikartEnergy/DataBase:/var/opt/mssql/data
+    volumes:
+      - C:/DockerVolumes/MikartEnergy/DataBase:/var/opt/mssql/data
 
   aspnetwebapi:
     container_name: backend
