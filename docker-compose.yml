@@ -40,10 +40,10 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_HTTPS_PORT=44363
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mikartenergy
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx #path to the certificate from volume (look section volumes).
       - ConnectionStrings__MikartEnergyDatabase=Server=mssql;Database=MikartEnergyDB;User Id=sa;Password=MikartEnergy!69;TrustServerCertificate=True;
     volumes:
-      - ~/.aspnet/https:/https:ro
+      - ~/.aspnet/https:/https:ro #take certificate from Host PC in an real production situation. 
 
   angular:
     container_name: frontend
