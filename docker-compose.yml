@@ -12,7 +12,7 @@ services:
       - mikartenergynet
     ports:
       - 1433:1433
-    healthcheck: 
+    healthcheck: #checking of sql server on start and accessibility.
       test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "MikartEnergy!69" -Q "SELECT 1" -b -o /dev/null
       interval: 5s
       timeout: 3s
@@ -33,7 +33,7 @@ services:
     ports:
       - 5000:80
       - 44363:443
-    depends_on:
+    depends_on: #start aspnetwebapi only after start and accessibility of mssql.
       mssql:
         condition: service_healthy
     environment:
