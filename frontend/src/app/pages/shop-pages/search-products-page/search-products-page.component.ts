@@ -49,6 +49,7 @@ export class SearchProductsPageComponent {
               // Check HttpResponse body on Null
               if(result.body){
                 this._retrievedProducts = result.body.dto || [];
+                this._retrievedProducts = this.orderProductMinimalsByOrderNumber(this._retrievedProducts);
                 this._infoIsLoaded = false
               }else{
                 console.error("HttpResponse body can't be NULL.");
@@ -146,6 +147,19 @@ export class SearchProductsPageComponent {
     if(autoCompleteValue?.length > 1){
       this._router.navigate(['/shop/search'], {queryParams: {orderNumber : autoCompleteValue}});
     }
+  }
+
+  private orderProductMinimalsByOrderNumber(productMinimals: ProductMinimal[]): ProductMinimal[]{
+    var result = productMinimals.sort((productA, productB) =>{
+      if (productA.orderNumber < productB.orderNumber) {
+        return -1;
+      } else if (productA.orderNumber > productB.orderNumber) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    return result;
   }
 
 }
