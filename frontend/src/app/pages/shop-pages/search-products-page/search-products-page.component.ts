@@ -84,6 +84,7 @@ export class SearchProductsPageComponent {
     return this._retrievedProducts;
   }
 
+  // Callback method to invoke to search for suggestions in AutoComplete input.
   public searchOrderNumber(event: AutoCompleteCompleteEvent): void {
     if (event.query.length >= this._minQueryLength) {
       var queryUpperCase = event.query.replace(" ","").toUpperCase();
