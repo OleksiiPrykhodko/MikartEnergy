@@ -22,6 +22,8 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=MikartEnergy!69
       - MSSQL_PID=Express
+#    volumes:
+#      - C:/DockerVolumes/MikartEnergy/DataBase:/var/opt/mssql/data
 
   aspnetwebapi:
     container_name: backend
@@ -43,7 +45,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx #path to the certificate from volume (look volumes section).
       - ConnectionStrings__MikartEnergyDatabase=Server=mssql;Database=MikartEnergyDB;User Id=sa;Password=MikartEnergy!69;TrustServerCertificate=True;
     volumes:
-      - ~/.aspnet/https:/https:ro #take certificate from Host PC. 
+      - C:/DockerVolumes/MikartEnergy/HttpsCertificates:/https:ro #take certificate from Host PC. 
 
   angular:
     container_name: frontend
