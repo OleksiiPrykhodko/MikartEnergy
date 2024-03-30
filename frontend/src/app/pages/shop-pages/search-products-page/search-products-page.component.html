@@ -4,9 +4,9 @@
             <div class="d-flex justify-content-center">
                 <p-autoComplete 
                     formControlName="autoCompleteControl" 
-                    [suggestions]="_suggestions" 
+                    [suggestions]="getSuggestions()" 
                     (completeMethod)="searchOrderNumber($event)" 
-                    [minLength]="_minQueryLength" 
+                    [minLength]="getMinQueryLength()" 
                     placeholder="Enter: 6ES75..." 
                     inputStyleClass="p-inputtext-lg h2" 
                     panelStyleClass="autoCompletePanelStyle fs-5" 
