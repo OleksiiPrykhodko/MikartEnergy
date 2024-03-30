@@ -23,7 +23,7 @@ services:
       - MSSQL_SA_PASSWORD=MikartEnergy!69
       - MSSQL_PID=Express
     volumes:
-      - C:/DockerVolumes/MikartEnergy/DataBase:/var/opt/mssql/data
+      - C:/DockerVolumes/MikartEnergy/DataBase:/var/opt/mssql/data #placement of DB on Host PC.
 
   aspnetwebapi:
     container_name: backend
@@ -41,7 +41,7 @@ services:
     environment:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_HTTPS_PORT=44363
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=mikartenergy
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mikartenergy #certificate password.
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx #path to the certificate from volume (look volumes section).
       - ConnectionStrings__MikartEnergyDatabase=Server=mssql;Database=MikartEnergyDB;User Id=sa;Password=MikartEnergy!69;TrustServerCertificate=True;
     volumes:
