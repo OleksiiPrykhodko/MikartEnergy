@@ -26,7 +26,7 @@ export class SearchProductsPageComponent {
   private _receivedOrderNumbers: string[] = [];
   private _suggestions: string[] = [];
 
-  public _formGroup: FormGroup = new FormGroup({
+  private _formGroup: FormGroup = new FormGroup({
     autoCompleteControl: new FormControl("")
   });
 
@@ -90,6 +90,10 @@ export class SearchProductsPageComponent {
 
   public getSuggestions(): string[] {
     return this._suggestions;
+  }
+
+  public getFormGroup(): FormGroup{
+    return this._formGroup;
   }
 
   // Callback method to invoke to search for suggestions in AutoComplete input.
