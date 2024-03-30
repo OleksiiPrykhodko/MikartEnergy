@@ -21,10 +21,10 @@ export class SearchProductsPageComponent {
   private _infoIsLoaded: boolean = true; 
 
   private _subscriptionToOrderNumbers: Subscription;
-  public _minQueryLength: number = 5;
+  private _minQueryLength: number = 5;
   private _startOfRequestedOrderNumer: string = "";
-  public _receivedOrderNumbers: string[] = [];
-  public _suggestions: string[] = [];
+  private _receivedOrderNumbers: string[] = [];
+  private _suggestions: string[] = [];
 
   public _formGroup: FormGroup = new FormGroup({
     autoCompleteControl: new FormControl("")
@@ -80,8 +80,16 @@ export class SearchProductsPageComponent {
     return this._infoIsLoaded;
   }
 
-  public getProducts(){
+  public getProducts(): ProductMinimal[] {
     return this._retrievedProducts;
+  }
+
+  public getMinQueryLength(): number {
+    return this._minQueryLength;
+  }
+
+  public getSuggestions(): string[] {
+    return this._suggestions;
   }
 
   // Callback method to invoke to search for suggestions in AutoComplete input.
