@@ -1,21 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MikartEnergy.BLL.Mapping;
 using MikartEnergy.BLL.Services.Abstract;
-using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.Common.DTO.Pagination;
 using MikartEnergy.Common.DTO.Product;
 using MikartEnergy.Common.Enums;
 using MikartEnergy.Common.Models.Result;
 using MikartEnergy.DAL.Context;
-using MikartEnergy.DAL.Context.ETIM_files_reading;
-using MikartEnergy.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace MikartEnergy.BLL.Services
