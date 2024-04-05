@@ -23,7 +23,7 @@ namespace MikartEnergy.BLL.Services.Abstract
                 throw new ArgumentNullException(nameof(request), "PaginationRequestDTO can't be null.");
             }
 
-            return (request.PageIndex - 1) * request.PageSize;
+            return (request.PageNumber - 1) * request.PageSize;
         }
     }
 }
