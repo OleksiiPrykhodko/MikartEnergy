@@ -5,6 +5,8 @@ using MikartEnergy.Common.DTO.Pagination;
 using MikartEnergy.Common.DTO.Product;
 using MikartEnergy.Common.Enums;
 using MikartEnergy.Common.Models.Result;
+using MikartEnergy.Common.QueryParams.Pagination;
+using MikartEnergy.Common.QueryParams.Product;
 using MikartEnergy.DAL.Context;
 
 
@@ -19,7 +21,7 @@ namespace MikartEnergy.BLL.Services
             _context = context;
         }
 
-        public async Task<ResultModel<PaginationResponseDTO<ProductDTO>>> GetAllProductsAsync(PaginationRequestDTO request)
+        public async Task<ResultModel<PaginationResponseDTO<ProductDTO>>> GetAllProductsAsync(PaginationQueryParams request)
         {
             var products = _context.Products
                 .Include(p => p.Keywords)
@@ -31,7 +33,7 @@ namespace MikartEnergy.BLL.Services
 
             var paginationResponseDTO = new PaginationResponseDTO<ProductDTO>()
             {
-                Items = products.Skip(base.GetSkipAmount(request)).Take(request.PageSize).Select(p => p.ToProductDTO()),
+                Items = products.Skip(base.GetPaginationSkipAmount(request)).Take(request.PageSize).Select(p => p.ToProductDTO()),
                 TotalItemsNumber = products.Count()
             };
 
@@ -64,14 +66,54 @@ namespace MikartEnergy.BLL.Services
             return result;
         }
 
-        public async Task<ResultModel<PaginationResponseDTO<ProductMinimalDTO>>> GetAllProductsMinamalAsync(PaginationRequestDTO request)
+        public async Task<ResultModel<PaginationResponseDTO<ProductMinimalDTO>>> GetAllProductsMinamalAsync(ProductMinimalsQueryParams queryParams)
         {
-            var products = await _context.Products.ToListAsync();
+            var products = _context.Products.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryParams.ProductName))
+            {
+                products = products.Where(p => p.ProductName.Contains(queryParams.ProductName));
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryParams.OrderNumber))
+            {
+                var orderNumberInUppercase = queryParams.OrderNumber.ToUpper();
+                products = products.Where(p => p.OrderNumber.Contains(orderNumberInUppercase));
+            }
+
+            // Sorting process by parametr.
+            if (!string.IsNullOrWhiteSpace(queryParams.SortBy))
+            {
+                if (queryParams.SortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    products = queryParams.IsDescending ? products.OrderByDescending(p => p.ProductName) : products.OrderBy(p => p.ProductName);
+                }
+                if (queryParams.SortBy.Equals("OrderNumber", StringComparison.OrdinalIgnoreCase))
+                {
+                    products = queryParams.IsDescending ? products.OrderByDescending(p => p.OrderNumber) : products.OrderBy(p => p.OrderNumber);
+                }
+                if (queryParams.SortBy.Equals("Price", StringComparison.OrdinalIgnoreCase))
+                {
+                    products = queryParams.IsDescending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                }
+            }
+            else
+            {
+                products = queryParams.IsDescending ? products.OrderByDescending(p => p.OrderNumber) : products.OrderBy(p => p.OrderNumber);
+            }
+
+            // Pagination process.
+            var resultProducts = await products.Skip(base.GetPaginationSkipAmount(queryParams))
+                .Take(queryParams.PageSize)
+                .Select(p => p.ToProductMinimalDTO())
+                .ToArrayAsync();
+            var totalNumberOfMatchingProducts = await products.CountAsync();
             var paginationResponseDTO = new PaginationResponseDTO<ProductMinimalDTO>()
             {
-                Items = products.Skip(base.GetSkipAmount(request)).Take(request.PageSize).Select(p => p.ToProductMinimalDTO()),
-                TotalItemsNumber = products.Count()
+                Items = resultProducts,
+                TotalItemsNumber = totalNumberOfMatchingProducts
             };
+
             var resultModel = new ResultModel<PaginationResponseDTO<ProductMinimalDTO>>(paginationResponseDTO);
             return resultModel;
         }
