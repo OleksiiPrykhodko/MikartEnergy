@@ -2,6 +2,7 @@
 using MikartEnergy.BLL.Services;
 using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.Common.DTO.Pagination;
+using MikartEnergy.Common.QueryParams.Pagination;
 using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.WebAPI.Validators;
 using System.Reflection;
@@ -33,7 +34,7 @@ namespace MikartEnergy.WebAPI.Extensions
             services.AddScoped<IValidator<CallbackRequestDTO>, CallbackRequestDTOValidator>();
 
             // Pagination validator.
-            services.AddScoped<IValidator<PaginationRequestDTO>, PaginationRequestDTOValidator>();
+            services.AddScoped<IValidator<PaginationQueryParams>, PaginationRequestQueryParamsValidator>();
         }
 
         /// <summary>
