@@ -1,5 +1,6 @@
 ﻿using MikartEnergy.Common.DTO.Pagination;
 using MikartEnergy.Common.Models.Result;
+using MikartEnergy.Common.QueryParams.Pagination;
 using MikartEnergy.DAL.Context;
 
 namespace MikartEnergy.BLL.Services.Abstract
@@ -16,7 +17,7 @@ namespace MikartEnergy.BLL.Services.Abstract
             });
         }
 
-        public int GetSkipAmount(PaginationRequestDTO request)
+        public int GetPaginationSkipAmount(PaginationQueryParams request)
         {
             if (request is null)
             {
