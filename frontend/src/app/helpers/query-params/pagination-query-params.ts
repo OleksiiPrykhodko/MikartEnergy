@@ -1,4 +1,3 @@
-import { IQueryParamsFactory } from "./iquery-params-factory";
 
 export abstract class PaginationQueryParams{
     private _minPageNumber = 1;
