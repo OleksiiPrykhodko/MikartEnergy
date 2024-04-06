@@ -16,7 +16,6 @@ export class ShopPageComponent {
   private _minQueryLength: number = 5;
   private _receivedOrderNumbers: string[] = [];
   private _suggestions: string[] = [];
-  private _selectedOrderNumber: string;
 
   private _subscriptionToOrderNumbers: Subscription;
   private _startOfRequestedOrderNumer: string = "";
