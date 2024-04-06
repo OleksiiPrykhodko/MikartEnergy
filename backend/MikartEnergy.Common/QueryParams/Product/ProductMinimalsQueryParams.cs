@@ -9,9 +9,9 @@ namespace MikartEnergy.Common.QueryParams.Product
 {
     public class ProductMinimalsQueryParams : PaginationQueryParams
     {
-        public string? OrderNumber { get; set; } = null;
+        public string? ProductOrderNumber { get; set; } = null;
         public string? ProductName { get; set; } = null;
         public string? SortBy { get; set; } = null;
-        public bool OrderIsDescending { get; set; } = false;
+        public bool OrderByDescending { get; set; } = false;
     }
 }
