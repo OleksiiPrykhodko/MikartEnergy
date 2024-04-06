@@ -12,6 +12,6 @@ namespace MikartEnergy.Common.QueryParams.Product
         public string? OrderNumber { get; set; } = null;
         public string? ProductName { get; set; } = null;
         public string? SortBy { get; set; } = null;
-        public bool IsDescending { get; set; } = false;
+        public bool OrderIsDescending { get; set; } = false;
     }
 }

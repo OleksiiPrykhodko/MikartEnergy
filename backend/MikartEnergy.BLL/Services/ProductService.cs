@@ -86,20 +86,20 @@ namespace MikartEnergy.BLL.Services
             {
                 if (queryParams.SortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
                 {
-                    products = queryParams.IsDescending ? products.OrderByDescending(p => p.ProductName) : products.OrderBy(p => p.ProductName);
+                    products = queryParams.OrderIsDescending ? products.OrderByDescending(p => p.ProductName) : products.OrderBy(p => p.ProductName);
                 }
                 if (queryParams.SortBy.Equals("OrderNumber", StringComparison.OrdinalIgnoreCase))
                 {
-                    products = queryParams.IsDescending ? products.OrderByDescending(p => p.OrderNumber) : products.OrderBy(p => p.OrderNumber);
+                    products = queryParams.OrderIsDescending ? products.OrderByDescending(p => p.OrderNumber) : products.OrderBy(p => p.OrderNumber);
                 }
                 if (queryParams.SortBy.Equals("Price", StringComparison.OrdinalIgnoreCase))
                 {
-                    products = queryParams.IsDescending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                    products = queryParams.OrderIsDescending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
                 }
             }
             else
             {
-                products = queryParams.IsDescending ? products.OrderByDescending(p => p.OrderNumber) : products.OrderBy(p => p.OrderNumber);
+                products = queryParams.OrderIsDescending ? products.OrderByDescending(p => p.OrderNumber) : products.OrderBy(p => p.OrderNumber);
             }
 
             // Pagination process.
