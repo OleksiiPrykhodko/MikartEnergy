@@ -26,16 +26,6 @@ namespace MikartEnergy.WebAPI
             builder.Services.RegisterCustomPermanentFilesReaders(builder.Configuration);
 
             // Add DB Context.
-            // Context for development and testing.
-            builder.Services.AddDbContext<MikartContext>(options => 
-                options.UseInMemoryDatabase("MikartInMemoryDB"));
-
-            // Context for Production.
-            //builder.Services.AddDbContext<MikartContext>(options =>
-            //    options.UseSqlServer(builder.Configuration.GetConnectionString("MikartEnergyDatabase")));
-
-            /*
-            // Add DB Context.
             if (builder.Environment.IsDevelopment())
             {
                 // Context for development and testing.
@@ -48,8 +38,6 @@ namespace MikartEnergy.WebAPI
                 builder.Services.AddDbContext<MikartContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("MikartEnergyDatabase")));
             }
-            */
-
 
             builder.Services.RegisterCustomDataBaseSeeder();
 
