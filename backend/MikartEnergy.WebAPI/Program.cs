@@ -37,7 +37,7 @@ namespace MikartEnergy.WebAPI
             builder.Services.RegisterCustomDataBaseSeeder();
 
             // Add business logic services.
-            builder.Services.RegisterCustomServices(builder);
+            builder.Services.RegisterCustomServices();
 
             // Add FluentValidation.
             builder.Services.RegisterCustomValidators();

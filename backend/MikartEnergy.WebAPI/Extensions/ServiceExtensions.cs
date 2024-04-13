@@ -16,7 +16,7 @@ namespace MikartEnergy.WebAPI.Extensions
         /// Extension method for registering business logic services.
         /// </summary>
         /// <param name="services"></param>
-        public static void RegisterCustomServices(this IServiceCollection services, WebApplicationBuilder builder)
+        public static void RegisterCustomServices(this IServiceCollection services)
         {
             services.AddScoped<CallbackRequestService>();
             services.AddScoped<ProductService>();
