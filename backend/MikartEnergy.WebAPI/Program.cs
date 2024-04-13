@@ -23,16 +23,33 @@ namespace MikartEnergy.WebAPI
             builder.Services.AddCors();
 
             // Add services for reading data from permanent files like xml.
-            builder.Services.RegisterCustomPermanentFilesReaders(builder);
+            builder.Services.RegisterCustomPermanentFilesReaders(builder.Configuration);
 
             // Add DB Context.
             // Context for development and testing.
-            //builder.Services.AddDbContext<MikartContext>(options => 
-            //    options.UseInMemoryDatabase("MikartInMemoryDB"));
+            builder.Services.AddDbContext<MikartContext>(options => 
+                options.UseInMemoryDatabase("MikartInMemoryDB"));
 
             // Context for Production.
-            builder.Services.AddDbContext<MikartContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("MikartEnergyDatabase")));
+            //builder.Services.AddDbContext<MikartContext>(options =>
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("MikartEnergyDatabase")));
+
+            /*
+            // Add DB Context.
+            if (builder.Environment.IsDevelopment())
+            {
+                // Context for development and testing.
+                builder.Services.AddDbContext<MikartContext>(options => 
+                    options.UseInMemoryDatabase("MikartInMemoryDB"));
+            }
+            if (builder.Environment.IsProduction())
+            {
+                // Context for Production.
+                builder.Services.AddDbContext<MikartContext>(options =>
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("MikartEnergyDatabase")));
+            }
+            */
+
 
             builder.Services.RegisterCustomDataBaseSeeder();
 

@@ -41,14 +41,14 @@ namespace MikartEnergy.WebAPI.Extensions
         /// Extension method for register file reader services.
         /// </summary>
         /// <param name="services"></param>
-        public static void RegisterCustomPermanentFilesReaders(this IServiceCollection services, WebApplicationBuilder builder)
+        public static void RegisterCustomPermanentFilesReaders(this IServiceCollection services, ConfigurationManager configuration)
         {
             var pathToAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
 
-            var etimFilesFolderName = builder.Configuration["EtimFilesFolderName"];
+            var etimFilesFolderName = configuration["EtimFilesFolderName"];
 
             // ETIM Products file reading service registration.
-            var etimFilePath = builder.Configuration["EtimProductsXmlFile"];
+            var etimFilePath = configuration["EtimProductsXmlFile"];
             var fullPathToProductFile = Path.Combine(
                 pathToAssembly ?? "null string", 
                 etimFilesFolderName ?? "null string", 
@@ -57,7 +57,7 @@ namespace MikartEnergy.WebAPI.Extensions
                 x => new EtimProductsXmlReader(fullPathToProductFile));
 
             // ETIM Features and Values file reading service registration.
-            var etimFeaturesAndValuesFilePath = builder.Configuration["EtimFeaturesAndValuesXmlFile"];
+            var etimFeaturesAndValuesFilePath = configuration["EtimFeaturesAndValuesXmlFile"];
             var fullPathToFeaturesAndValuesFile = Path.Combine(
                 pathToAssembly ?? "null string",
                 etimFilesFolderName ?? "null string",
