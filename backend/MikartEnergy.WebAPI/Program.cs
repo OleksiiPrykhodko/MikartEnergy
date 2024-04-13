@@ -22,9 +22,6 @@ namespace MikartEnergy.WebAPI
             // Add CORS.
             builder.Services.AddCors();
 
-            // Add configuration for receiving it in services. 
-            builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
-
             // Add services for reading data from permanent files like xml.
             builder.Services.RegisterCustomPermanentFilesReaders(builder);
 
