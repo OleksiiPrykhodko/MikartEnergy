@@ -22,7 +22,7 @@
             </div>
         </form>
     </div>
-    <app-wide-product-minimals [hidden]="checkLoading()" [_products]="getProducts()"></app-wide-product-minimals>
+    <app-wide-product-minimals [_products]="getProducts()"></app-wide-product-minimals>
     <div [hidden]="!checkLoading()">
         <div class="d-flex justify-content-center align-items-center vh-50">
             <div class="spinner-border h1 text-primary" style="width: 6rem; height: 6rem;" role="status">
@@ -30,5 +30,6 @@
             </div>
         </div>
     </div>
+    <button (click)="loadNextPaginationProducts()" [hidden]="checkLoadMoreButtonHidden()" type="button" class="btn btn-outline-primary btn-lg rounded-0">Load more  <i class="fa-solid fa-chevron-down fa-bounce"></i></button>
 </div>
 
