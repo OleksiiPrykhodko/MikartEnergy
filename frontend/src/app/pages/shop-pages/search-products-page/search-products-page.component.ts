@@ -95,7 +95,7 @@ export class SearchProductsPageComponent {
     this._subscriptionToOrderNumbers?.unsubscribe();
   }
 
-  public checkLoading(): boolean {
+  public get infoIsLoaded(): boolean{
     return this._infoIsLoaded;
   }
 
