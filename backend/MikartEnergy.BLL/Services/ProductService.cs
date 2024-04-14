@@ -156,26 +156,6 @@ namespace MikartEnergy.BLL.Services
             return result;
         }
 
-        public async Task<ResultModel<ProductMinimalDTO[]>> GetProductMinamalsByPartOfProductOrderNumber(string partOfProductOrderNumber)
-        {
-            if (string.IsNullOrWhiteSpace(partOfProductOrderNumber))
-            {
-                var badResult = new ResultModel<ProductMinimalDTO[]>(new ProductMinimalDTO[0]);
-                badResult.AddErrorToDTO(ResponseError.StringIsNullOrEmptyOrWhiteSpace.ToString(),
-                    "Start chars of order number can't be null, empty or white space.");
-                return badResult;
-            }
-
-            var partOfOrderNumberInUpperCose = partOfProductOrderNumber.ToUpper();
-            var matchedOrderNumbers = await _context.Products
-                .Where(product => product.OrderNumber.Contains(partOfOrderNumberInUpperCose))
-                .Select(product => product.ToProductMinimalDTO())
-                .ToArrayAsync();
-
-            var result = new ResultModel<ProductMinimalDTO[]>(matchedOrderNumbers);
-            return result;
-        }
-
 
     }
 }
