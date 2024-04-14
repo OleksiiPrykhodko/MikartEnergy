@@ -30,6 +30,9 @@
             </div>
         </div>
     </div>
-    <button (click)="loadNextPaginationProducts()" [hidden]="checkLoadMoreButtonHidden()" type="button" class="btn btn-outline-primary btn-lg rounded-0">Load more  <i class="fa-solid fa-chevron-down fa-bounce"></i></button>
+
+    <div class="d-grid" style="padding-left: calc(var(--bs-gutter-x)* 0.5); padding-right:  calc(var(--bs-gutter-x)* 0.5);">
+        <button (click)="loadNextPaginationProducts()" [hidden]="checkLoadMoreButtonHidden()" type="button" class="btn btn-outline-primary btn-lg rounded-0 mt-5">Load more  <i class="fa-solid fa-chevron-down fa-bounce"></i></button>
+    </div>
 </div>
 
