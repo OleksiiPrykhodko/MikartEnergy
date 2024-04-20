@@ -27,7 +27,7 @@
                         <p class="fw-semibold" [hidden]="checkLoading()"> <!--fs-1--> 
                             {{getLongDescription()}} 
                         </p>
-                        <app-tia-st-form [_transparent] = true  _productPid= {{getOrderNumber()}}></app-tia-st-form>
+                        <app-tia-st-form [_buttonIsTransparent] = true  _productPid= {{getOrderNumber()}}></app-tia-st-form>
                         <p class="placeholder-glow" [hidden]="!checkLoading()">
                             <span class="placeholder col-11"></span>
                             <span class="placeholder col-10"></span>
