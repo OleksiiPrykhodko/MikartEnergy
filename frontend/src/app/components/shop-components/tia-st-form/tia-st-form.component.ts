@@ -10,7 +10,7 @@ export class TiaStFormComponent {
 
   @Input() _productPid: string;
   @Input() _shadow: boolean;
-  @Input() _transparent: boolean;
+  @Input() _buttonIsTransparent: boolean;
   @Input() _width: string;
 
   constructor(private _configuratorService: ConfiguratorService) {
@@ -26,7 +26,7 @@ export class TiaStFormComponent {
   }
 
   public getImg(): string{
-    return this._transparent ? this._configuratorService.getStartTransparentImgPath() : this._configuratorService.getStartImgPath();
+    return this._buttonIsTransparent ? this._configuratorService.getStartTransparentImgPath() : this._configuratorService.getStartImgPath();
   }
 
 }
