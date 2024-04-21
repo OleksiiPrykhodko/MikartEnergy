@@ -34,43 +34,48 @@
     <!-- COLLAPSED DOWN ELEMENT OF MENU -->
     <div class="container-fluid">
       <div class="collapse container" id="navbarToggleExternalContent">
-        <div class="my-5 ">
-          <div class="row ">
-            <div class="col">
-              <p class="text-primary text-uppercase fw-bold fs-4 mb-3">Development</p>
-              <ul class="nav flex-column fs-5">
-                <li class="nav-item mb-3 border-bottom">
-                  <a href="/development" class="nav-link p-0">Our services</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col">
-              <p class="text-primary text-uppercase fw-bold fs-4 mb-3">Distribution</p>
-              <ul class="nav flex-column fs-5">
-                <li class="nav-item mb-3 border-bottom">
-                  <a href="/shop" class="nav-link p-0 ">Shop</a>
-                </li>
-                <li class="nav-item mb-3 border-bottom">
-                  <a href="/shop/search" class="nav-link p-0">All products</a>
-                </li>
-                <li class="nav-item mb-3 border-bottom">
-                  <a href="#" class="nav-link p-0">TIA Selection Tool</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col">
-              <p class="text-primary text-uppercase fw-bold fs-4 mb-3">Company</p>
-              <ul class="nav flex-column fs-5">
-                <li class="nav-item mb-3 border-bottom">
-                  <a href="/about" class="nav-link p-0">About Us</a>
-                </li>
-                <li class="nav-item mb-3 border-bottom">
-                  <a href="/contacts" class="nav-link p-0 ">Contacts</a>
-                </li>
-              </ul>
-            </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mt-5 mb-4">
+          <div class="col mb-2">
+            <p class="text-primary text-uppercase fw-bold fs-4 mb-3">Development</p>
+            <ul class="nav flex-column fs-5">
+              <li class="nav-item mb-3 border-bottom">
+                <a href="/development" class="nav-link p-0">Our services</a>
+              </li>
+            </ul>
           </div>
-
+          <div class="col mb-2">
+            <p class="text-primary text-uppercase fw-bold fs-4 mb-3">Distribution</p>
+            <ul class="nav flex-column fs-5">
+              <li class="nav-item mb-3 border-bottom">
+                <a href="/shop" class="nav-link p-0 ">Shop</a>
+              </li>
+              <li class="nav-item mb-3 border-bottom">
+                <a href="/shop/search" class="nav-link p-0">All products</a>
+              </li>
+              <li class="nav-item mb-3 border-bottom">
+                <app-tia-st-form [_styleAsLink]="true" [_linkText]="'TIA Selection Tool'" [_linkTextStylingClass]="'fs-5 text-start p-0'"></app-tia-st-form>
+              </li>
+            </ul>
+          </div>
+          <div class="col mb-2">
+            <p class="text-primary text-uppercase fw-bold fs-4 mb-3">Company</p>
+            <ul class="nav flex-column fs-5">
+              <li class="nav-item mb-3 border-bottom">
+                <a href="/about" class="nav-link p-0">About Us</a>
+              </li>
+              <li class="nav-item mb-3 border-bottom">
+                <a href="/contacts" class="nav-link p-0 ">Contacts</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col mb-2">
+            <p class="text-primary text-uppercase fw-bold fs-4 mb-3">Created by</p>
+            <ul class="nav flex-column fs-5">
+              <li class="nav-item mb-3 border-bottom">
+                <a href="https://www.linkedin.com/in/oleksiiprykhodko" target="_blank" class="nav-link p-0"><i class="fa-brands fa-linkedin text-primary"></i> Oleksii Prykhodko</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -83,7 +88,7 @@
 
 <footer class="bg-primary py-5">
   <div class="container text-white">
-    <div class="row">
+    <div class="row ">
       <div class="col">
         <p class="text-uppercase fs-4 mb-3">Development</p>
         <ul class="nav flex-column fs-6">
@@ -105,7 +110,7 @@
             <a href="/shop/search" class="nav-link p-0 text-white">All products</a>
           </li>
           <li class="nav-item mb-3 ">
-            <a href="#" class="nav-link p-0 text-white">TIA Selection Tool</a>
+            <app-tia-st-form [_styleAsLink]="true" [_linkText]="'TIA Selection Tool'" [_linkTextStylingClass]="'p-0 text-white'"></app-tia-st-form>
           </li>
         </ul>
       </div>
@@ -117,6 +122,14 @@
           </li>
           <li class="nav-item mb-3 ">
             <a href="/contacts" class="nav-link p-0 text-white">Contacts</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <p class="text-uppercase fs-4 mb-3">Created by</p>
+        <ul class="nav flex-column fs-6">
+          <li class="nav-item mb-3 ">
+            <a href="https://www.linkedin.com/in/oleksiiprykhodko" target="_blank" class="nav-link p-0 text-white"><i class="fa-brands fa-linkedin"></i> Oleksii Prykhodko</a>
           </li>
         </ul>
       </div>
