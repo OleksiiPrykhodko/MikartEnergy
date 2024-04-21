@@ -9,12 +9,14 @@ import { ConfiguratorService } from 'src/app/services/shop-service/configurator.
 export class TiaStFormComponent {
 
   @Input() _productPid: string;
-  @Input() _shadow: boolean;
-  @Input() _buttonIsTransparent: boolean;
+  @Input() _shadow: boolean = true;
+  @Input() _buttonIsTransparent: boolean = false;
   @Input() _width: string;
+  @Input() _styleAsLink: boolean = false;
+  @Input() _linkText: string = "add text of link (@Input _linkText)";
+  @Input() _linkTextStylingClass: string = "";
 
   constructor(private _configuratorService: ConfiguratorService) {
-    
   }
 
   public getHookUrl(): string{
@@ -27,6 +29,18 @@ export class TiaStFormComponent {
 
   public getImg(): string{
     return this._buttonIsTransparent ? this._configuratorService.getStartTransparentImgPath() : this._configuratorService.getStartImgPath();
+  }
+
+  public getLinkText(): string{
+    return this._linkText;
+  }
+
+  public buttonStyledAsLink(): boolean{
+    return this._styleAsLink;
+  }
+
+  public getStylingClass(): string{
+    return this._linkTextStylingClass;
   }
 
 }
