@@ -34,7 +34,7 @@ namespace MikartEnergy.BLL.Services
             var paginationResponseDTO = new PaginationResponseDTO<ProductDTO>()
             {
                 Items = products.Skip(base.GetPaginationSkipAmount(request)).Take(request.PageSize).Select(p => p.ToProductDTO()),
-                TotalItemsNumber = products.Count()
+                TotalItemsNumber = await products.CountAsync()
             };
 
             var resultModel = new ResultModel<PaginationResponseDTO<ProductDTO>>(paginationResponseDTO);
