@@ -13,14 +13,13 @@ import { ProductService } from 'src/app/services/shop-service/product.service';
 })
 export class ShopPageComponent {
 
-  public _minQueryLength: number = 5;
-  public _receivedOrderNumbers: string[] = [];
-  public _suggestions: string[] = [];
-  public _selectedOrderNumber: string;
+  private _minQueryLength: number = 5;
+  private _receivedOrderNumbers: string[] = [];
+  private _suggestions: string[] = [];
 
   private _subscriptionToOrderNumbers: Subscription;
   private _startOfRequestedOrderNumer: string = "";
-  public _formGroup: FormGroup = new FormGroup({
+  private _formGroup: FormGroup = new FormGroup({
     autoCompleteControl: new FormControl("")
   });
 
@@ -30,6 +29,18 @@ export class ShopPageComponent {
 
   ngOnDestroy() {
     this._subscriptionToOrderNumbers?.unsubscribe();
+  }
+
+  public getMinQueryLength(): number{
+    return this._minQueryLength;
+  }
+
+  public getSuggestions(): string[]{
+    return this._suggestions;
+  }
+
+  public getFormGroup(): FormGroup{
+    return this._formGroup;
   }
 
   public searchOrderNumber(event: AutoCompleteCompleteEvent): void {

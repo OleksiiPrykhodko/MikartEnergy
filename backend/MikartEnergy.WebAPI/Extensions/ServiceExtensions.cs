@@ -2,6 +2,7 @@
 using MikartEnergy.BLL.Services;
 using MikartEnergy.Common.DTO.CallbackRequest;
 using MikartEnergy.Common.DTO.Pagination;
+using MikartEnergy.Common.QueryParams.Pagination;
 using MikartEnergy.DAL.Context.ETIM_files_reading;
 using MikartEnergy.WebAPI.Validators;
 using System.Reflection;
@@ -15,7 +16,7 @@ namespace MikartEnergy.WebAPI.Extensions
         /// Extension method for registering business logic services.
         /// </summary>
         /// <param name="services"></param>
-        public static void RegisterCustomServices(this IServiceCollection services, WebApplicationBuilder builder)
+        public static void RegisterCustomServices(this IServiceCollection services)
         {
             services.AddScoped<CallbackRequestService>();
             services.AddScoped<ProductService>();
@@ -33,21 +34,21 @@ namespace MikartEnergy.WebAPI.Extensions
             services.AddScoped<IValidator<CallbackRequestDTO>, CallbackRequestDTOValidator>();
 
             // Pagination validator.
-            services.AddScoped<IValidator<PaginationRequestDTO>, PaginationRequestDTOValidator>();
+            services.AddScoped<IValidator<PaginationQueryParams>, PaginationRequestQueryParamsValidator>();
         }
 
         /// <summary>
         /// Extension method for register file reader services.
         /// </summary>
         /// <param name="services"></param>
-        public static void RegisterCustomPermanentFilesReaders(this IServiceCollection services, WebApplicationBuilder builder)
+        public static void RegisterCustomPermanentFilesReaders(this IServiceCollection services, ConfigurationManager configuration)
         {
             var pathToAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
 
-            var etimFilesFolderName = builder.Configuration["EtimFilesFolderName"];
+            var etimFilesFolderName = configuration["EtimFilesFolderName"];
 
             // ETIM Products file reading service registration.
-            var etimFilePath = builder.Configuration["EtimProductsXmlFile"];
+            var etimFilePath = configuration["EtimProductsXmlFile"];
             var fullPathToProductFile = Path.Combine(
                 pathToAssembly ?? "null string", 
                 etimFilesFolderName ?? "null string", 
@@ -56,7 +57,7 @@ namespace MikartEnergy.WebAPI.Extensions
                 x => new EtimProductsXmlReader(fullPathToProductFile));
 
             // ETIM Features and Values file reading service registration.
-            var etimFeaturesAndValuesFilePath = builder.Configuration["EtimFeaturesAndValuesXmlFile"];
+            var etimFeaturesAndValuesFilePath = configuration["EtimFeaturesAndValuesXmlFile"];
             var fullPathToFeaturesAndValuesFile = Path.Combine(
                 pathToAssembly ?? "null string",
                 etimFilesFolderName ?? "null string",

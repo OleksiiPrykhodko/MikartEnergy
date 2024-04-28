@@ -1,12 +1,12 @@
 <div class="container min-vh-100 py-6">
     <div class="pt-6 pb-5">
-        <form [formGroup]="_formGroup" (submit)="submitForm()">
+        <form [formGroup]="getFormGroup()" (submit)="submitForm()">
             <div class="d-flex justify-content-center">
                 <p-autoComplete 
                     formControlName="autoCompleteControl" 
-                    [suggestions]="_suggestions" 
+                    [suggestions]="getSuggestions()" 
                     (completeMethod)="searchOrderNumber($event)" 
-                    [minLength]="_minQueryLength" 
+                    [minLength]="getMinQueryLength()" 
                     placeholder="Enter: 6ES75..." 
                     inputStyleClass="p-inputtext-lg h2" 
                     panelStyleClass="autoCompletePanelStyle fs-5" 
@@ -22,13 +22,17 @@
             </div>
         </form>
     </div>
-    <div [hidden]="!checkLoading()">
+    <app-wide-product-minimals [_products]="getProducts()"></app-wide-product-minimals>
+    <div [hidden]="!infoIsLoaded">
         <div class="d-flex justify-content-center align-items-center vh-50">
             <div class="spinner-border h1 text-primary" style="width: 6rem; height: 6rem;" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
     </div>
-    <app-wide-product-minimals [hidden]="checkLoading()" [_products]="getProducts()"></app-wide-product-minimals>
+
+    <div class="d-grid" style="padding-left: calc(var(--bs-gutter-x)* 0.5); padding-right:  calc(var(--bs-gutter-x)* 0.5);">
+        <button (click)="loadNextPaginationProducts()" [hidden]="checkLoadMoreButtonHidden()" type="button" class="btn btn-outline-primary btn-lg rounded-0 mt-5">Load more  <i class="fa-solid fa-chevron-down fa-bounce"></i></button>
+    </div>
 </div>
 

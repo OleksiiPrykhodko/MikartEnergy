@@ -1,4 +1,5 @@
-﻿using MikartEnergy.DAL.Entities.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using MikartEnergy.DAL.Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -37,6 +38,7 @@ namespace MikartEnergy.DAL.Entities
         public int MaximalOrderQuantity { get; set; } = int.MaxValue;
         public int OrderQuantityMultiplier { get; set; } = 1;
         public bool InStock { get; set; } = true;
+        [Precision(9, 2)]
         public decimal Price { get; set; } = 0.00m;
         [MaxLength(10)]
         public string PriceCurrency { get; set; } = string.Empty;

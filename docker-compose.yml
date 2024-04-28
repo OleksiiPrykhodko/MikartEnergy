@@ -1,25 +1,59 @@
-version: '3.5'
+version: '3.8'
+
+networks:
+  mikartenergynet:
+    driver: bridge
 
 services:
-  webapi:
+  mssql:
+    container_name: database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      - mikartenergynet
+    ports:
+      - 1433:1433
+    healthcheck: #checking of sql server on start and accessibility.
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "MikartEnergy!69" -Q "SELECT 1" -b -o /dev/null
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MikartEnergy!69
+      - MSSQL_PID=Express
+    volumes:
+      - C:/DockerVolumes/MikartEnergy/DataBase:/var/opt/mssql/data #placement of DB on Host PC.
+
+  aspnetwebapi:
+    container_name: backend
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: backend
+    networks:
+      - mikartenergynet
     ports:
       - 5000:80
       - 44363:443
+    depends_on: #start aspnetwebapi only after start and accessibility of mssql.
+      mssql:
+        condition: service_healthy
     environment:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_HTTPS_PORT=44363
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=mikartenergy
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mikartenergy #certificate password.
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx #path to the certificate from volume (look volumes section).
+      - ConnectionStrings__MikartEnergyDatabase=Server=mssql;Database=MikartEnergyDB;User Id=sa;Password=MikartEnergy!69;TrustServerCertificate=True;
     volumes:
-      - ~/.aspnet/https:/https:ro
+      - C:/DockerVolumes/MikartEnergy/HttpsCertificates:/https:ro #take certificate from Host PC. 
+
   angular:
+    container_name: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: frontend
     ports:
       - 4200:4200
+    depends_on:
+      aspnetwebapi:
+        condition: service_started

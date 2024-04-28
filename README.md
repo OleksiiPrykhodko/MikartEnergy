@@ -37,12 +37,20 @@ In my project this is used to select equipment from the Siemens catalogue. And a
 ### DerOps:
 - [Docker](https://www.docker.com/)
 
-## Startup docker with YAML file
-Start up your Docker and run command `docker-compose up` in main directory of App (with docker-compose.yml file). 
-
+## Startup project in docker with YAML file
+1) Copy the "DockerVolumes" folder with its contents to the C drive root (C:\DockerVolumes). This folder is for docker volumes.  
+The database will be created in this folder when the containers are first time started and it already contains needed https development certificate. 
+2) Start up Docker and download Microsoft SQL server image with command: 
+`docker pull mcr.microsoft.com/mssql/server:2022-latest` 
+3) Run command `docker-compose -p mikartenergy up` in main directory of App (with docker-compose.yml file). 
+4) Open page `http://localhost:4200/` in your browser. 
+5) Have fun! 
 
 ### Frontend Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 ### Frontend Build
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## MikartEnergy database diagram
+
+![MikartEnergyDatabaseDiagram](DatabaseDiagram.png)

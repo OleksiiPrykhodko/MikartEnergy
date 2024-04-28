@@ -5,6 +5,8 @@ using MikartEnergy.BLL.Services;
 using MikartEnergy.Common.DTO.Pagination;
 using MikartEnergy.Common.DTO.Product;
 using MikartEnergy.Common.Models.Result;
+using MikartEnergy.Common.QueryParams.Pagination;
+using MikartEnergy.Common.QueryParams.Product;
 
 namespace MikartEnergy.WebAPI.Controllers
 {
@@ -14,11 +16,11 @@ namespace MikartEnergy.WebAPI.Controllers
     public class ProductsController : Controller
     {
         private readonly ProductService _productsService;
-        private readonly IValidator<PaginationRequestDTO> _paginationValidator;
+        private readonly IValidator<PaginationQueryParams> _paginationValidator;
 
         public ProductsController(
             ProductService productService,
-            IValidator<PaginationRequestDTO> paginationValidator)
+            IValidator<PaginationQueryParams> paginationValidator)
         {
             _productsService = productService;
             _paginationValidator = paginationValidator;
@@ -26,7 +28,7 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductDTO>>>> Get([FromQuery] PaginationRequestDTO request)
+        public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductDTO>>>> Get([FromQuery] PaginationQueryParams request)
         {
             var validationResult = await _paginationValidator.ValidateAsync(request);
 
@@ -58,7 +60,7 @@ namespace MikartEnergy.WebAPI.Controllers
 
         [HttpGet("minimals")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductMinimalDTO>>>> GetProductsMinamals([FromQuery] PaginationRequestDTO request)
+        public async Task<ActionResult<ResultModel<PaginationResponseDTO<ProductMinimalDTO>>>> GetProductsMinamals([FromQuery] ProductMinimalsQueryParams request)
         {
             var validationResult = await _paginationValidator.ValidateAsync(request);
 
@@ -95,12 +97,6 @@ namespace MikartEnergy.WebAPI.Controllers
             return Ok(await _productsService.GetOrderNumbersByFirstCharsAsync(firstCharsOfOrderNumber));
         }
 
-        [HttpGet("productMinamalsByPartOfProductOrderNumber/{partOfProductOrderNumber}")]
-        [AllowAnonymous]
-        public async Task<ActionResult<ResultModel<ProductMinimalDTO[]>>> SearchProductMinamalsByPartOfProductOrderNumber(string partOfProductOrderNumber)
-        {
-            return Ok(await _productsService.GetProductMinamalsByPartOfProductOrderNumber(partOfProductOrderNumber));
-        }
 
     }
 

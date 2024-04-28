@@ -22,22 +22,30 @@ namespace MikartEnergy.WebAPI
             // Add CORS.
             builder.Services.AddCors();
 
-            // Add configuration for receiving it in services. 
-            builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
-
             // Add services for reading data from permanent files like xml.
-            builder.Services.RegisterCustomPermanentFilesReaders(builder);
+            builder.Services.RegisterCustomPermanentFilesReaders(builder.Configuration);
 
             // Add DB Context.
-            builder.Services.AddDbContext<MikartContext>(options => options.UseInMemoryDatabase("MikartInMemoryDB"));
+            if (builder.Environment.IsDevelopment())
+            {
+                // Context for development and testing.
+                builder.Services.AddDbContext<MikartContext>(options => 
+                    options.UseInMemoryDatabase("MikartInMemoryDB"));
+            }
+            if (builder.Environment.IsProduction())
+            {
+                // Context for Production.
+                builder.Services.AddDbContext<MikartContext>(options =>
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("MikartEnergyDatabase")));
+            }
+
+            builder.Services.RegisterCustomDataBaseSeeder();
 
             // Add business logic services.
-            builder.Services.RegisterCustomServices(builder);
+            builder.Services.RegisterCustomServices();
 
             // Add FluentValidation.
             builder.Services.RegisterCustomValidators();
-
-            builder.Services.RegisterCustomDataBaseSeeder();
 
             // Add Serilog. This call will redirect all log events through Serilog pipeline.
             builder.Host.UseSerilog((context, configuration) =>
