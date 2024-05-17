@@ -38,8 +38,9 @@ In my project this is used to select equipment from the Siemens catalogue. And a
 - [Docker](https://www.docker.com/)
 
 ## Startup project in docker with YAML file
-1) Copy the "DockerVolumes" folder with its contents to the C drive root (C:\DockerVolumes). This folder is for docker volumes.  
-The database will be created in this folder when the containers are first time started and it already contains needed https development certificate. 
+0) Run command `npm install` in main frontend directory (MikartEnergy\frontend) with PowerShell or Command Prompt.
+1) Copy the "DockerVolumes" directory with its contents to the C drive root (C:\DockerVolumes). This directory is for docker volumes.  
+The database will be created in this directory when the containers are first time started and it already contains needed https development certificate. 
 2) Start up Docker and download Microsoft SQL server image with command: 
 `docker pull mcr.microsoft.com/mssql/server:2022-latest` 
 3) Run command `docker-compose -p mikartenergy up` in main directory of App (with docker-compose.yml file). 
