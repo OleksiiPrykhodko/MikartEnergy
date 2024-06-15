@@ -6,6 +6,6 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build --prod
+RUN npm run ng build --configuration=production
 
 CMD ["npm", "start"]
