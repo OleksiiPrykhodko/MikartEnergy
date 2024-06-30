@@ -11,7 +11,7 @@ services:
     networks:
       - mikartenergynet
     ports:
-      - 1433:1433
+      - 1433:1433 #port forwarding to connect to the data base from the outside (not from others containers). Comment this line in production mode. 
     healthcheck: #checking of sql server on start and accessibility.
       test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "MikartEnergy!69" -Q "SELECT 1" -b -o /dev/null
       interval: 5s
@@ -33,17 +33,18 @@ services:
     networks:
       - mikartenergynet
     ports:
-      - 11837:80
-      - 44363:443
+      - 11180:80 #this port may be closed on production because a reverse proxy container is used.
+      - 11443:443 #this port may be closed on production because a reverse proxy container is used.
     depends_on: #start aspnetwebapi only after start and accessibility of mssql.
       mssql:
         condition: service_healthy
     environment:
-      - ASPNETCORE_URLS=http://+:80;https://+:443
-      - ASPNETCORE_HTTP_PORT=11837
-      - ASPNETCORE_HTTPS_PORT=44363
+      - ASPNETCORE_URLS=http://+:80;https://+:443 #setting 80 and 443 ports for http and https. 
+      - ASPNETCORE_HTTP_PORT=80 #setting 80 port for http and https. 
+      - ASPNETCORE_HTTPS_PORT=443 #setting 443 port for http and https. 
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mikartenergy #certificate password.
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx #path to the certificate from volume (look volumes section).
+      - FrontendAppUrl=https://mikartenergy.duckdns.org
       - ConnectionStrings__MikartEnergyDatabase=Server=mssql;Database=MikartEnergyDB;User Id=sa;Password=MikartEnergy!69;TrustServerCertificate=True;
     volumes:
       - C:/DockerVolumes/MikartEnergy/HttpsCertificates:/https:ro #take certificate from Host PC. 
@@ -53,8 +54,41 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    networks:
+      - mikartenergynet
     ports:
-      - 4200:4200
+      - 4200:4200 #this port may be closed on production because a reverse proxy container is used. 
     depends_on:
       aspnetwebapi:
         condition: service_started
+
+  reverse-proxy:
+    container_name: proxy
+    build:
+      context: ./reverse-proxy
+      dockerfile: Dockerfile
+    networks:
+      - mikartenergynet
+    ports:
+      - 55580:5580 #http port of revers proxy.
+      - 55443:5433 #https port of revers proxy.
+      #request to /api is redirected to the backend service port 80.
+    depends_on:
+      angular:
+        condition: service_started
+    volumes:
+      - C:/DockerVolumes/MikartEnergy/Certbot/www:/var/www/certbot #take challenge file genereted by certbot from Host PC.
+      - C:/DockerVolumes/MikartEnergy/Certbot/conf:/etc/letsencrypt
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  certbot:
+    container_name: letsencrypt
+    image: certbot/certbot:latest
+    depends_on:
+      reverse-proxy:
+        condition: service_started
+    volumes:
+      - C:/DockerVolumes/MikartEnergy/Certbot/www:/var/www/certbot #challenge files genereted by certbot.
+      - C:/DockerVolumes/MikartEnergy/Certbot/conf:/etc/letsencrypt
+    #command: certonly --webroot -w /var/www/certbot --force-renewal --email @mail.com -d mikartenergy.duckdns.org -d www.mikartenergy.duckdns.org --agree-tos # always creates new SSL cert.
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'" # update the SSL certificate every 12 hours if necessary. 
