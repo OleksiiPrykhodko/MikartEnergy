@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://localhost:44363'
+    apiUrl: 'https://mikartenergy.duckdns.org'
 };
