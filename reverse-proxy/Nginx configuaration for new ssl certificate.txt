@@ -1,0 +1,8 @@
+server {
+    listen 5580;
+    server_name mikartenergy.duckdns.org;
+
+    location ~ /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+}
