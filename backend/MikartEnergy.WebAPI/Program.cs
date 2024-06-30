@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MikartEnergy.DAL.Context;
@@ -20,7 +22,16 @@ namespace MikartEnergy.WebAPI
             builder.Services.AddSwaggerGen();
 
             // Add CORS.
-            builder.Services.AddCors();
+            var mikartCorsPolicy = "corsPolicy";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(mikartCorsPolicy, builder =>
+                {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                });
+            });
 
             // Add services for reading data from permanent files like xml.
             builder.Services.RegisterCustomPermanentFilesReaders(builder.Configuration);
@@ -62,27 +73,39 @@ namespace MikartEnergy.WebAPI
                 app.UseSwaggerUI();
 
                 // Allow any origin in dev mode.
-                app.UseCors(option => option.AllowAnyOrigin());
+                app.UseCors(option => option
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
 
                 // Calling of DbSeederService method Seed() for DB seeding in extension method. 
                 app.UseCustomDbSeederService();
 
-                //Logging of all http/s requests in Development mode if it needed.
+                // Logging of all http/s requests in Development mode if it needed.
                 //app.UseSerilogRequestLogging();
             }
             if (app.Environment.IsProduction())
             {
-                app.UseCustomDbSeederService();
-                // Allow only frontend origin in prodaction mode.
-                // TODO: specifie here frontend URL on production mode for CORS
-                //app.UseCors(option => option.WithOrigins(""));
-                app.UseCors(option => option.AllowAnyOrigin());
-
                 // Call extension method for adding custom GlobalExceptionHandlingMiddleware.
                 app.UseGlobalExceptionHandler();
+
+                // Middleware for NGINX reverse proxy. This middleware updates the Request.Scheme, using the X-Forwarded-Proto header, so that redirect URIs and other security policies work correctly.
+                // https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-8.0&tabs=linux-ubuntu
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
+
+                // Allow only frontend origin in prodaction mode.
+                // TODO: specifie here frontend URL on production mode for CORS
+                // app.UseCors(option => option.WithOrigins(""));
+                app.UseCors(mikartCorsPolicy);
+
+                app.UseCustomDbSeederService();
             }
 
-            app.UseHttpsRedirection();
+            // We don't need it because NGINX reverse proxy are used and is responsible for certificate and https.
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
