@@ -38,14 +38,23 @@ In my project this is used to select equipment from the Siemens catalogue. And a
 - [Docker](https://www.docker.com/)
 
 ## Startup project in docker with YAML file
-0) Run command `npm install` in main frontend directory (MikartEnergy\frontend) with PowerShell or Command Prompt.
-1) Copy the "DockerVolumes" directory with its contents to the C drive root (C:\DockerVolumes). This directory is for docker volumes.  
-The database will be created in this directory when the containers are first time started and it already contains needed https development certificate. 
-2) Start up Docker and download Microsoft SQL server image with command: 
-`docker pull mcr.microsoft.com/mssql/server:2022-latest` 
-3) Run command `docker-compose -p mikartenergy up` in main directory of App (with docker-compose.yml file). 
-4) Open page `http://localhost:4200/` in your browser. 
-5) Have fun! 
+0) Run command `npm install` in main frontend directory (MikartEnergy\frontend) with PowerShell or Command Prompt. This is necessary to run the frontend project in development mode.
+
+1) Configure your production network to send HTTP requests to port 55580 and HTTPS requests to port 55443. Ports can be changed in docker-compose.yml file (in reverse-proxy service config).
+2) Copy the "DockerVolumes" directory with its contents to the C drive root (C:\DockerVolumes). This directory is for docker volumes.  
+The database and ssl certificate will be created in this directory when the containers are first time started. It directory already contains needed https development certificate for backend service (install it on your OS). 
+3) Start up Docker.
+4) Change the value of "apiUrl" field in "MikartEnergy\frontend\src\environments\environment.ts" to your domain name. 
+5) If you have created an SSL certificate for your domain name using Letsencrypt and Certbot, you should jump to point 6. If not, then:
+51) temporarily replace the contents of the "MikartEnergy\reverse-proxy\nginx.conf" file with the contents of the "MikartEnergy\reverse-proxy\Nginx configuration for new ssl certificate.txt" file.
+52) comment out the "entrypoint:" line and remove commenting of the "command:" line (enter the correct domain name and email) in docker-compose.yml file.
+53) run command `docker-compose -p certificate-creation up` in main directory of App (with docker-compose.yml file). If everything is correct, Certbot will create a certificate in the docker volumes folder and container will be stoped without errors. You can find folder with certificates in "C:\DockerVolumes\MikartEnergy\Certbot\conf\live".
+54) stop all running containers and delete them. 
+55) replace the contents of the "MikartEnergy\reverse-proxy\nginx.conf" file with the contents of the "MikartEnergy\reverse-proxy\Nginx production configuaration" file.
+56) comment back "command:" line and uncomment "entrypoint:" line in docker-compose.yml file.
+6) Run command `docker-compose -p mikartenergy up` in main directory of App (with docker-compose.yml file).
+7) Open your domane name in your browser. 
+8) I hope everything works! 
 
 ### Frontend Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
